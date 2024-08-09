@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 
 public class AudioGenerator
 {

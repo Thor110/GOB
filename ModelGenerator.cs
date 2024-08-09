@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime;
-using System.Xml.Linq;
-
-public class ModelGenerator
+﻿public class ModelGenerator
 {
     private static Random random = new Random();
-
-    public void WriteObjFile(string filePath, List<Mesh> meshes)
+    public static void GenerateModel(int numVertices, int numFaces, int scale, string filePath)
+    {
+        List<Mesh> meshes = GenerateRandom3DModel(numVertices, numFaces, scale);
+        WriteObjFile(filePath, meshes);
+    }
+    public static void WriteObjFile(string filePath, List<Mesh> meshes)
     {
         using (StreamWriter writer = new StreamWriter(filePath))
         {
@@ -30,8 +28,7 @@ public class ModelGenerator
             }
         }
     }
-
-    public List<Mesh> GenerateRandom3DModel(int numVertices, int numFaces, int scale)
+    public static List<Mesh> GenerateRandom3DModel(int numVertices, int numFaces, int scale)
     {
         List<Vertex> vertices = new List<Vertex>();
 
@@ -70,7 +67,6 @@ public class ModelGenerator
         return meshes;
     }
 }
-
 public class Vertex
 {
     public double X { get; set; }
@@ -84,7 +80,6 @@ public class Vertex
         Z = z;
     }
 }
-
 public class Face
 {
     public int Vertex1 { get; set; }
@@ -98,7 +93,6 @@ public class Face
         Vertex3 = vertex3;
     }
 }
-
 public class Mesh
 {
     public List<Vertex> Vertices { get; set; }

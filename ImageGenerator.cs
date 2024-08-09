@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Drawing.Imaging;
-using System.IO;
+﻿using System.Drawing.Imaging;
 using System.Runtime.InteropServices;
-using System.Text;
 
 public class ImageGenerator
 {

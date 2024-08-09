@@ -1,14 +1,3 @@
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-using System.IO;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.IO.Pipes;
-
 namespace VideoLOB
 {
     public partial class Form1 : Form
@@ -58,13 +47,11 @@ namespace VideoLOB
 
             if (channelsBox.SelectedItem != null)
             {
-                short shortValue = Convert.ToInt16(channelsBox.SelectedItem.ToString());
-                numChannels = shortValue;
+                numChannels = Convert.ToInt16(channelsBox.SelectedItem.ToString());
             }
             if (depthBox.SelectedItem != null)
             {
-                short shortValue = Convert.ToInt16(depthBox.SelectedItem.ToString());
-                bitDepth = shortValue;
+                bitDepth = Convert.ToInt16(depthBox.SelectedItem.ToString());
             }
 
             AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
@@ -79,8 +66,8 @@ namespace VideoLOB
             int height = Convert.ToInt32(heightNumeric.Value);
 
             ImageGenerator.GenerateImage(filePath, width, height);
+
             MessageBox.Show("Image Generated!");
-            Console.WriteLine("test");
         }
 
         private void GenerateModelButton_Click(object sender, EventArgs e)
@@ -91,9 +78,7 @@ namespace VideoLOB
             int numFaces = Convert.ToInt32(facesNumeric.Value);
             int scale = Convert.ToInt32(scaleNumeric.Value);
 
-            ModelGenerator modelGenerator = new ModelGenerator();
-            List<Mesh> meshes = modelGenerator.GenerateRandom3DModel(numVertices, numFaces, scale);
-            modelGenerator.WriteObjFile(filePath, meshes);
+            ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath);
 
             MessageBox.Show("Model Generated!");
         }

@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Drawing.Imaging;
-using System.IO;
-using System.IO.Pipes;
-using System.Runtime.InteropServices;
-using System.Text;
-
-public class VideoGenerator
+﻿public class VideoGenerator
 {
     private static Random random = new Random();
     public static void GenerateVideo(string filePath, int width, int height, int frameRate, int duration)

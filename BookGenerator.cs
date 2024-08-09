@@ -21,23 +21,14 @@ public class RandomTextGenerator
         var randomText = new StringBuilder();
         int lineLength = 0;
         int lineNumber = 0;
-        if (!isFileName)//write title as first line and then append two new lines
+        if (!isFileName)// write title as first line and then append two new lines if not generating the file name
         {
-            randomText.Append($"{title}");
-            randomText.Append("\n\n");
+            randomText.Append($"{title}"); // append the title as the first line
+            randomText.Append("\n\n"); // append two new lines after the title
         }
         for (var i = 0; i < length; i++)
         {
-            var codePoint = random.Next(0x20, 0x10ffff); // valid Unicode code points
-            if (codePoint >= 0xd800 && codePoint <= 0xdfff) // exclude surrogate code points
-            {
-                codePoint = random.Next(0x20, 0x10ffff);
-            }
-            if (isFileName && codePoint == 0x3A) // exclude colon (:) in file names
-            {
-                codePoint = random.Next(0x20, 0x10ffff);
-            }
-            var charString = char.ConvertFromUtf32(codePoint);
+            var charString = GenerateRandomCharacter(isFileName);
             var charLength = charString.Length;
             if (lineLength + charLength > 80 && !isFileName) // insert newline every 80 characters
             {
@@ -54,5 +45,19 @@ public class RandomTextGenerator
             lineLength += charLength;
         }
         return randomText.ToString();
+    }
+    private static string GenerateRandomCharacter(bool isFileName)
+    {
+        var codePoint = random.Next(0x20, 0x10ffff); // valid Unicode code points
+        if (codePoint >= 0xd800 && codePoint <= 0xdfff) // exclude surrogate code points
+        {
+            codePoint = random.Next(0x20, 0x10ffff);
+        }
+        if (isFileName && codePoint == 0x3A) // exclude colon (:) in file names
+        {
+            codePoint = random.Next(0x20, 0x10ffff);
+        }
+        var charString = char.ConvertFromUtf32(codePoint);
+        return charString;
     }
 }

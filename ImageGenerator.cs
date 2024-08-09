@@ -7,14 +7,12 @@ using System.Text;
 
 public class ImageGenerator
 {
+    private static Random random = new Random(); // Create a random number generator
     public static void GenerateImage(string filePath, int width, int height)
     {
         // Create a new bitmap
         using (Bitmap bitmap = new Bitmap(width, height))
         {
-            // Create a random number generator
-            Random random = new Random();
-
             // Lock the bitmap bits
             Rectangle rect = new Rectangle(0, 0, width, height);
             BitmapData data = bitmap.LockBits(rect, ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
@@ -31,7 +29,7 @@ public class ImageGenerator
                     int offset = (y * data.Stride) + (x * 4);
 
                     // Generate a random color
-                    Color color = Color.FromArgb(random.Next(255), random.Next(255), random.Next(255));
+                    Color color = GenerateRandomColor();
 
                     // Set the pixel color
                     Marshal.WriteInt32(ptr, offset, color.ToArgb());
@@ -44,5 +42,15 @@ public class ImageGenerator
             // Save the bitmap to a file
             bitmap.Save(filePath, ImageFormat.Png);
         }
+    }
+    public static Color GenerateRandomColor(int range = 255)
+    {
+        // Generate a random color
+        // Possible color values
+        // RGB  | 0 - 255   (Default)
+        // PMS  | 0 - 1000
+        // CMYK | 0 - 100
+        Color color = Color.FromArgb(random.Next(range), random.Next(range), random.Next(range));
+        return color;
     }
 }

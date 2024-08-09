@@ -6,12 +6,7 @@ using System.Xml.Linq;
 
 public class ModelGenerator
 {
-    private Random random;
-
-    public ModelGenerator()
-    {
-        random = new Random();
-    }
+    private static Random random = new Random();
 
     public void WriteObjFile(string filePath, List<Mesh> meshes)
     {
@@ -70,7 +65,7 @@ public class ModelGenerator
             faceVertices.Add(vertices[v3]);
         }
 
-        meshes.Add(new Mesh(faceVertices, "Mesh"));
+        meshes.Add(new Mesh(faceVertices, "Random Mesh"));
 
         return meshes;
     }

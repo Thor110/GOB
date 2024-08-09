@@ -5,6 +5,7 @@ using System.Text;
 
 public class AudioGenerator
 {
+    private static Random random = new Random();
     public static void GenerateAudio(string filePath, int sampleRate, int frequency, int duration, short numChannels, short bitDepth)
     {
         // Calculate the number of samples
@@ -28,8 +29,6 @@ public class AudioGenerator
 
         // Create a byte array to hold the audio data
         byte[] audioData = new byte[numSamples * bytesPerSample]; // 2 bytes per sample (16-bit audio)
-
-        Random random = new Random();
 
         //seed test
         //double[] randomNumbers = new double[numSamples];

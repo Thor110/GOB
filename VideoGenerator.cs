@@ -8,10 +8,9 @@ using System.Text;
 
 public class VideoGenerator
 {
+    private static Random random = new Random();
     public static void GenerateVideo(string filePath, int width, int height, int frameRate, int duration)
     {
-        Random random = new Random();
-
         int frameSize = width * height * 3; // 3 bytes per pixel (RGB)
         int numberFrames = frameRate * duration; // Total number of frames
 

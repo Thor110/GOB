@@ -27,10 +27,6 @@ public class AudioGenerator
         // Create a byte array to hold the audio data
         byte[] audioData = new byte[numSamples * bytesPerSample]; // 2 bytes per sample (16-bit audio)
 
-        //seed test
-        //double[] randomNumbers = new double[numSamples];
-        //short[] shorts = new short[numSamples];
-
         // Generate the audio data
         for (int i = 0; i < numSamples; i++)
         {
@@ -55,19 +51,6 @@ public class AudioGenerator
                 Array.Copy(sampleBytes, 0, audioData, i * bytesPerSample, bytesPerSample);
             }
         }
-
-        //seed test
-        /*//For writing the seed data
-        using (FileStream fileStream = new FileStream(filename + ".seed.bin", FileMode.Create))
-        {
-            using (BinaryWriter binaryWriter = new BinaryWriter(fileStream))
-            {
-                foreach (short number in shorts)
-                {
-                    binaryWriter.Write(number);
-                }
-            }
-        }*/
 
         /*// Pure Sine Wave Audio
         // Generate the audio data

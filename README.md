@@ -24,3 +24,16 @@ It also generated a lot of the code used for this project, while I was going to 
 
 Especially given the nature and purpose of the program.
 
+#GAME
+
+I am considering making a game form of this extension of the concept of the Library of Babel
+
+With an elevator by the stairs that can be used to travel between the different Libraries / Galleries
+
+Libraries / Galleries
+
+Books
+Audio
+Video
+3D Models
+Images

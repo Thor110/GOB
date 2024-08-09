@@ -13,7 +13,7 @@ public class VideoGenerator
         Random random = new Random();
 
         int frameSize = width * height * 3; // 3 bytes per pixel (RGB)
-        int numberFrames = frameRate * duration;
+        int numberFrames = frameRate * duration; // Total number of frames
 
         try
         {
@@ -142,10 +142,10 @@ public class VideoGenerator
                 fileStream.Write(BitConverter.GetBytes((int)0x00000000), 0, 4); // Chunk size (will be updated later)
 
                 // Write the idx1 entries
-                long idxOffset = frameOffset;
-                for (int i = 0; i < numberFrames; i++) // Write 100 entries
+                long idxOffset = 0;
+                for (int i = 0; i < numberFrames; i++)
                 {
-                    fileStream.Write(BitConverter.GetBytes((int)(idxOffset + (frameSize + 32) * i)), 0, 4); // Offset of the frame
+                    fileStream.Write(BitConverter.GetBytes(idxOffset), 0, 4); // Offset of the frame
                     fileStream.Write(BitConverter.GetBytes(frameSize), 0, 4); // Size of the frame
                     fileStream.Write(BitConverter.GetBytes((int)0x00000000), 0, 4); // Flags
                     fileStream.Write(BitConverter.GetBytes((int)0x00000000), 0, 4); // Type

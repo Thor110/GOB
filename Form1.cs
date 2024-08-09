@@ -89,12 +89,23 @@ namespace VideoLOB
 
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
+            int scale = Convert.ToInt32(scaleNumeric.Value);
 
             ModelGenerator modelGenerator = new ModelGenerator();
-            List<Mesh> meshes = modelGenerator.GenerateRandom3DModel(numVertices, numFaces);
+            List<Mesh> meshes = modelGenerator.GenerateRandom3DModel(numVertices, numFaces, scale);
             modelGenerator.WriteObjFile(filePath, meshes);
 
             MessageBox.Show("Model Generated!");
+        }
+
+        private void GenerateBookButton_Click(object sender, EventArgs e)
+        {
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+
+            RandomTextGenerator.GenerateTextFile(titleLength, contentLength);
+
+            MessageBox.Show("Book Generated!");
         }
     }
 }

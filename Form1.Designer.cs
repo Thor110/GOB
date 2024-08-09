@@ -58,6 +58,13 @@
             durationNumeric = new NumericUpDown();
             sampleNumeric = new NumericUpDown();
             frequencyNumeric = new NumericUpDown();
+            scaleNumeric = new NumericUpDown();
+            textBox12 = new TextBox();
+            GenerateBookButton = new Button();
+            titleNumeric = new NumericUpDown();
+            contentNumeric = new NumericUpDown();
+            textBox13 = new TextBox();
+            textBox14 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -65,6 +72,9 @@
             ((System.ComponentModel.ISupportInitialize)durationNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)sampleNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)frequencyNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)scaleNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)titleNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)contentNumeric).BeginInit();
             SuspendLayout();
             // 
             // videoSeed
@@ -87,7 +97,7 @@
             // 
             // GenerateAudioButton
             // 
-            GenerateAudioButton.Location = new Point(104, 187);
+            GenerateAudioButton.Location = new Point(91, 187);
             GenerateAudioButton.Name = "GenerateAudioButton";
             GenerateAudioButton.Size = new Size(121, 23);
             GenerateAudioButton.TabIndex = 3;
@@ -97,7 +107,7 @@
             // 
             // audioSeed
             // 
-            audioSeed.Location = new Point(104, 216);
+            audioSeed.Location = new Point(91, 216);
             audioSeed.Name = "audioSeed";
             audioSeed.Size = new Size(121, 114);
             audioSeed.TabIndex = 4;
@@ -106,7 +116,7 @@
             // durationText
             // 
             durationText.Enabled = false;
-            durationText.Location = new Point(231, 97);
+            durationText.Location = new Point(218, 97);
             durationText.Name = "durationText";
             durationText.Size = new Size(149, 23);
             durationText.TabIndex = 7;
@@ -115,7 +125,7 @@
             // frequencyText
             // 
             frequencyText.Enabled = false;
-            frequencyText.Location = new Point(231, 69);
+            frequencyText.Location = new Point(218, 69);
             frequencyText.Name = "frequencyText";
             frequencyText.Size = new Size(149, 23);
             frequencyText.TabIndex = 8;
@@ -124,7 +134,7 @@
             // sampleRateText
             // 
             sampleRateText.Enabled = false;
-            sampleRateText.Location = new Point(231, 41);
+            sampleRateText.Location = new Point(218, 41);
             sampleRateText.Name = "sampleRateText";
             sampleRateText.Size = new Size(149, 23);
             sampleRateText.TabIndex = 9;
@@ -132,7 +142,7 @@
             // 
             // GenerateImageButton
             // 
-            GenerateImageButton.Location = new Point(474, 302);
+            GenerateImageButton.Location = new Point(474, 350);
             GenerateImageButton.Name = "GenerateImageButton";
             GenerateImageButton.Size = new Size(121, 23);
             GenerateImageButton.TabIndex = 11;
@@ -142,7 +152,7 @@
             // 
             // GenerateModelButton
             // 
-            GenerateModelButton.Location = new Point(475, 132);
+            GenerateModelButton.Location = new Point(476, 158);
             GenerateModelButton.Name = "GenerateModelButton";
             GenerateModelButton.Size = new Size(121, 23);
             GenerateModelButton.TabIndex = 13;
@@ -154,7 +164,7 @@
             // 
             channelsBox.FormattingEnabled = true;
             channelsBox.Items.AddRange(new object[] { "1", "2" });
-            channelsBox.Location = new Point(104, 128);
+            channelsBox.Location = new Point(91, 128);
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
@@ -164,7 +174,7 @@
             // 
             depthBox.FormattingEnabled = true;
             depthBox.Items.AddRange(new object[] { "8", "16", "24", "32" });
-            depthBox.Location = new Point(104, 158);
+            depthBox.Location = new Point(91, 158);
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
@@ -173,7 +183,7 @@
             // textBox1
             // 
             textBox1.Enabled = false;
-            textBox1.Location = new Point(25, 41);
+            textBox1.Location = new Point(12, 41);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(73, 23);
             textBox1.TabIndex = 16;
@@ -183,7 +193,7 @@
             // textBox2
             // 
             textBox2.Enabled = false;
-            textBox2.Location = new Point(25, 69);
+            textBox2.Location = new Point(12, 69);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(73, 23);
             textBox2.TabIndex = 17;
@@ -193,7 +203,7 @@
             // textBox3
             // 
             textBox3.Enabled = false;
-            textBox3.Location = new Point(25, 98);
+            textBox3.Location = new Point(12, 98);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(73, 23);
             textBox3.TabIndex = 18;
@@ -203,7 +213,7 @@
             // audioParametersText
             // 
             audioParametersText.Enabled = false;
-            audioParametersText.Location = new Point(104, 12);
+            audioParametersText.Location = new Point(91, 12);
             audioParametersText.Name = "audioParametersText";
             audioParametersText.Size = new Size(121, 23);
             audioParametersText.TabIndex = 22;
@@ -212,6 +222,7 @@
             // 
             // textBox4
             // 
+            textBox4.Enabled = false;
             textBox4.Location = new Point(476, 12);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(120, 23);
@@ -262,7 +273,7 @@
             // textBox7
             // 
             textBox7.Enabled = false;
-            textBox7.Location = new Point(476, 103);
+            textBox7.Location = new Point(476, 100);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(120, 23);
             textBox7.TabIndex = 28;
@@ -272,7 +283,7 @@
             // textBox8
             // 
             textBox8.Enabled = false;
-            textBox8.Location = new Point(476, 187);
+            textBox8.Location = new Point(476, 235);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(120, 23);
             textBox8.TabIndex = 29;
@@ -282,7 +293,7 @@
             // widthNumeric
             // 
             widthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            widthNumeric.Location = new Point(475, 216);
+            widthNumeric.Location = new Point(475, 264);
             widthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
             widthNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             widthNumeric.Name = "widthNumeric";
@@ -293,7 +304,7 @@
             // heightNumeric
             // 
             heightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            heightNumeric.Location = new Point(475, 245);
+            heightNumeric.Location = new Point(475, 293);
             heightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
             heightNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             heightNumeric.Name = "heightNumeric";
@@ -304,7 +315,7 @@
             // textBox9
             // 
             textBox9.Enabled = false;
-            textBox9.Location = new Point(420, 216);
+            textBox9.Location = new Point(420, 264);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(49, 23);
             textBox9.TabIndex = 32;
@@ -314,7 +325,7 @@
             // textBox10
             // 
             textBox10.Enabled = false;
-            textBox10.Location = new Point(420, 244);
+            textBox10.Location = new Point(420, 292);
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(50, 23);
             textBox10.TabIndex = 33;
@@ -324,7 +335,7 @@
             // textBox11
             // 
             textBox11.Enabled = false;
-            textBox11.Location = new Point(476, 274);
+            textBox11.Location = new Point(476, 322);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(119, 23);
             textBox11.TabIndex = 34;
@@ -332,7 +343,7 @@
             // 
             // durationNumeric
             // 
-            durationNumeric.Location = new Point(105, 98);
+            durationNumeric.Location = new Point(92, 98);
             durationNumeric.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
             durationNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             durationNumeric.Name = "durationNumeric";
@@ -342,7 +353,7 @@
             // 
             // sampleNumeric
             // 
-            sampleNumeric.Location = new Point(105, 41);
+            sampleNumeric.Location = new Point(92, 41);
             sampleNumeric.Maximum = new decimal(new int[] { 44100, 0, 0, 0 });
             sampleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             sampleNumeric.Name = "sampleNumeric";
@@ -352,7 +363,7 @@
             // 
             // frequencyNumeric
             // 
-            frequencyNumeric.Location = new Point(105, 69);
+            frequencyNumeric.Location = new Point(92, 69);
             frequencyNumeric.Maximum = new decimal(new int[] { 440, 0, 0, 0 });
             frequencyNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             frequencyNumeric.Name = "frequencyNumeric";
@@ -360,11 +371,88 @@
             frequencyNumeric.TabIndex = 37;
             frequencyNumeric.Value = new decimal(new int[] { 440, 0, 0, 0 });
             // 
+            // scaleNumeric
+            // 
+            scaleNumeric.Location = new Point(476, 129);
+            scaleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            scaleNumeric.Name = "scaleNumeric";
+            scaleNumeric.Size = new Size(120, 23);
+            scaleNumeric.TabIndex = 38;
+            scaleNumeric.Value = new decimal(new int[] { 10, 0, 0, 0 });
+            // 
+            // textBox12
+            // 
+            textBox12.Enabled = false;
+            textBox12.Location = new Point(420, 129);
+            textBox12.Name = "textBox12";
+            textBox12.Size = new Size(50, 23);
+            textBox12.TabIndex = 39;
+            textBox12.Text = "Scale";
+            textBox12.TextAlign = HorizontalAlignment.Right;
+            // 
+            // GenerateBookButton
+            // 
+            GenerateBookButton.Location = new Point(118, 358);
+            GenerateBookButton.Name = "GenerateBookButton";
+            GenerateBookButton.Size = new Size(121, 23);
+            GenerateBookButton.TabIndex = 40;
+            GenerateBookButton.Text = "Generate Book";
+            GenerateBookButton.UseVisualStyleBackColor = true;
+            GenerateBookButton.Click += GenerateBookButton_Click;
+            // 
+            // titleNumeric
+            // 
+            titleNumeric.Location = new Point(118, 387);
+            titleNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
+            titleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            titleNumeric.Name = "titleNumeric";
+            titleNumeric.Size = new Size(120, 23);
+            titleNumeric.TabIndex = 41;
+            titleNumeric.Value = new decimal(new int[] { 16, 0, 0, 0 });
+            // 
+            // contentNumeric
+            // 
+            contentNumeric.Increment = new decimal(new int[] { 80, 0, 0, 0 });
+            contentNumeric.Location = new Point(118, 416);
+            contentNumeric.Maximum = new decimal(new int[] { 800000000, 0, 0, 0 });
+            contentNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            contentNumeric.Name = "contentNumeric";
+            contentNumeric.Size = new Size(120, 23);
+            contentNumeric.TabIndex = 42;
+            contentNumeric.Value = new decimal(new int[] { 800, 0, 0, 0 });
+            // 
+            // textBox13
+            // 
+            textBox13.Enabled = false;
+            textBox13.Location = new Point(12, 415);
+            textBox13.Name = "textBox13";
+            textBox13.Size = new Size(100, 23);
+            textBox13.TabIndex = 43;
+            textBox13.Text = "Content Length";
+            textBox13.TextAlign = HorizontalAlignment.Right;
+            // 
+            // textBox14
+            // 
+            textBox14.Enabled = false;
+            textBox14.Location = new Point(12, 386);
+            textBox14.Name = "textBox14";
+            textBox14.Size = new Size(100, 23);
+            textBox14.TabIndex = 44;
+            textBox14.Text = "Title Length";
+            textBox14.TextAlign = HorizontalAlignment.Right;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox14);
+            Controls.Add(textBox13);
+            Controls.Add(contentNumeric);
+            Controls.Add(titleNumeric);
+            Controls.Add(GenerateBookButton);
+            Controls.Add(textBox12);
+            Controls.Add(scaleNumeric);
             Controls.Add(frequencyNumeric);
             Controls.Add(sampleNumeric);
             Controls.Add(durationNumeric);
@@ -404,6 +492,9 @@
             ((System.ComponentModel.ISupportInitialize)durationNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)sampleNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)frequencyNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)scaleNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)titleNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)contentNumeric).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -444,5 +535,12 @@
         private NumericUpDown durationNumeric;
         private NumericUpDown sampleNumeric;
         private NumericUpDown frequencyNumeric;
+        private NumericUpDown scaleNumeric;
+        private TextBox textBox12;
+        private Button GenerateBookButton;
+        private NumericUpDown titleNumeric;
+        private NumericUpDown contentNumeric;
+        private TextBox textBox13;
+        private TextBox textBox14;
     }
 }

@@ -2,7 +2,7 @@
 
 Based on the Library of Babel concept by Jorge Luis Borges, this application is an extension of that concept.
 
-Currently it contains a simple image generator, audio generator and 3D model generator.
+Currently it contains a simple image generator, audio generatorm, book generator and 3D model generator.
 
 No functionality for seeds have been implemented yet and the video generator does not currently work.
 
@@ -11,6 +11,8 @@ No functionality for seeds have been implemented yet and the video generator doe
 I feel that the implications and potential for seed based generation of these types of media are profound.
 
 This could allow for some really interesting possibilities such as reducing file sizes to the bare minimum.
+
+Though it is worth noting that in some cases, filesizes are already at the bare minimum, for example text files and the only way to further reduce that is through compression algorithms.
 
 There are a lot of other prospects that this idea raises, which I have discussed in great detail with both Llama 3.1 and others.
 

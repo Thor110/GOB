@@ -44,13 +44,13 @@ public class RandomTextGenerator
     private static string GenerateRandomCharacter(bool isFileName)
     {
         var codePoint = random.Next(0x20, 0x10ffff); // valid Unicode code points
-        while (codePoint >= 0xd800 && codePoint <= 0xdfff) // exclude surrogate code points
+        if (codePoint >= 0xd800 && codePoint <= 0xdfff) // exclude surrogate code points
         {
-            codePoint = random.Next(0x20, 0x10ffff);
+            return GenerateRandomCharacter(isFileName); // recursive function call to avoid code duplication and while statements
         }
-        while (isFileName && codePoint == 0x3A) // exclude colon (:) in file names
+        if (isFileName && codePoint == 0x3A) // exclude colon (:) in file names
         {
-            codePoint = random.Next(0x20, 0x10ffff);
+            return GenerateRandomCharacter(isFileName); // ...
         }
         var charString = char.ConvertFromUtf32(codePoint);
         return charString;

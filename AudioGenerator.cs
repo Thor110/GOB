@@ -3,6 +3,7 @@
 public class AudioGenerator
 {
     private static Random random = new Random();
+    private static byte[] sampleBytes = new byte [0];
     public static void GenerateAudio(string filePath, int sampleRate, int frequency, int duration, short numChannels, short bitDepth)
     {
         // Calculate the number of samples
@@ -26,7 +27,6 @@ public class AudioGenerator
 
         // Create a byte array to hold the audio data
         byte[] audioData = new byte[numSamples * bytesPerSample]; // 2 bytes per sample (16-bit audio)
-
         // Generate the audio data
         for (int i = 0; i < numSamples; i++)
         {
@@ -41,15 +41,14 @@ public class AudioGenerator
             if (bitDepth == 32)
             {
                 float audioSampleFloat = (float)(random.NextDouble() * 2 - 1);
-                byte[] sampleBytes = BitConverter.GetBytes(audioSampleFloat);
+                sampleBytes = BitConverter.GetBytes(audioSampleFloat);
                 Array.Reverse(sampleBytes); // Reverse the byte order
-                Array.Copy(sampleBytes, 0, audioData, i * bytesPerSample, bytesPerSample);
             }
             else
             {
-                byte[] sampleBytes = BitConverter.GetBytes(audioSample);
-                Array.Copy(sampleBytes, 0, audioData, i * bytesPerSample, bytesPerSample);
+                sampleBytes = BitConverter.GetBytes(audioSample);
             }
+            Array.Copy(sampleBytes, 0, audioData, i * bytesPerSample, bytesPerSample);
         }
 
         /*// Pure Sine Wave Audio

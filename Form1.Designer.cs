@@ -65,6 +65,9 @@
             contentNumeric = new NumericUpDown();
             textBox13 = new TextBox();
             textBox14 = new TextBox();
+            textBox15 = new TextBox();
+            textBox16 = new TextBox();
+            textBox17 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -414,7 +417,7 @@
             // 
             contentNumeric.Increment = new decimal(new int[] { 80, 0, 0, 0 });
             contentNumeric.Location = new Point(118, 416);
-            contentNumeric.Maximum = new decimal(new int[] { 800000000, 0, 0, 0 });
+            contentNumeric.Maximum = new decimal(new int[] { 80000000, 0, 0, 0 });
             contentNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             contentNumeric.Name = "contentNumeric";
             contentNumeric.Size = new Size(120, 23);
@@ -441,11 +444,41 @@
             textBox14.Text = "Title Length";
             textBox14.TextAlign = HorizontalAlignment.Right;
             // 
+            // textBox15
+            // 
+            textBox15.Enabled = false;
+            textBox15.Location = new Point(244, 415);
+            textBox15.Name = "textBox15";
+            textBox15.Size = new Size(77, 23);
+            textBox15.TabIndex = 45;
+            textBox15.Text = "1 - 80000000";
+            // 
+            // textBox16
+            // 
+            textBox16.Enabled = false;
+            textBox16.Location = new Point(244, 386);
+            textBox16.Name = "textBox16";
+            textBox16.Size = new Size(77, 23);
+            textBox16.TabIndex = 46;
+            textBox16.Text = "1 - 128";
+            // 
+            // textBox17
+            // 
+            textBox17.Enabled = false;
+            textBox17.Location = new Point(602, 128);
+            textBox17.Name = "textBox17";
+            textBox17.Size = new Size(49, 23);
+            textBox17.TabIndex = 47;
+            textBox17.Text = "1 - 100";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox17);
+            Controls.Add(textBox16);
+            Controls.Add(textBox15);
             Controls.Add(textBox14);
             Controls.Add(textBox13);
             Controls.Add(contentNumeric);
@@ -542,5 +575,8 @@
         private NumericUpDown contentNumeric;
         private TextBox textBox13;
         private TextBox textBox14;
+        private TextBox textBox15;
+        private TextBox textBox16;
+        private TextBox textBox17;
     }
 }

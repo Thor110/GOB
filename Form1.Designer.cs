@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             videoSeed = new RichTextBox();
             GenerateVideoButton = new Button();
             GenerateAudioButton = new Button();
@@ -87,9 +88,11 @@
             videoSeed.Size = new Size(121, 114);
             videoSeed.TabIndex = 0;
             videoSeed.Text = "";
+            videoSeed.Visible = false;
             // 
             // GenerateVideoButton
             // 
+            GenerateVideoButton.Enabled = false;
             GenerateVideoButton.Location = new Point(667, 295);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);
@@ -115,6 +118,7 @@
             audioSeed.Size = new Size(121, 114);
             audioSeed.TabIndex = 4;
             audioSeed.Text = "";
+            audioSeed.Visible = false;
             // 
             // durationText
             // 
@@ -516,6 +520,7 @@
             Controls.Add(GenerateAudioButton);
             Controls.Add(GenerateVideoButton);
             Controls.Add(videoSeed);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Gallery of Babel";
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).EndInit();

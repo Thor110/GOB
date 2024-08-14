@@ -41,3 +41,7 @@ Video
 3D Models
 
 Images
+
+#ICON
+
+Icon sourced from https://www.flaticon.com/ by Freepik @ https://www.flaticon.com/free-icon/book_207114?term=book&page=1&position=12&origin=search&related_id=207114

@@ -7,9 +7,9 @@ public class RandomTextGenerator
     public static void GenerateTextFile(int titleLength, int contentLength)
     {
         title = GenerateRandomText(titleLength, true);
-        string filename = $"{title}";
+        //string filename = $"{title}";
         string content = GenerateRandomText(contentLength, false);
-        File.WriteAllText(filename + ".txt", content);
+        File.WriteAllText(title + ".txt", content);
     }
     private static string GenerateRandomText(int length, bool isFileName)
     {

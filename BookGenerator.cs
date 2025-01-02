@@ -16,20 +16,20 @@ public class RandomTextGenerator
         {
             int lineLength = 0;
             int lineNumber = 0;
-            randomText.Append($"{title}"); // append the title as the first line
-            randomText.Append(newLine(2)); // append two new lines after the title
+            randomText.Append($"{title}");
+            randomText.Append(newLine(2));
             for (var i = 0; i < length; i++)
             {
                 var charString = GenerateRandomCharacter(isFileName);
-                if (lineLength + charString.Length > lineWidth) // insert newline every n(lineWidth) characters
+                if (lineLength + charString.Length > lineWidth)
                 {
                     randomText.Append(newLine(1));
-                    lineLength = 0; // update line length counter
-                    lineNumber++; // update line number counter
-                    if (lineNumber == paragraphLength) // insert newline every n(paragraphLength) lines
+                    lineLength = 0;
+                    lineNumber++;
+                    if (lineNumber == paragraphLength)
                     {
                         randomText.Append(newLine(1));
-                        lineNumber = 0; // reset line number counter
+                        lineNumber = 0;
                     }
                 }
                 randomText.Append(charString);

@@ -18,38 +18,38 @@ public class RandomTextGenerator
         if (!isFileName)
         {
             randomText.Append($"{title}");
-            UpdateNewLine(2);
+            AddNewLines(2);
         }
         for (var i = 0; i < length; i++)
         {
             charString = GenerateRandomCharacter(isFileName);
             if (!isFileName)
             {
-                if (CheckTextLength())
+                if (CheckLineLength())
                 {
-                    UpdateText();
+                    UpdateString();
                 }
                 else
                 {
-                    UpdateNewLine(1);
+                    AddNewLines(1);
                     charCounter = 0;
                     lineCounter++;
                     if (lineCounter == paragraphLength)
                     {
-                        UpdateNewLine(1);
+                        AddNewLines(1);
                         lineCounter = 0;
                     }
                 }
             }
-            if (isFileName)
+            else
             {
-                if (CheckTextLength())
+                if (CheckLineLength())
                 {
-                    UpdateText();
+                    UpdateString();
                 }
             }
         }
-        bool CheckTextLength()
+        bool CheckLineLength()
         {
             if (charCounter + charString.Length < lineLength)
             {
@@ -60,12 +60,12 @@ public class RandomTextGenerator
                 return false;
             }
         }
-        void UpdateText()
+        void UpdateString()
         {
             randomText.Append(charString);
             charCounter += charString.Length;
         }
-        void UpdateNewLine(int newLines)
+        void AddNewLines(int newLines)
         {
             randomText.Append(newLine(newLines));
         }

@@ -2,7 +2,7 @@
 public class RandomTextGenerator
 {
     private static Random random = new Random();
-    private static string title = string.Empty; // title is stored as a variable so that it can be added to the first line of the text file
+    private static string title = string.Empty;
     public static void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength)
     {
         title = GenerateRandomText(titleLength, true, 0, 0);

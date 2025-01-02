@@ -87,8 +87,9 @@ namespace VideoLOB
         {
             int titleLength = Convert.ToInt32(titleNumeric.Value);
             int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
 
-            RandomTextGenerator.GenerateTextFile(titleLength, contentLength);
+            RandomTextGenerator.GenerateTextFile(titleLength, contentLength, lineLength);
 
             MessageBox.Show("Book Generated!");
         }

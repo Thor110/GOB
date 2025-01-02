@@ -72,6 +72,9 @@
             textBox18 = new TextBox();
             lineNumeric = new NumericUpDown();
             textBox19 = new TextBox();
+            textBox20 = new TextBox();
+            paragraphNumeric = new NumericUpDown();
+            textBox21 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -83,6 +86,7 @@
             ((System.ComponentModel.ISupportInitialize)titleNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)contentNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lineNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)paragraphNumeric).BeginInit();
             SuspendLayout();
             // 
             // videoSeed
@@ -403,7 +407,7 @@
             // 
             // GenerateBookButton
             // 
-            GenerateBookButton.Location = new Point(92, 328);
+            GenerateBookButton.Location = new Point(91, 300);
             GenerateBookButton.Name = "GenerateBookButton";
             GenerateBookButton.Size = new Size(121, 23);
             GenerateBookButton.TabIndex = 40;
@@ -413,7 +417,7 @@
             // 
             // titleNumeric
             // 
-            titleNumeric.Location = new Point(118, 358);
+            titleNumeric.Location = new Point(118, 329);
             titleNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
             titleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             titleNumeric.Name = "titleNumeric";
@@ -424,7 +428,7 @@
             // contentNumeric
             // 
             contentNumeric.Increment = new decimal(new int[] { 80, 0, 0, 0 });
-            contentNumeric.Location = new Point(118, 387);
+            contentNumeric.Location = new Point(118, 358);
             contentNumeric.Maximum = new decimal(new int[] { 80000000, 0, 0, 0 });
             contentNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             contentNumeric.Name = "contentNumeric";
@@ -435,7 +439,7 @@
             // textBox13
             // 
             textBox13.Enabled = false;
-            textBox13.Location = new Point(12, 386);
+            textBox13.Location = new Point(12, 357);
             textBox13.Name = "textBox13";
             textBox13.Size = new Size(100, 23);
             textBox13.TabIndex = 43;
@@ -445,7 +449,7 @@
             // textBox14
             // 
             textBox14.Enabled = false;
-            textBox14.Location = new Point(12, 357);
+            textBox14.Location = new Point(12, 328);
             textBox14.Name = "textBox14";
             textBox14.Size = new Size(100, 23);
             textBox14.TabIndex = 44;
@@ -455,7 +459,7 @@
             // textBox15
             // 
             textBox15.Enabled = false;
-            textBox15.Location = new Point(244, 386);
+            textBox15.Location = new Point(244, 357);
             textBox15.Name = "textBox15";
             textBox15.Size = new Size(77, 23);
             textBox15.TabIndex = 45;
@@ -464,7 +468,7 @@
             // textBox16
             // 
             textBox16.Enabled = false;
-            textBox16.Location = new Point(244, 357);
+            textBox16.Location = new Point(244, 328);
             textBox16.Name = "textBox16";
             textBox16.Size = new Size(77, 23);
             textBox16.TabIndex = 46;
@@ -482,7 +486,7 @@
             // textBox18
             // 
             textBox18.Enabled = false;
-            textBox18.Location = new Point(12, 415);
+            textBox18.Location = new Point(12, 386);
             textBox18.Name = "textBox18";
             textBox18.Size = new Size(100, 23);
             textBox18.TabIndex = 48;
@@ -492,7 +496,7 @@
             // lineNumeric
             // 
             lineNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            lineNumeric.Location = new Point(118, 416);
+            lineNumeric.Location = new Point(118, 387);
             lineNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             lineNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             lineNumeric.Name = "lineNumeric";
@@ -503,17 +507,49 @@
             // textBox19
             // 
             textBox19.Enabled = false;
-            textBox19.Location = new Point(244, 415);
+            textBox19.Location = new Point(244, 386);
             textBox19.Name = "textBox19";
             textBox19.Size = new Size(77, 23);
             textBox19.TabIndex = 50;
             textBox19.Text = "10 - 80";
+            // 
+            // textBox20
+            // 
+            textBox20.Enabled = false;
+            textBox20.Location = new Point(244, 415);
+            textBox20.Name = "textBox20";
+            textBox20.Size = new Size(77, 23);
+            textBox20.TabIndex = 53;
+            textBox20.Text = "10 - 80";
+            // 
+            // paragraphNumeric
+            // 
+            paragraphNumeric.Location = new Point(118, 416);
+            paragraphNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
+            paragraphNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
+            paragraphNumeric.Name = "paragraphNumeric";
+            paragraphNumeric.Size = new Size(120, 23);
+            paragraphNumeric.TabIndex = 52;
+            paragraphNumeric.Value = new decimal(new int[] { 40, 0, 0, 0 });
+            // 
+            // textBox21
+            // 
+            textBox21.Enabled = false;
+            textBox21.Location = new Point(12, 415);
+            textBox21.Name = "textBox21";
+            textBox21.Size = new Size(100, 23);
+            textBox21.TabIndex = 51;
+            textBox21.Text = "Paragraph Length";
+            textBox21.TextAlign = HorizontalAlignment.Right;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textBox20);
+            Controls.Add(paragraphNumeric);
+            Controls.Add(textBox21);
             Controls.Add(textBox19);
             Controls.Add(lineNumeric);
             Controls.Add(textBox18);
@@ -571,6 +607,7 @@
             ((System.ComponentModel.ISupportInitialize)titleNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)contentNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)lineNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)paragraphNumeric).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -624,5 +661,8 @@
         private TextBox textBox18;
         private NumericUpDown lineNumeric;
         private TextBox textBox19;
+        private TextBox textBox20;
+        private NumericUpDown paragraphNumeric;
+        private TextBox textBox21;
     }
 }

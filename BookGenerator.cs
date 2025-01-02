@@ -76,11 +76,11 @@ public class RandomTextGenerator
         var codePoint = random.Next(0x20, 0x10ffff); // valid Unicode code points
         if (codePoint >= 0xd800 && codePoint <= 0xdfff || isFileName && codePoint == 0x3A) // exclude surrogate code points or exclude colon (:) in file names
         {
-            return GenerateRandomCharacter(isFileName); // recursive function call to avoid code duplication and while statements
+            return GenerateRandomCharacter(isFileName);
         }
         return char.ConvertFromUtf32(codePoint);
     }
-    private static string newLine(int newLines) //overkill new line function
+    private static string newLine(int newLines)
     {
         string text = string.Empty;
         for (var i = 0; i < newLines; i++)

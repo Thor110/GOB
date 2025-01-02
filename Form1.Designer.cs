@@ -419,7 +419,7 @@
             // 
             titleNumeric.Location = new Point(118, 329);
             titleNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
-            titleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            titleNumeric.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             titleNumeric.Name = "titleNumeric";
             titleNumeric.Size = new Size(120, 23);
             titleNumeric.TabIndex = 41;
@@ -472,7 +472,7 @@
             textBox16.Name = "textBox16";
             textBox16.Size = new Size(77, 23);
             textBox16.TabIndex = 46;
-            textBox16.Text = "1 - 128";
+            textBox16.Text = "8 - 128";
             // 
             // textBox17
             // 
@@ -495,7 +495,6 @@
             // 
             // lineNumeric
             // 
-            lineNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
             lineNumeric.Location = new Point(118, 387);
             lineNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             lineNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });

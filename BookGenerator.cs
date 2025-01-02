@@ -5,44 +5,69 @@ public class RandomTextGenerator
     private static string title = string.Empty;
     public static void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength)
     {
-        title = GenerateRandomText(titleLength, true, 0, 0);
+        title = GenerateRandomText(titleLength, true, titleLength, 0);
         string content = GenerateRandomText(contentLength, false, lineLength, paragraphLength);
         File.WriteAllText(title + ".txt", content);
     }
-    private static string GenerateRandomText(int length, bool isFileName, int lineWidth, int paragraphLength)
+    private static string GenerateRandomText(int length, bool isFileName, int lineLength, int paragraphLength)
     {
         var randomText = new StringBuilder();
+        int charCounter = 0;
+        int lineCounter = 0;
+        var charString = string.Empty;
         if (!isFileName)
         {
-            int lineLength = 0;
-            int lineNumber = 0;
             randomText.Append($"{title}");
-            randomText.Append(newLine(2));
-            for (var i = 0; i < length; i++)
+            UpdateNewLine(2);
+        }
+        for (var i = 0; i < length; i++)
+        {
+            charString = GenerateRandomCharacter(isFileName);
+            if (!isFileName)
             {
-                var charString = GenerateRandomCharacter(isFileName);
-                if (lineLength + charString.Length > lineWidth)
+                if (CheckTextLength())
                 {
-                    randomText.Append(newLine(1));
-                    lineLength = 0;
-                    lineNumber++;
-                    if (lineNumber == paragraphLength)
+                    UpdateText();
+                }
+                else
+                {
+                    UpdateNewLine(1);
+                    charCounter = 0;
+                    lineCounter++;
+                    if (lineCounter == paragraphLength)
                     {
-                        randomText.Append(newLine(1));
-                        lineNumber = 0;
+                        UpdateNewLine(1);
+                        lineCounter = 0;
                     }
                 }
-                randomText.Append(charString);
-                lineLength += charString.Length;
             }
-
-        }
-        else
-        {
-            for (var i = 0; i < length; i++) // length could exceed given length due to some unicode characters counting as two, doesn't really matter.
+            if (isFileName)
             {
-                randomText.Append(GenerateRandomCharacter(isFileName));
+                if (CheckTextLength())
+                {
+                    UpdateText();
+                }
             }
+        }
+        bool CheckTextLength()
+        {
+            if (charCounter + charString.Length < lineLength)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        void UpdateText()
+        {
+            randomText.Append(charString);
+            charCounter += charString.Length;
+        }
+        void UpdateNewLine(int newLines)
+        {
+            randomText.Append(newLine(newLines));
         }
         return randomText.ToString();
     }
@@ -55,10 +80,10 @@ public class RandomTextGenerator
         }
         return char.ConvertFromUtf32(codePoint);
     }
-    private static string newLine(int number) //overkill new line function
+    private static string newLine(int newLines) //overkill new line function
     {
         string text = string.Empty;
-        for (var i = 0; i < number; i++)
+        for (var i = 0; i < newLines; i++)
         {
             text = text + "\n";
         }

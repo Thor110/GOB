@@ -3,8 +3,12 @@ public class RandomTextGenerator
 {
     private static Random random = new Random();
     private static string title = string.Empty;
-    public static void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength)
+    private static int rangeA = 0;
+    private static int rangeB = 0;
+    public static void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int min, int max)
     {
+        rangeA = min;
+        rangeB = max;
         title = GenerateRandomText(titleLength, true, titleLength, 0);
         string content = GenerateRandomText(contentLength, false, lineLength, paragraphLength);
         File.WriteAllText(title + ".txt", content);
@@ -55,10 +59,7 @@ public class RandomTextGenerator
             {
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
         void UpdateString()
         {
@@ -73,7 +74,8 @@ public class RandomTextGenerator
     }
     private static string GenerateRandomCharacter(bool isFileName)
     {
-        var codePoint = random.Next(0x20, 0x10ffff); // valid Unicode code points
+        //32 - 1,114,112 ( Range ) 0x20, 0x10ffff
+        var codePoint = random.Next(rangeA, rangeB);
         if (codePoint >= 0xd800 && codePoint <= 0xdfff || isFileName && codePoint == 0x3A) // exclude surrogate code points or exclude colon (:) in file names
         {
             return GenerateRandomCharacter(isFileName);

@@ -75,6 +75,11 @@
             textBox20 = new TextBox();
             paragraphNumeric = new NumericUpDown();
             textBox21 = new TextBox();
+            trackBarB = new TrackBar();
+            trackBarA = new TrackBar();
+            label1 = new Label();
+            label2 = new Label();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -87,6 +92,8 @@
             ((System.ComponentModel.ISupportInitialize)contentNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lineNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)paragraphNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarB).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarA).BeginInit();
             SuspendLayout();
             // 
             // videoSeed
@@ -157,7 +164,7 @@
             // 
             // GenerateImageButton
             // 
-            GenerateImageButton.Location = new Point(474, 350);
+            GenerateImageButton.Location = new Point(399, 244);
             GenerateImageButton.Name = "GenerateImageButton";
             GenerateImageButton.Size = new Size(121, 23);
             GenerateImageButton.TabIndex = 11;
@@ -167,7 +174,7 @@
             // 
             // GenerateModelButton
             // 
-            GenerateModelButton.Location = new Point(476, 158);
+            GenerateModelButton.Location = new Point(613, 158);
             GenerateModelButton.Name = "GenerateModelButton";
             GenerateModelButton.Size = new Size(121, 23);
             GenerateModelButton.TabIndex = 13;
@@ -238,7 +245,7 @@
             // textBox4
             // 
             textBox4.Enabled = false;
-            textBox4.Location = new Point(476, 12);
+            textBox4.Location = new Point(613, 12);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(120, 23);
             textBox4.TabIndex = 23;
@@ -247,7 +254,7 @@
             // 
             // verticesNumeric
             // 
-            verticesNumeric.Location = new Point(476, 42);
+            verticesNumeric.Location = new Point(613, 42);
             verticesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             verticesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             verticesNumeric.Name = "verticesNumeric";
@@ -257,7 +264,7 @@
             // 
             // facesNumeric
             // 
-            facesNumeric.Location = new Point(476, 71);
+            facesNumeric.Location = new Point(613, 71);
             facesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             facesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             facesNumeric.Name = "facesNumeric";
@@ -268,7 +275,7 @@
             // textBox5
             // 
             textBox5.Enabled = false;
-            textBox5.Location = new Point(420, 42);
+            textBox5.Location = new Point(557, 42);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(50, 23);
             textBox5.TabIndex = 26;
@@ -278,7 +285,7 @@
             // textBox6
             // 
             textBox6.Enabled = false;
-            textBox6.Location = new Point(420, 71);
+            textBox6.Location = new Point(557, 71);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(50, 23);
             textBox6.TabIndex = 27;
@@ -288,7 +295,7 @@
             // textBox7
             // 
             textBox7.Enabled = false;
-            textBox7.Location = new Point(476, 100);
+            textBox7.Location = new Point(613, 100);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(120, 23);
             textBox7.TabIndex = 28;
@@ -298,7 +305,7 @@
             // textBox8
             // 
             textBox8.Enabled = false;
-            textBox8.Location = new Point(476, 235);
+            textBox8.Location = new Point(401, 129);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(120, 23);
             textBox8.TabIndex = 29;
@@ -308,7 +315,7 @@
             // widthNumeric
             // 
             widthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            widthNumeric.Location = new Point(475, 264);
+            widthNumeric.Location = new Point(400, 158);
             widthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
             widthNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             widthNumeric.Name = "widthNumeric";
@@ -319,7 +326,7 @@
             // heightNumeric
             // 
             heightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            heightNumeric.Location = new Point(475, 293);
+            heightNumeric.Location = new Point(400, 187);
             heightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
             heightNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             heightNumeric.Name = "heightNumeric";
@@ -330,7 +337,7 @@
             // textBox9
             // 
             textBox9.Enabled = false;
-            textBox9.Location = new Point(420, 264);
+            textBox9.Location = new Point(345, 158);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(49, 23);
             textBox9.TabIndex = 32;
@@ -340,7 +347,7 @@
             // textBox10
             // 
             textBox10.Enabled = false;
-            textBox10.Location = new Point(420, 292);
+            textBox10.Location = new Point(345, 186);
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(50, 23);
             textBox10.TabIndex = 33;
@@ -350,7 +357,7 @@
             // textBox11
             // 
             textBox11.Enabled = false;
-            textBox11.Location = new Point(476, 322);
+            textBox11.Location = new Point(401, 216);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(119, 23);
             textBox11.TabIndex = 34;
@@ -388,7 +395,7 @@
             // 
             // scaleNumeric
             // 
-            scaleNumeric.Location = new Point(476, 129);
+            scaleNumeric.Location = new Point(613, 129);
             scaleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             scaleNumeric.Name = "scaleNumeric";
             scaleNumeric.Size = new Size(120, 23);
@@ -398,7 +405,7 @@
             // textBox12
             // 
             textBox12.Enabled = false;
-            textBox12.Location = new Point(420, 129);
+            textBox12.Location = new Point(557, 129);
             textBox12.Name = "textBox12";
             textBox12.Size = new Size(50, 23);
             textBox12.TabIndex = 39;
@@ -477,7 +484,7 @@
             // textBox17
             // 
             textBox17.Enabled = false;
-            textBox17.Location = new Point(602, 128);
+            textBox17.Location = new Point(739, 128);
             textBox17.Name = "textBox17";
             textBox17.Size = new Size(49, 23);
             textBox17.TabIndex = 47;
@@ -541,11 +548,65 @@
             textBox21.Text = "Paragraph Length";
             textBox21.TextAlign = HorizontalAlignment.Right;
             // 
+            // trackBarB
+            // 
+            trackBarB.Location = new Point(327, 394);
+            trackBarB.Maximum = 1114112;
+            trackBarB.Minimum = 32;
+            trackBarB.Name = "trackBarB";
+            trackBarB.Size = new Size(104, 45);
+            trackBarB.TabIndex = 54;
+            trackBarB.Value = 1114112;
+            trackBarB.Scroll += trackBar2_Scroll;
+            // 
+            // trackBarA
+            // 
+            trackBarA.Location = new Point(327, 328);
+            trackBarA.Maximum = 1114112;
+            trackBarA.Minimum = 32;
+            trackBarA.Name = "trackBarA";
+            trackBarA.Size = new Size(104, 45);
+            trackBarA.TabIndex = 55;
+            trackBarA.Value = 32;
+            trackBarA.Scroll += trackBar1_Scroll;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(437, 331);
+            label1.Name = "label1";
+            label1.Size = new Size(19, 15);
+            label1.TabIndex = 56;
+            label1.Text = "32";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(437, 395);
+            label2.Name = "label2";
+            label2.Size = new Size(49, 15);
+            label2.TabIndex = 57;
+            label2.Text = "1114112";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(327, 308);
+            label3.Name = "label3";
+            label3.Size = new Size(151, 15);
+            label3.TabIndex = 58;
+            label3.Text = "Character Range (UniCode)";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(label3);
+            Controls.Add(label2);
+            Controls.Add(label1);
+            Controls.Add(trackBarA);
+            Controls.Add(trackBarB);
             Controls.Add(textBox20);
             Controls.Add(paragraphNumeric);
             Controls.Add(textBox21);
@@ -607,6 +668,8 @@
             ((System.ComponentModel.ISupportInitialize)contentNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)lineNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)paragraphNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarB).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarA).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -663,5 +726,10 @@
         private TextBox textBox20;
         private NumericUpDown paragraphNumeric;
         private TextBox textBox21;
+        private TrackBar trackBarB;
+        private TrackBar trackBarA;
+        private Label label1;
+        private Label label2;
+        private Label label3;
     }
 }

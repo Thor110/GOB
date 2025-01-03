@@ -90,9 +90,40 @@ namespace VideoLOB
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
 
-            RandomTextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength);
+            int min = trackBarA.Value;
+            int max = trackBarB.Value;
+
+            RandomTextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, min, max);
 
             MessageBox.Show("Book Generated!");
+        }
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            //trackBarA Minimum
+            if (trackBarA.Value > trackBarB.Value)
+            {
+                trackBarB.Value = trackBarA.Value;
+                updateLabel2();
+            }
+            updateLabel1();
+        }
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+            //trackBarB Maximum
+            if (trackBarB.Value < trackBarA.Value)
+            {
+                trackBarA.Value = trackBarB.Value;
+                updateLabel1();
+            }
+            updateLabel2();
+        }
+        private void updateLabel1()
+        {
+            label1.Text = trackBarA.Value.ToString();
+        }
+        private void updateLabel2()
+        {
+            label2.Text = trackBarB.Value.ToString();
         }
     }
 }

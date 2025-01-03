@@ -89,11 +89,10 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int minRange = trackBarA.Value;
+            int maxRange = trackBarB.Value;
 
-            int min = trackBarA.Value;
-            int max = trackBarB.Value;
-
-            RandomTextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, min, max);
+            RandomTextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
 
             MessageBox.Show("Book Generated!");
         }

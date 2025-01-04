@@ -104,7 +104,7 @@
             // 
             // videoSeed
             // 
-            videoSeed.Location = new Point(667, 387);
+            videoSeed.Location = new Point(885, 388);
             videoSeed.Name = "videoSeed";
             videoSeed.Size = new Size(121, 51);
             videoSeed.TabIndex = 0;
@@ -113,7 +113,7 @@
             // GenerateVideoButton
             // 
             GenerateVideoButton.Enabled = false;
-            GenerateVideoButton.Location = new Point(667, 358);
+            GenerateVideoButton.Location = new Point(885, 359);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);
             GenerateVideoButton.TabIndex = 1;
@@ -168,7 +168,7 @@
             // 
             // GenerateImageButton
             // 
-            GenerateImageButton.Location = new Point(399, 244);
+            GenerateImageButton.Location = new Point(540, 126);
             GenerateImageButton.Name = "GenerateImageButton";
             GenerateImageButton.Size = new Size(121, 23);
             GenerateImageButton.TabIndex = 11;
@@ -178,7 +178,7 @@
             // 
             // GenerateModelButton
             // 
-            GenerateModelButton.Location = new Point(613, 158);
+            GenerateModelButton.Location = new Point(835, 157);
             GenerateModelButton.Name = "GenerateModelButton";
             GenerateModelButton.Size = new Size(121, 23);
             GenerateModelButton.TabIndex = 13;
@@ -249,7 +249,7 @@
             // textBox4
             // 
             textBox4.Enabled = false;
-            textBox4.Location = new Point(613, 12);
+            textBox4.Location = new Point(835, 11);
             textBox4.Name = "textBox4";
             textBox4.Size = new Size(120, 23);
             textBox4.TabIndex = 23;
@@ -258,7 +258,7 @@
             // 
             // verticesNumeric
             // 
-            verticesNumeric.Location = new Point(613, 42);
+            verticesNumeric.Location = new Point(835, 41);
             verticesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             verticesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             verticesNumeric.Name = "verticesNumeric";
@@ -268,7 +268,7 @@
             // 
             // facesNumeric
             // 
-            facesNumeric.Location = new Point(613, 71);
+            facesNumeric.Location = new Point(835, 70);
             facesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             facesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             facesNumeric.Name = "facesNumeric";
@@ -279,7 +279,7 @@
             // textBox5
             // 
             textBox5.Enabled = false;
-            textBox5.Location = new Point(557, 42);
+            textBox5.Location = new Point(779, 41);
             textBox5.Name = "textBox5";
             textBox5.Size = new Size(50, 23);
             textBox5.TabIndex = 26;
@@ -289,7 +289,7 @@
             // textBox6
             // 
             textBox6.Enabled = false;
-            textBox6.Location = new Point(557, 71);
+            textBox6.Location = new Point(779, 70);
             textBox6.Name = "textBox6";
             textBox6.Size = new Size(50, 23);
             textBox6.TabIndex = 27;
@@ -299,7 +299,7 @@
             // textBox7
             // 
             textBox7.Enabled = false;
-            textBox7.Location = new Point(613, 100);
+            textBox7.Location = new Point(835, 99);
             textBox7.Name = "textBox7";
             textBox7.Size = new Size(120, 23);
             textBox7.TabIndex = 28;
@@ -309,7 +309,7 @@
             // textBox8
             // 
             textBox8.Enabled = false;
-            textBox8.Location = new Point(401, 129);
+            textBox8.Location = new Point(542, 11);
             textBox8.Name = "textBox8";
             textBox8.Size = new Size(120, 23);
             textBox8.TabIndex = 29;
@@ -319,7 +319,7 @@
             // widthNumeric
             // 
             widthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            widthNumeric.Location = new Point(400, 158);
+            widthNumeric.Location = new Point(541, 40);
             widthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
             widthNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             widthNumeric.Name = "widthNumeric";
@@ -330,7 +330,7 @@
             // heightNumeric
             // 
             heightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            heightNumeric.Location = new Point(400, 187);
+            heightNumeric.Location = new Point(541, 69);
             heightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
             heightNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             heightNumeric.Name = "heightNumeric";
@@ -341,7 +341,7 @@
             // textBox9
             // 
             textBox9.Enabled = false;
-            textBox9.Location = new Point(345, 158);
+            textBox9.Location = new Point(486, 40);
             textBox9.Name = "textBox9";
             textBox9.Size = new Size(49, 23);
             textBox9.TabIndex = 32;
@@ -351,7 +351,7 @@
             // textBox10
             // 
             textBox10.Enabled = false;
-            textBox10.Location = new Point(345, 186);
+            textBox10.Location = new Point(486, 68);
             textBox10.Name = "textBox10";
             textBox10.Size = new Size(50, 23);
             textBox10.TabIndex = 33;
@@ -361,7 +361,7 @@
             // textBox11
             // 
             textBox11.Enabled = false;
-            textBox11.Location = new Point(401, 216);
+            textBox11.Location = new Point(542, 98);
             textBox11.Name = "textBox11";
             textBox11.Size = new Size(119, 23);
             textBox11.TabIndex = 34;
@@ -399,7 +399,7 @@
             // 
             // scaleNumeric
             // 
-            scaleNumeric.Location = new Point(613, 129);
+            scaleNumeric.Location = new Point(835, 128);
             scaleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             scaleNumeric.Name = "scaleNumeric";
             scaleNumeric.Size = new Size(120, 23);
@@ -409,7 +409,7 @@
             // textBox12
             // 
             textBox12.Enabled = false;
-            textBox12.Location = new Point(557, 129);
+            textBox12.Location = new Point(779, 128);
             textBox12.Name = "textBox12";
             textBox12.Size = new Size(50, 23);
             textBox12.TabIndex = 39;
@@ -488,7 +488,7 @@
             // textBox17
             // 
             textBox17.Enabled = false;
-            textBox17.Location = new Point(739, 128);
+            textBox17.Location = new Point(961, 127);
             textBox17.Name = "textBox17";
             textBox17.Size = new Size(49, 23);
             textBox17.TabIndex = 47;
@@ -605,7 +605,7 @@
             // 
             checkBox1.AutoSize = true;
             checkBox1.Enabled = false;
-            checkBox1.Location = new Point(613, 186);
+            checkBox1.Location = new Point(835, 185);
             checkBox1.Name = "checkBox1";
             checkBox1.Size = new Size(90, 19);
             checkBox1.TabIndex = 59;
@@ -656,7 +656,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1018, 450);
             Controls.Add(textFileNumeric);
             Controls.Add(checkBox2);
             Controls.Add(comboBox1);

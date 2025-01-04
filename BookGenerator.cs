@@ -28,91 +28,36 @@ public class RandomTextGenerator
     public class StopwatchWrapper : IDisposable
     {
         private readonly Stopwatch stopwatch;
-
         public StopwatchWrapper()
         {
             stopwatch = new Stopwatch();
             stopwatch.Start();
         }
-
         public void Dispose()
         {
             stopwatch.Stop();
-            Debug.WriteLine($"Function took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
+            Debug.WriteLine($"Function Disposal took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
         }
-
         public void Test()
         {
             Debug.WriteLine($"Code block took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
+            File.AppendAllText("timer.log", $"Code block took: {stopwatch.ElapsedMilliseconds} milliseconds to execute." + Environment.NewLine);
         }
     }
-
-    public void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange)
+    public void TimedTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange, int operations)
     {
         using (var stopwatch = new StopwatchWrapper())
         {
-            for (int i = 0; i < 1; i++)
+            for (int i = 0; i < operations; i++)
             {
-                setupCharacter(minRange, maxRange);
-                setupString(titleLength);
-                isFileName = true;
-                string title = GenerateRandomString();
-                setupString(contentLength);
-                charString = GenerateRandomCharacter();
-                setupParagraph(lineLength, paragraphLength);
-                isFileName = false;
-                AddNewLines(2);
-                string content = GenerateRandomParagraph();
-                try
-                {
-                    if (File.Exists(title + ".txt"))
-                    {
-                        int counter = 1;
-                        string newTitle = title;
-                        while (File.Exists(newTitle + ".txt"))
-                        {
-                            newTitle = title + "_" + counter.ToString();
-                            counter++;
-                        }
-                        //likelihood of the file already existing is 1,112,055^1,112,055^titleLength(default 16) = 1,236,666,323,025^16 / 1
-                        File.WriteAllText(newTitle + ".txt", content);
-                        MessageBox.Show("The chances of that happening were 1,236,666,323,025^16 to 1");
-                        MessageBox.Show("or 2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000 to 1");
-                        //2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000
-                        //1,236,666,323,025^16
-                        //2.992544e+193
-                    }
-                    else
-                    {
-                        File.WriteAllText(title + ".txt", content);
-                        MessageBox.Show("Book Generated!");
-                    }
-                }
-                catch (ArgumentException e)
-                {
-                    MessageBox.Show($"Processing failed: {e.Message}");
-                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
-                }
-                catch (UnauthorizedAccessException e)
-                {
-                    Debug.WriteLine("Unauthorized access exception: " + e.Message);
-                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
-                }
-                catch (IOException e)
-                {
-                    Debug.WriteLine("IO exception: " + e.Message);
-                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
-                }
-                catch (Exception e)
-                {
-                    Debug.WriteLine("Unexpected exception: " + e.Message);
-                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
-                }
                 Debug.WriteLine("Iteration : " + i.ToString());
-                stopwatch.Test();//3-28ms || 5-35ms
+                GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+                stopwatch.Test();
             }
         }
-        /*
+    }
+    public void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange)
+    {
         setupCharacter(minRange, maxRange);
         setupString(titleLength);
         isFileName = true;
@@ -123,11 +68,50 @@ public class RandomTextGenerator
         isFileName = false;
         AddNewLines(2);
         string content = GenerateRandomParagraph();
-        File.WriteAllText(title + ".txt", content);
-        MessageBox.Show("Book Generated!");
-        */
-        //
-        //testFunction(1,2,true);
+        try
+        {
+            if (File.Exists(title + ".txt"))
+            {
+                int counter = 1;
+                string newTitle = title;
+                while (File.Exists(newTitle + ".txt"))
+                {
+                    newTitle = title + "_" + counter.ToString();
+                    counter++;
+                }
+                //likelihood of the file already existing is 1,112,055^1,112,055^titleLength(default 16) = 1,236,666,323,025^16 / 1
+                File.WriteAllText(newTitle + ".txt", content);
+                MessageBox.Show("The chances of that happening were 1,236,666,323,025^16 to 1");
+                MessageBox.Show("or 2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000 to 1");
+                //2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000
+                //1,236,666,323,025^16
+                //2.992544e+193
+            }
+            else
+            {
+                File.WriteAllText(title + ".txt", content);
+            }
+        }
+        catch (ArgumentException e)
+        {
+            MessageBox.Show($"Processing failed: {e.Message}");
+            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+        }
+        catch (UnauthorizedAccessException e)
+        {
+            Debug.WriteLine("Unauthorized access exception: " + e.Message);
+            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+        }
+        catch (IOException e)
+        {
+            Debug.WriteLine("IO exception: " + e.Message);
+            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+        }
+        catch (Exception e)
+        {
+            Debug.WriteLine("Unexpected exception: " + e.Message);
+            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+        }
     }
     public void setupCharacter(int minRange, int maxRange)
     {
@@ -228,167 +212,9 @@ public class RandomTextGenerator
     }
     public void AddNewLines(int newLines)
     {
-        //string text = string.Empty;
         for (int i = 0; i < newLines; i++)
         {
-            //text += "\n";
             randomText.Append(Environment.NewLine);
         }
-        //randomText.Append(text);
-    }
-    //halting problem theory paper
-    public void testFunction(int a, int b, bool c)
-    {
-        //logForLoop(1,2);//finite loop
-        //logForLoop(3,2,true);//infinite loop
-        logForLoop(a, b, c);//test loop
-    }
-    public void logForLoop(int a = 0, int b = 1, bool log = false)
-    {
-        //log
-        if(!log)//check o from log
-        {
-            while (a < b)//check l from log
-            {
-                MessageBox.Show(a.ToString() + " is less than " + b.ToString());
-                //forFunction();
-                a++;
-            }
-            //testFunction(a, b, log);//stack overflow
-            //logForLoop(a, b, log);//stack overflow
-            //detecting a stack overflow is about as close to solving the halting problem as we can get
-        }
-        else// check o from log
-        {
-            while (a > b)//check g from log
-            {
-                MessageBox.Show(a.ToString() + " is more than " + b.ToString());
-                //forFunction();
-                a++;
-            }
-            //testFunction(a, b, log);//stack overflow
-            //logForLoop(a, b, log);//stack overflow
-            //detecting a stack overflow is about as close to solving the halting problem as we can get
-        }
-    }
-    public void forFunction()
-    {
-        //
-    }
-    public void thisIsASimplifiedForLoop(int a, int b)
-    {
-        //a for loop is just a while loop
-        var c = 0;
-        var d = 1;
-        while (c < d)
-        {
-            c++;
-        }
-        //this would run once
-        //
-        //can the halting problem actually be solved?!
-        //less than
-        while (a < b)
-        {
-            a++;
-        }
-        //if a is ever to be greater than b then it will finish executing
-        //if b is always greater than a it will run forever
-        //
-        //greater than
-        while (a > b)
-        {
-            b--;
-        }
-        //if a is always greater than b it will finish executing
-        //if b is never to be less than a it will run forever
-        //
-        //of course determining this for a large program would be a lot more challenging
-        //but in simple terms it should be will it count up or down forever or not
-        //
-        //great now I gotta write a paper on the halting problem too
-        //
-        //in the context of an infinite set, how can you ever know if it would finish...
-        //limitations imposed by the storing variables ie : Int32 or Int64
-        //
-        //or with a game as an example
-        //can the player ever go everywhere and do everything at once? no? then it will run forever without a player
-        //
-        //examples ( less than )
-        while (a < b)
-        {
-            a++;
-            b--;
-        }
-        //yes will halt, will not run forever.
-        while (a < b)
-        {
-            a--;
-            b++;
-        }
-        //no wont halt, will run forever.
-        while (a < b)
-        {
-            a++;
-            b++;
-        }
-        //no wont halt, will run forever.
-        while (a < b)
-        {
-            a--;
-            b--;
-        }
-        //no wont halt, will run forever.
-        //
-        //examples ( greater than )
-        while (a > b)
-        {
-            b--;
-            a++;
-        }
-        //yes will halt, will not run forever.
-        while (a > b)
-        {
-            b++;
-            a--;
-        }
-        //no wont halt, will run forever.
-        while (a > b)
-        {
-            b++;
-            a++;
-        }
-        //no wont halt, will run forever.
-        while (a > b)
-        {
-            b--;
-            a--;
-        }
-        //no wont halt, will run forever.
-        //
-        //something something elsewhere up down left right maybe
-        //two ends of an algorithm chasing in both directions to see if they can reach an upper limit
-        //game design in theory is a perfect / prime example of the halting problem
-        //in that without user interaction a game should run forever
-        //
-        //is the halting problem really a problem?
-        //
-        //in theory an algorith must exist to prove whether or not a program would or wouldn't run forever
-        //it should look something like this
-        //01010 - the program
-        //11010 - would run forever
-        //01011 - would halt or crash
-        //simplified to a five bit binary description to showcase that the algorithm would have to search both ways through the program
-        //to look for the answer
-        //
-        //writing papers in my programs...
-        //
-        //a thought arises, if it's so easy to make a program that will loop forever, shouldn't it be possible to determine that algorithmically?
-        //
-        //approximate AI + TAS INTERFACE + PROGRAM
-        //
-        //or AUTOMATIC INTERFACE TESTING ALL POSSIBLE INPUTS IN ALL POSSIBLE CONFIGURATIONS USING A TAS INTERFACE ON A PROGRAM
-        //
-        //
     }
 }

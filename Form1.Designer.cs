@@ -107,7 +107,6 @@
             // 
             // GenerateVideoButton
             // 
-            GenerateVideoButton.Enabled = false;
             GenerateVideoButton.Location = new Point(667, 295);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);

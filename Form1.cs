@@ -94,6 +94,7 @@ namespace VideoLOB
             int maxRange = trackBarB.Value;
 
             RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+            //RTG.TimedTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, 5);
             //string temp = RTG.GenerateSingleCharacter(minRange, maxRange);
             //string temp = RTG.GenerateSingleString(titleLength, minRange, maxRange);
             //string temp = RTG.GenerateSingleParagraph(contentLength, lineLength, paragraphLength, minRange, maxRange);
@@ -103,7 +104,7 @@ namespace VideoLOB
             //string temp = RTG.GenerateSingleParagraph();
 
             //MessageBox.Show(temp);
-            //MessageBox.Show("Book Generated!");
+            MessageBox.Show("Book Generated!");
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {

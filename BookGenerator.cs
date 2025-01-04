@@ -97,11 +97,11 @@ public class RandomTextGenerator
     {
         while(charCounter + charStringLength < stringLength) // length keeps exceeding required length
         {
-            UpdateString();
             if (charCounter + charStringLength > stringLength)
             {
                 break;
             }
+            UpdateString();
         }
         return randomText.ToString();
         //a string doesn't seem to
@@ -110,10 +110,10 @@ public class RandomTextGenerator
     {
         while(charCounter + charStringLength < stringLength) // length keeps exceeding required length
         {
-            UpdateString();
             if (charLineCounter + charStringLength > line)
             {
                 AddNewLines(1);
+                //charCounter = 0 = infinite loop = halting problem exercise
                 charLineCounter = 0;
                 lineCounter++;
             }
@@ -126,6 +126,7 @@ public class RandomTextGenerator
             {
                 break;
             }
+            UpdateString();
         }
         return randomText.ToString();
         //a paragraph always exceeds 80 per line
@@ -146,5 +147,77 @@ public class RandomTextGenerator
             text += "\n";
         }
         randomText.Append(text);
+    }
+    public void thisIsASimplifiedForLoop(int a, int b)
+    {
+        //a for loop is just a while loop
+        var c = 0;
+        var d = 1;
+        while (c < d)
+        {
+            c++;
+        }
+        //this would run once
+        //
+        //can the halting problem actually be solved?!
+        //less than
+        while (a < b)
+        {
+            a++;
+        }
+        //if a is ever to be greater than b then it will finish executing
+        //if b is always greater than a it will run forever
+        //
+        //greater than
+        while (a > b)
+        {
+            b--;
+        }
+        //if a is always greater than b it will finish executing
+        //if b is never to be less than a it will run forever
+        //
+        //of course determining this for a large program would be a lot more challenging
+        //but in simple terms it should be will it count up or down forever or not
+        //
+        //great now I gotta write a paper on the halting problem too
+        //
+        //in the context of an infinite set, how can you ever know if it would finish...
+        //limitations imposed by the storing variables ie : Int32 or Int64
+        //
+        //or with a game as an example
+        //can the player ever go everywhere and do everything at once? no? then it will run forever without a player
+        //
+        //example
+        while (a < b)
+        {
+            a++;
+            a--;
+        }
+        //no
+        while (a > b)
+        {
+            b--;
+            a++;
+        }
+        //yes
+        while (a > b)
+        {
+            b--;
+            a--;
+        }
+        //no
+        while (a < b)
+        {
+            a++;
+            b++;
+        }
+        //no
+        //something something elsewhere up down left right maybe
+        while (a < b)
+        {
+            a--;
+            b--;
+        }
+        //
     }
 }

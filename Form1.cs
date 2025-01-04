@@ -10,15 +10,30 @@ namespace VideoLOB
             InitializeComponent();
             InitializeButtonHandlers();
         }
+        //multiple button
+        /*private void button_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var index = int.Parse(button.Name.Replace("button", ""));
+                var range = unicodeRanges[index];
+                SetUnicodeRange(range.min, range.max);
+            }
+        }*/
         private void InitializeButtonHandlers()
         {
-            for (int i = 1; i <= 11; i++)
+            //multiple buttons
+            /*for (int i = 1; i <= 11; i++)
             {
                 var control = Controls.Find("button" + i, true).FirstOrDefault();
                 if (control is Button button)
                 {
                     control.Click += button_Click;
                 }
+            }*/
+            foreach (var range in unicodeRanges.Values)
+            {
+                comboBox1.Items.Add(range.language);
             }
         }
         private string GenerateSeedString()
@@ -120,6 +135,7 @@ namespace VideoLOB
                 updateLabel2();
             }
             updateLabel1();
+            comboBox1.Text = "Custom";
         }
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
@@ -129,6 +145,7 @@ namespace VideoLOB
                 updateLabel1();
             }
             updateLabel2();
+            comboBox1.Text = "Custom";
         }
         private void updateLabel1()
         {
@@ -138,43 +155,40 @@ namespace VideoLOB
         {
             label2.Text = trackBarMax.Value.ToString();
         }
-        private Dictionary<int, (int min, int max)> unicodeRanges = new Dictionary<int, (int min, int max)>
+        private Dictionary<int, (string language, int min, int max)> unicodeRanges = new Dictionary<int, (string language, int min, int max)>
         {
-            { 1, (32, 126) }, // ASCII
-            { 2, (0x0600, 0x077F) }, // Arabic
-            { 3, (0x4E00, 0x9FFF) }, // Chinese
-            { 4, (0x0400, 0x04FF) }, // Cyrillic
-            { 5, (0x0900, 0x097F) }, // Devanagari
-            { 6, (0x0370, 0x03FF) }, // Greek
-            { 7, (0x0590, 0x05FF) }, // Hebrew
-            { 8, (0x3040, 0x30FF) }, // Japanese
-            { 9, (0xAC00, 0xD7AF) }, // Korean
-            { 10, (0x0E00, 0x0E7F) }, // Thai
-            { 11, (0x00C0, 0x00FF) }, // Turkish
-            { 12, (0x0B80, 0x0BFF) }, // Tamil
-            { 13, (0x0980, 0x09FF) }, // Bengali
-            { 14, (0x0A00, 0x0A7F) }, // Gurmukhi
-            { 15, (0x1780, 0x17FF) }, // Khmer
-            { 16, (0x1000, 0x109F) }, // Myanmar
-            { 17, (0x0D80, 0x0DFF) }, // Sinhala
-            { 18, (0x0C00, 0x0C7F) }, // Telugu
-            { 19, (0x0C80, 0x0CFF) }, // Kannada
-            { 20, (0x0D00, 0x0D7F) }, // Malayalam
-            { 21, (0x10A0, 0x10FF) }, // Georgian
-            { 22, (0x1200, 0x137F) }, // Ethiopic
-            { 23, (0x0B00, 0x0B7F) }, // Oriya
-            { 24, (0x1B80, 0x1BBF) }, // Sundanese
-            { 25, (0xA980, 0xA9DF) }, // Javanese
-            { 26, (0xAA00, 0xAA5F) }, // Cham
+            { 1, ("ASCII", 32, 126) },
+            { 2, ("Arabic", 0x0600, 0x077F) },
+            { 3, ("Chinese", 0x4E00, 0x9FFF) },
+            { 4, ("Cyrillic", 0x0400, 0x04FF) },
+            { 5, ("Devanagari", 0x0900, 0x097F) },
+            { 6, ("Greek", 0x0370, 0x03FF) },
+            { 7, ("Hebrew", 0x0590, 0x05FF) },
+            { 8, ("Japanese", 0x3040, 0x30FF) },
+            { 9, ("Korean", 0xAC00, 0xD7AF) },
+            { 10, ("Thai", 0x0E00, 0x0E7F) },
+            { 11, ("Turkish", 0x00C0, 0x00FF) },
+            { 12, ("Tamil", 0x0B80, 0x0BFF) },
+            { 13, ("Bengali", 0x0980, 0x09FF) },
+            { 14, ("Gurmukhi", 0x0A00, 0x0A7F) },
+            { 15, ("Khmer", 0x1780, 0x17FF) },
+            { 16, ("Myanmar", 0x1000, 0x109F) },
+            { 17, ("Sinhala", 0x0D80, 0x0DFF) },
+            { 18, ("Telugu", 0x0C00, 0x0C7F) },
+            { 19, ("Kannada", 0x0C80, 0x0CFF) },
+            { 20, ("Malayalam", 0x0D00, 0x0D7F) },
+            { 21, ("Georgian", 0x10A0, 0x10FF) },
+            { 22, ("Ethiopic", 0x1200, 0x137F) },
+            { 23, ("Oriya", 0x0B00, 0x0B7F) },
+            { 24, ("Sundanese", 0x1B80, 0x1BBF) },
+            { 25, ("Javanese", 0xA980, 0xA9DF) },
+            { 26, ("Cham", 0xAA00, 0xAA5F) },
         };
-        private void button_Click(object? sender, EventArgs e)
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (sender is Button button)
-            {
-                var index = int.Parse(button.Name.Replace("button", ""));
-                var range = unicodeRanges[index];
-                SetUnicodeRange(range.min, range.max);
-            }
+            var selectedLanguage = (string)comboBox1.SelectedItem;
+            var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
+            SetUnicodeRange(range.min, range.max);
         }
         private void SetUnicodeRange(int min, int max)
         {

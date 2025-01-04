@@ -81,17 +81,6 @@
             label2 = new Label();
             label3 = new Label();
             checkBox1 = new CheckBox();
-            button1 = new Button();
-            button2 = new Button();
-            button3 = new Button();
-            button4 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
-            button11 = new Button();
             label4 = new Label();
             comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
@@ -621,109 +610,10 @@
             checkBox1.Text = "Solid Object";
             checkBox1.UseVisualStyleBackColor = true;
             // 
-            // button1
-            // 
-            button1.Location = new Point(484, 308);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 60;
-            button1.Text = "ASCII";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(484, 337);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 61;
-            button2.Text = "Arabic";
-            button2.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.Location = new Point(484, 366);
-            button3.Name = "button3";
-            button3.Size = new Size(75, 23);
-            button3.TabIndex = 62;
-            button3.Text = "Chinese";
-            button3.UseVisualStyleBackColor = true;
-            // 
-            // button4
-            // 
-            button4.Location = new Point(484, 395);
-            button4.Name = "button4";
-            button4.Size = new Size(75, 23);
-            button4.TabIndex = 63;
-            button4.Text = "Cyrillic";
-            button4.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Location = new Point(484, 424);
-            button5.Name = "button5";
-            button5.Size = new Size(75, 23);
-            button5.TabIndex = 64;
-            button5.Text = "Devanagari";
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            button6.Location = new Point(565, 279);
-            button6.Name = "button6";
-            button6.Size = new Size(75, 23);
-            button6.TabIndex = 69;
-            button6.Text = "Greek";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            button7.Location = new Point(565, 308);
-            button7.Name = "button7";
-            button7.Size = new Size(75, 23);
-            button7.TabIndex = 68;
-            button7.Text = "Hebrew";
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            button8.Location = new Point(565, 337);
-            button8.Name = "button8";
-            button8.Size = new Size(75, 23);
-            button8.TabIndex = 67;
-            button8.Text = "Japanese";
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.Location = new Point(565, 366);
-            button9.Name = "button9";
-            button9.Size = new Size(75, 23);
-            button9.TabIndex = 66;
-            button9.Text = "Korean";
-            button9.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            button10.Location = new Point(565, 395);
-            button10.Name = "button10";
-            button10.Size = new Size(75, 23);
-            button10.TabIndex = 65;
-            button10.Text = "Thai";
-            button10.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            button11.Location = new Point(565, 424);
-            button11.Name = "button11";
-            button11.Size = new Size(75, 23);
-            button11.TabIndex = 70;
-            button11.Text = "Turkish";
-            button11.UseVisualStyleBackColor = true;
-            // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(466, 283);
+            label4.Location = new Point(506, 308);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 71;
@@ -732,10 +622,11 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(526, 245);
+            comboBox1.Location = new Point(486, 331);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(121, 23);
             comboBox1.TabIndex = 72;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // Form1
             // 
@@ -744,17 +635,6 @@
             ClientSize = new Size(800, 450);
             Controls.Add(comboBox1);
             Controls.Add(label4);
-            Controls.Add(button11);
-            Controls.Add(button6);
-            Controls.Add(button7);
-            Controls.Add(button8);
-            Controls.Add(button9);
-            Controls.Add(button10);
-            Controls.Add(button5);
-            Controls.Add(button4);
-            Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
             Controls.Add(checkBox1);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -886,17 +766,6 @@
         private Label label2;
         private Label label3;
         private CheckBox checkBox1;
-        private Button button1;
-        private Button button2;
-        private Button button3;
-        private Button button4;
-        private Button button5;
-        private Button button6;
-        private Button button7;
-        private Button button8;
-        private Button button9;
-        private Button button10;
-        private Button button11;
         private Label label4;
         private ComboBox comboBox1;
     }

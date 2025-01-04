@@ -2,6 +2,7 @@ namespace VideoLOB
 {
     public partial class Form1 : Form
     {
+        RandomTextGenerator RTG = new RandomTextGenerator();
         public Form1()
         {
             InitializeComponent();
@@ -92,8 +93,16 @@ namespace VideoLOB
             int minRange = trackBarA.Value;
             int maxRange = trackBarB.Value;
 
-            RandomTextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+            RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+            //string temp = RTG.GenerateSingleCharacter(minRange, maxRange);
+            //string temp = RTG.GenerateSingleString(titleLength, minRange, maxRange);
+            //string temp = RTG.GenerateSingleParagraph(contentLength, lineLength, paragraphLength, minRange, maxRange);
 
+            //string temp = RTG.GenerateSingleCharacter();
+            //string temp = RTG.GenerateSingleString();
+            //string temp = RTG.GenerateSingleParagraph();
+
+            //MessageBox.Show(temp);
             MessageBox.Show("Book Generated!");
         }
         private void trackBar1_Scroll(object sender, EventArgs e)

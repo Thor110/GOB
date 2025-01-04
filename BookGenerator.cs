@@ -1,74 +1,142 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 public class RandomTextGenerator
 {
-    private static Random random = new Random();
-    private static string title = string.Empty;
-    private static int rangeMin;
-    private static int rangeMax;
-    private static int surrogateLow = 55296;
-    private static int surrogateHigh = 57343;
-    private static StringBuilder randomText = new StringBuilder();
-    private static int charCounter = 0;
-    private static int lineCounter = 0;
-    private static string charString = string.Empty;
+    public Random random = new Random();
+    public StringBuilder randomText = new StringBuilder();
+    public string charString = string.Empty;
+    public int charStringLength;
+    public int rangeMin;
+    public int rangeMax;
+    public int charCounter;
+    public int lineCounter;
+    public int surrogateLow = 55296;
+    public int surrogateHigh = 57343;
     // Surrogate Code Points ( Low - High )
-    // 55296 - 57343
-    // 0xd800 - 0xdfff
-    private static int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
+    // 55296    - 57343
+    // 0xd800   - 0xdfff
+    public int stringLength;
+    public int line;
+    public int paragraph;
+    public int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
     //  Table of Excluded Characters ( Hex, Dec, Sym )
     //  0x5C    0x2F    0x3A    0x2A    0x3F    0x22    0x3C    0x3E    0x7C
     //  92      47      58      42      63      34      60      62      124
     //  \       /       :       *       ?       "       <       >       |
-    public static void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange)
+    public bool isFileName = true;
+    public void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange)
     {
-        rangeMin = minRange;
-        rangeMax = maxRange;
-        title = GenerateRandomText(titleLength, true, titleLength, 0);
-        string content = GenerateRandomText(contentLength, false, lineLength, paragraphLength);
+        setupCharacter(minRange, maxRange);
+
+        setupString(titleLength);
+        isFileName = true;
+        string title = GenerateRandomString();
+
+        setupString(contentLength);
+        charString = GenerateRandomCharacter();
+        setupParagraph(lineLength, paragraphLength);
+        isFileName = false;
+        AddNewLines(2);
+
+        string content = GenerateRandomParagraph();
+
         File.WriteAllText(title + ".txt", content);
     }
-    private static string GenerateRandomText(int length, bool isFileName, int lineLength, int paragraphLength)
+    public void setupCharacter(int minRange, int maxRange)
     {
-        if (!isFileName)
-        {
-            AddNewLines(2);
-        }
-        for (var i = 0; i < length; i++)
-        {
-            charString = GenerateRandomCharacter(isFileName);
-            CheckLineLength(lineLength, isFileName, paragraphLength);
-        }
-        return randomText.ToString();
+        charStringLength = 0;
+        randomText.Clear();
+        rangeMin = minRange;
+        rangeMax = maxRange;
+        charCounter = 0;
+        charString = GenerateRandomCharacter();
+        charStringLength = charString.Length;
+        charCounter += charStringLength;
     }
-    private static string GenerateRandomCharacter(bool isFileName)
+    public void setupString(int length)
+    {
+        stringLength = length;
+    }
+    public void setupParagraph(int lineLength, int paragraphLength)
+    {
+        paragraph = paragraphLength;
+        line = lineLength;
+        charCounter = 0;
+        lineCounter = 0;
+        charStringLength = charString.Length;
+        charCounter += charStringLength;
+    }
+    public string GenerateSingleCharacter(int minRange = 32, int maxRange = 1114111, bool fileName = false)
+    {
+        setupCharacter(minRange, maxRange);
+        isFileName = fileName;
+        return GenerateRandomCharacter();
+    }
+    public string GenerateSingleString(int titleLength = 16, int minRange = 32, int maxRange = 1114111, bool fileName = false)
+    {
+        setupCharacter(minRange, maxRange);
+        setupString(titleLength);
+        isFileName = fileName;
+        return GenerateRandomString();
+    }
+    public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 1114111, bool fileName = false)
+    {
+        setupCharacter(minRange, maxRange);
+        setupString(contentLength);
+        setupParagraph(lineLength, paragraphLength);
+        isFileName = fileName;
+        return GenerateRandomParagraph();
+    }
+    public string GenerateRandomCharacter()
     {
         Int32 codePoint = random.Next(rangeMin, rangeMax); // exclude surrogate code points or exclude \/:*?"<>| in file names
-        if (codePoint >= 0xd800 && codePoint <= 0xdfff || isFileName && excludedCharacters.Contains(codePoint))
+        if (codePoint >= surrogateLow && codePoint <= surrogateHigh || isFileName && excludedCharacters.Contains(codePoint))
         {
-            return GenerateRandomCharacter(isFileName);
+            return GenerateRandomCharacter();
         }
         return char.ConvertFromUtf32(codePoint);
     }
-    private static void CheckLineLength(int lineLength, bool isFileName, int paragraphLength)
+    public string GenerateRandomString()
     {
-        if (charCounter + charString.Length >= lineLength && !isFileName)
+        for (int i = 0; i < stringLength - charStringLength;) // length keeps exceeding required length
         {
-            AddNewLines(1);
-            charCounter = 0;
-            lineCounter++;
+            UpdateString();
+            charStringLength = charString.Length;
+            i += charStringLength;
         }
-        if (lineCounter == paragraphLength && !isFileName)
-        {
-            AddNewLines(1);
-            lineCounter = 0;
-        }
-        randomText.Append(charString);
-        charCounter += charString.Length;
+        return randomText.ToString();
     }
-    private static void AddNewLines(int newLines)
+    public string GenerateRandomParagraph()
+    {
+        for (int i = 0; i < stringLength - charStringLength;) // length keeps exceeding required length
+        {
+            UpdateString();
+            if (charCounter + charStringLength > line)
+            {
+                AddNewLines(1);
+                charCounter = 0;
+                lineCounter++;
+            }
+            if (lineCounter == paragraph)
+            {
+                AddNewLines(1);
+                lineCounter = 0;
+            }
+            charStringLength = charString.Length;
+            i += charStringLength;
+        }
+        return randomText.ToString();
+    }
+    public void UpdateString()
+    {
+        randomText.Append(charString);
+        charCounter += charStringLength;
+        charString = GenerateRandomCharacter();
+    }
+    public void AddNewLines(int newLines)
     {
         string text = string.Empty;
-        for (var i = 0; i < newLines; i++)
+        for (int i = 0; i < newLines; i++)
         {
             text += "\n";
         }

@@ -551,12 +551,12 @@
             // trackBarB
             // 
             trackBarB.Location = new Point(327, 394);
-            trackBarB.Maximum = 1114112;
+            trackBarB.Maximum = 1114111;
             trackBarB.Minimum = 32;
             trackBarB.Name = "trackBarB";
             trackBarB.Size = new Size(104, 45);
             trackBarB.TabIndex = 54;
-            trackBarB.Value = 1114112;
+            trackBarB.Value = 1114111;
             trackBarB.Scroll += trackBar2_Scroll;
             // 
             // trackBarA
@@ -586,7 +586,7 @@
             label2.Name = "label2";
             label2.Size = new Size(49, 15);
             label2.TabIndex = 57;
-            label2.Text = "1114112";
+            label2.Text = "1114111";
             // 
             // label3
             // 

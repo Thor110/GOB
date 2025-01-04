@@ -104,16 +104,16 @@
             // 
             // videoSeed
             // 
-            videoSeed.Location = new Point(667, 324);
+            videoSeed.Location = new Point(667, 387);
             videoSeed.Name = "videoSeed";
-            videoSeed.Size = new Size(121, 114);
+            videoSeed.Size = new Size(121, 51);
             videoSeed.TabIndex = 0;
             videoSeed.Text = "";
-            videoSeed.Visible = false;
             // 
             // GenerateVideoButton
             // 
-            GenerateVideoButton.Location = new Point(667, 295);
+            GenerateVideoButton.Enabled = false;
+            GenerateVideoButton.Location = new Point(667, 358);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);
             GenerateVideoButton.TabIndex = 1;
@@ -135,10 +135,9 @@
             // 
             audioSeed.Location = new Point(91, 216);
             audioSeed.Name = "audioSeed";
-            audioSeed.Size = new Size(121, 71);
+            audioSeed.Size = new Size(121, 51);
             audioSeed.TabIndex = 4;
             audioSeed.Text = "";
-            audioSeed.Visible = false;
             // 
             // durationText
             // 

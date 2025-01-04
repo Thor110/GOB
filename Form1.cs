@@ -183,6 +183,7 @@ namespace VideoLOB
             { 24, ("Sundanese", 0x1B80, 0x1BBF) },
             { 25, ("Javanese", 0xA980, 0xA9DF) },
             { 26, ("Cham", 0xAA00, 0xAA5F) },
+            { 27, ("Egyptian Hieroglyphs", 0x13000, 0x1342F) },
         };
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -1,3 +1,5 @@
+using System.Windows.Forms;
+
 namespace VideoLOB
 {
     public partial class Form1 : Form
@@ -6,6 +8,18 @@ namespace VideoLOB
         public Form1()
         {
             InitializeComponent();
+            InitializeButtonHandlers();
+        }
+        private void InitializeButtonHandlers()
+        {
+            for (int i = 1; i <= 11; i++)
+            {
+                var control = Controls.Find("button" + i, true).FirstOrDefault();
+                if (control is Button button)
+                {
+                    control.Click += button_Click;
+                }
+            }
         }
         private string GenerateSeedString()
         {
@@ -126,5 +140,79 @@ namespace VideoLOB
         {
             label2.Text = trackBarB.Value.ToString();
         }
+        private Dictionary<int, (int min, int max)> unicodeRanges = new Dictionary<int, (int min, int max)>
+        {
+            { 1, (32, 126) }, // ASCII
+            { 2, (0x0600, 0x077F) }, // Arabic
+            { 3, (0x4E00, 0x9FFF) }, // Chinese
+            { 4, (0x0400, 0x04FF) }, // Cyrillic
+            { 5, (0x0900, 0x097F) }, // Devanagari
+            { 6, (0x0370, 0x03FF) }, // Greek
+            { 7, (0x0590, 0x05FF) }, // Hebrew
+            { 8, (0x3040, 0x30FF) }, // Japanese
+            { 9, (0xAC00, 0xD7AF) }, // Korean
+            { 10, (0x0E00, 0x0E7F) }, // Thai
+            { 11, (0x00C0, 0x00FF) }, // Turkish
+        };
+        private void button_Click(object? sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                var index = int.Parse(button.Name.Replace("button", ""));
+                var range = unicodeRanges[index];
+                SetUnicodeRange(range.min, range.max);
+            }
+        }
+        private void SetUnicodeRange(int min, int max)
+        {
+            trackBarA.Value = min;
+            trackBarB.Value = max;
+            label1.Text = trackBarA.Value.ToString();
+            label2.Text = trackBarB.Value.ToString();
+        }
+        /*private void button1_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(32, 126); // ASCII
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x0600, 0x077F); // Arabic
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x4E00, 0x9FFF); // Chinese
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x0400, 0x04FF); // Cyrillic
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x0900, 0x097F); // Devanagari
+        }
+        private void button6_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x0370, 0x03FF); // Greek
+        }
+        private void button7_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x0590, 0x05FF); // Hebrew
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x3040, 0x30FF); // Japanese
+        }
+        private void button9_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0xAC00, 0xD7AF); // Korean
+        }
+        private void button10_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x0E00, 0x0E7F); // Thai
+        }
+        private void button11_Click(object sender, EventArgs e)
+        {
+            SetUnicodeRange(0x00C0, 0x00FF); // Turkish
+        }*/
     }
 }

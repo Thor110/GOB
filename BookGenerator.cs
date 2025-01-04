@@ -104,7 +104,7 @@ public class RandomTextGenerator
             UpdateString();
         }
         return randomText.ToString();
-        //a string doesn't seem to
+        //a string doesn't seem to exceed required length
     }
     public string GenerateRandomParagraph()
     {
@@ -187,37 +187,75 @@ public class RandomTextGenerator
         //or with a game as an example
         //can the player ever go everywhere and do everything at once? no? then it will run forever without a player
         //
-        //example
+        //examples ( less than )
         while (a < b)
         {
             a++;
-            a--;
-        }
-        //no
-        while (a > b)
-        {
             b--;
-            a++;
         }
-        //yes
-        while (a > b)
+        //yes will halt, will not run forever.
+        while (a < b)
         {
-            b--;
             a--;
+            b++;
         }
-        //no
+        //no wont halt, will run forever.
         while (a < b)
         {
             a++;
             b++;
         }
-        //no
-        //something something elsewhere up down left right maybe
+        //no wont halt, will run forever.
         while (a < b)
         {
             a--;
             b--;
         }
+        //no wont halt, will run forever.
+        //
+        //examples ( greater than )
+        while (a > b)
+        {
+            b--;
+            a++;
+        }
+        //yes will halt, will not run forever.
+        while (a > b)
+        {
+            b++;
+            a--;
+        }
+        //no wont halt, will run forever.
+        while (a > b)
+        {
+            b++;
+            a++;
+        }
+        //no wont halt, will run forever.
+        while (a > b)
+        {
+            b--;
+            a--;
+        }
+        //no wont halt, will run forever.
+        //
+        //something something elsewhere up down left right maybe
+        //two ends of an algorithm chasing in both directions to see if they can reach an upper limit
+        //game design in theory is a perfect / prime example of the halting problem
+        //in that without user interaction a game should run forever
+        //
+        //is the halting problem really a problem?
+        //
+        //in theory an algorith must exist to prove whether or not a program would or wouldn't run forever
+        //it should look something like this
+        //01010 - the program
+        //11010 - would run forever
+        //01011 - would halt or crash
+        //simplified to a five bit binary description to showcase that the algorithm would have to search both ways through the program
+        //to look for the answer
+        //
+        //writing papers in my programs...
+        //
         //
     }
 }

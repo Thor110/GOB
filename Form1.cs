@@ -105,8 +105,8 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            int minRange = trackBarA.Value;
-            int maxRange = trackBarB.Value;
+            int minRange = trackBarMin.Value;
+            int maxRange = trackBarMax.Value;
 
             RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
 
@@ -114,31 +114,29 @@ namespace VideoLOB
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
-            //trackBarA Minimum
-            if (trackBarA.Value > trackBarB.Value)
+            if (trackBarMin.Value > trackBarMax.Value)
             {
-                trackBarB.Value = trackBarA.Value;
+                trackBarMax.Value = trackBarMin.Value;
                 updateLabel2();
             }
             updateLabel1();
         }
         private void trackBar2_Scroll(object sender, EventArgs e)
         {
-            //trackBarB Maximum
-            if (trackBarB.Value < trackBarA.Value)
+            if (trackBarMax.Value < trackBarMin.Value)
             {
-                trackBarA.Value = trackBarB.Value;
+                trackBarMin.Value = trackBarMax.Value;
                 updateLabel1();
             }
             updateLabel2();
         }
         private void updateLabel1()
         {
-            label1.Text = trackBarA.Value.ToString();
+            label1.Text = trackBarMin.Value.ToString();
         }
         private void updateLabel2()
         {
-            label2.Text = trackBarB.Value.ToString();
+            label2.Text = trackBarMax.Value.ToString();
         }
         private Dictionary<int, (int min, int max)> unicodeRanges = new Dictionary<int, (int min, int max)>
         {
@@ -153,6 +151,21 @@ namespace VideoLOB
             { 9, (0xAC00, 0xD7AF) }, // Korean
             { 10, (0x0E00, 0x0E7F) }, // Thai
             { 11, (0x00C0, 0x00FF) }, // Turkish
+            { 12, (0x0B80, 0x0BFF) }, // Tamil
+            { 13, (0x0980, 0x09FF) }, // Bengali
+            { 14, (0x0A00, 0x0A7F) }, // Gurmukhi
+            { 15, (0x1780, 0x17FF) }, // Khmer
+            { 16, (0x1000, 0x109F) }, // Myanmar
+            { 17, (0x0D80, 0x0DFF) }, // Sinhala
+            { 18, (0x0C00, 0x0C7F) }, // Telugu
+            { 19, (0x0C80, 0x0CFF) }, // Kannada
+            { 20, (0x0D00, 0x0D7F) }, // Malayalam
+            { 21, (0x10A0, 0x10FF) }, // Georgian
+            { 22, (0x1200, 0x137F) }, // Ethiopic
+            { 23, (0x0B00, 0x0B7F) }, // Oriya
+            { 24, (0x1B80, 0x1BBF) }, // Sundanese
+            { 25, (0xA980, 0xA9DF) }, // Javanese
+            { 26, (0xAA00, 0xAA5F) }, // Cham
         };
         private void button_Click(object? sender, EventArgs e)
         {
@@ -165,54 +178,10 @@ namespace VideoLOB
         }
         private void SetUnicodeRange(int min, int max)
         {
-            trackBarA.Value = min;
-            trackBarB.Value = max;
-            label1.Text = trackBarA.Value.ToString();
-            label2.Text = trackBarB.Value.ToString();
+            trackBarMin.Value = min;
+            trackBarMax.Value = max;
+            label1.Text = trackBarMin.Value.ToString();
+            label2.Text = trackBarMax.Value.ToString();
         }
-        /*private void button1_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(32, 126); // ASCII
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x0600, 0x077F); // Arabic
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x4E00, 0x9FFF); // Chinese
-        }
-        private void button4_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x0400, 0x04FF); // Cyrillic
-        }
-        private void button5_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x0900, 0x097F); // Devanagari
-        }
-        private void button6_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x0370, 0x03FF); // Greek
-        }
-        private void button7_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x0590, 0x05FF); // Hebrew
-        }
-        private void button8_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x3040, 0x30FF); // Japanese
-        }
-        private void button9_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0xAC00, 0xD7AF); // Korean
-        }
-        private void button10_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x0E00, 0x0E7F); // Thai
-        }
-        private void button11_Click(object sender, EventArgs e)
-        {
-            SetUnicodeRange(0x00C0, 0x00FF); // Turkish
-        }*/
     }
 }

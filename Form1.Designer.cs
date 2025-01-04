@@ -75,8 +75,8 @@
             textBox20 = new TextBox();
             paragraphNumeric = new NumericUpDown();
             textBox21 = new TextBox();
-            trackBarB = new TrackBar();
-            trackBarA = new TrackBar();
+            trackBarMax = new TrackBar();
+            trackBarMin = new TrackBar();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
@@ -93,6 +93,7 @@
             button10 = new Button();
             button11 = new Button();
             label4 = new Label();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -105,8 +106,8 @@
             ((System.ComponentModel.ISupportInitialize)contentNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)lineNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)paragraphNumeric).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarB).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarA).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarMax).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarMin).BeginInit();
             SuspendLayout();
             // 
             // videoSeed
@@ -560,27 +561,27 @@
             textBox21.Text = "Paragraph Length";
             textBox21.TextAlign = HorizontalAlignment.Right;
             // 
-            // trackBarB
+            // trackBarMax
             // 
-            trackBarB.Location = new Point(327, 394);
-            trackBarB.Maximum = 1114111;
-            trackBarB.Minimum = 32;
-            trackBarB.Name = "trackBarB";
-            trackBarB.Size = new Size(104, 45);
-            trackBarB.TabIndex = 54;
-            trackBarB.Value = 1114111;
-            trackBarB.Scroll += trackBar2_Scroll;
+            trackBarMax.Location = new Point(327, 394);
+            trackBarMax.Maximum = 1114111;
+            trackBarMax.Minimum = 32;
+            trackBarMax.Name = "trackBarMax";
+            trackBarMax.Size = new Size(104, 45);
+            trackBarMax.TabIndex = 54;
+            trackBarMax.Value = 1114111;
+            trackBarMax.Scroll += trackBar2_Scroll;
             // 
-            // trackBarA
+            // trackBarMin
             // 
-            trackBarA.Location = new Point(327, 328);
-            trackBarA.Maximum = 1114112;
-            trackBarA.Minimum = 32;
-            trackBarA.Name = "trackBarA";
-            trackBarA.Size = new Size(104, 45);
-            trackBarA.TabIndex = 55;
-            trackBarA.Value = 32;
-            trackBarA.Scroll += trackBar1_Scroll;
+            trackBarMin.Location = new Point(327, 328);
+            trackBarMin.Maximum = 1114112;
+            trackBarMin.Minimum = 32;
+            trackBarMin.Name = "trackBarMin";
+            trackBarMin.Size = new Size(104, 45);
+            trackBarMin.TabIndex = 55;
+            trackBarMin.Value = 32;
+            trackBarMin.Scroll += trackBar1_Scroll;
             // 
             // label1
             // 
@@ -728,11 +729,20 @@
             label4.TabIndex = 71;
             label4.Text = "UniCode Presets";
             // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(526, 245);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 23);
+            comboBox1.TabIndex = 72;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(comboBox1);
             Controls.Add(label4);
             Controls.Add(button11);
             Controls.Add(button6);
@@ -749,8 +759,8 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(trackBarA);
-            Controls.Add(trackBarB);
+            Controls.Add(trackBarMin);
+            Controls.Add(trackBarMax);
             Controls.Add(textBox20);
             Controls.Add(paragraphNumeric);
             Controls.Add(textBox21);
@@ -812,8 +822,8 @@
             ((System.ComponentModel.ISupportInitialize)contentNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)lineNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)paragraphNumeric).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarB).EndInit();
-            ((System.ComponentModel.ISupportInitialize)trackBarA).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarMax).EndInit();
+            ((System.ComponentModel.ISupportInitialize)trackBarMin).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -870,8 +880,8 @@
         private TextBox textBox20;
         private NumericUpDown paragraphNumeric;
         private TextBox textBox21;
-        private TrackBar trackBarB;
-        private TrackBar trackBarA;
+        private TrackBar trackBarMax;
+        private TrackBar trackBarMin;
         private Label label1;
         private Label label2;
         private Label label3;
@@ -888,5 +898,6 @@
         private Button button10;
         private Button button11;
         private Label label4;
+        private ComboBox comboBox1;
     }
 }

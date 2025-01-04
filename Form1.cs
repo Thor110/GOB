@@ -123,9 +123,17 @@ namespace VideoLOB
             int minRange = trackBarMin.Value;
             int maxRange = trackBarMax.Value;
 
-            RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
-
-            MessageBox.Show("Book Generated!");
+            int operations = Convert.ToInt32(textFileNumeric.Value);
+            if (checkBox2.Checked)
+            {
+                RTG.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations);
+                MessageBox.Show("Books Generated!");
+            }
+            else
+            {
+                RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+                MessageBox.Show("Book Generated!");
+            }
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
@@ -157,6 +165,9 @@ namespace VideoLOB
         }
         private Dictionary<int, (string language, int min, int max)> unicodeRanges = new Dictionary<int, (string language, int min, int max)>
         {
+            // Unicode Consortium
+            // International Organization for Standardization (ISO)
+            // World Wide Web Consortium (W3C)
             { 1, ("ASCII", 32, 126) },
             { 2, ("Arabic", 0x0600, 0x077F) },
             { 3, ("Chinese", 0x4E00, 0x9FFF) },
@@ -184,6 +195,18 @@ namespace VideoLOB
             { 25, ("Javanese", 0xA980, 0xA9DF) },
             { 26, ("Cham", 0xAA00, 0xAA5F) },
             { 27, ("Egyptian Hieroglyphs", 0x13000, 0x1342F) },
+            { 28, ("Cuneiform", 0x12000, 0x123FF) },
+            { 29, ("Ancient Greek", 0x0370, 0x1FFF) },
+            { 30, ("Ancient Roman", 0x10190, 0x101CF) },
+            { 31, ("Mayan Hieroglyphs", 0x13000, 0x1342F) },
+            { 32, ("Old Italic", 0x10300, 0x1034F) },
+            { 33, ("Gothic", 0x10330, 0x1034F) },
+            { 34, ("Runic", 0x16A0, 0x16FF) },
+            { 35, ("Old Persian", 0x103A0, 0x103DF) },
+            { 36, ("Phoenician", 0x10900, 0x1091F) },
+            { 37, ("Sogdian", 0x10F00, 0x10F2F) },
+            { 38, ("Old South Arabian", 0x10A60, 0x10A7F) },
+            { 39, ("Avestan", 0x10B00, 0x10B3F) }
         };
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -197,6 +220,11 @@ namespace VideoLOB
             trackBarMax.Value = max;
             label1.Text = trackBarMin.Value.ToString();
             label2.Text = trackBarMax.Value.ToString();
+        }
+
+        private void checkBox2_CheckedChanged(object sender, EventArgs e)
+        {
+            textFileNumeric.Enabled = checkBox2.Checked;
         }
     }
 }

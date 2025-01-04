@@ -83,6 +83,8 @@
             checkBox1 = new CheckBox();
             label4 = new Label();
             comboBox1 = new ComboBox();
+            checkBox2 = new CheckBox();
+            textFileNumeric = new NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -97,6 +99,7 @@
             ((System.ComponentModel.ISupportInitialize)paragraphNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMax).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMin).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)textFileNumeric).BeginInit();
             SuspendLayout();
             // 
             // videoSeed
@@ -416,9 +419,9 @@
             // 
             // GenerateBookButton
             // 
-            GenerateBookButton.Location = new Point(91, 300);
+            GenerateBookButton.Location = new Point(12, 300);
             GenerateBookButton.Name = "GenerateBookButton";
-            GenerateBookButton.Size = new Size(121, 23);
+            GenerateBookButton.Size = new Size(100, 23);
             GenerateBookButton.TabIndex = 40;
             GenerateBookButton.Text = "Generate Book";
             GenerateBookButton.UseVisualStyleBackColor = true;
@@ -593,7 +596,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(327, 308);
+            label3.Location = new Point(327, 366);
             label3.Name = "label3";
             label3.Size = new Size(151, 15);
             label3.TabIndex = 58;
@@ -628,11 +631,35 @@
             comboBox1.TabIndex = 72;
             comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
+            // checkBox2
+            // 
+            checkBox2.AutoSize = true;
+            checkBox2.Location = new Point(244, 303);
+            checkBox2.Name = "checkBox2";
+            checkBox2.Size = new Size(96, 19);
+            checkBox2.TabIndex = 73;
+            checkBox2.Text = "Multiple Files";
+            checkBox2.UseVisualStyleBackColor = true;
+            checkBox2.CheckedChanged += checkBox2_CheckedChanged;
+            // 
+            // textFileNumeric
+            // 
+            textFileNumeric.Enabled = false;
+            textFileNumeric.Location = new Point(118, 300);
+            textFileNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
+            textFileNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            textFileNumeric.Name = "textFileNumeric";
+            textFileNumeric.Size = new Size(120, 23);
+            textFileNumeric.TabIndex = 74;
+            textFileNumeric.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(textFileNumeric);
+            Controls.Add(checkBox2);
             Controls.Add(comboBox1);
             Controls.Add(label4);
             Controls.Add(checkBox1);
@@ -704,6 +731,7 @@
             ((System.ComponentModel.ISupportInitialize)paragraphNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMax).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMin).EndInit();
+            ((System.ComponentModel.ISupportInitialize)textFileNumeric).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -768,5 +796,7 @@
         private CheckBox checkBox1;
         private Label label4;
         private ComboBox comboBox1;
+        private CheckBox checkBox2;
+        private NumericUpDown textFileNumeric;
     }
 }

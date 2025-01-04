@@ -1,5 +1,7 @@
 ﻿using System.Text;
 using System.Diagnostics;
+using System.Windows.Forms;
+using System;
 //using System.Security.Cryptography.RandomNumberGenerator;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
@@ -63,17 +65,17 @@ public class RandomTextGenerator
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <param name="operations">The number of times to execute the function</param>
-    public void TimedTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 1114111, int operations = 1)
+    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 1114111, int operations = 1)
     {
-        using (var stopwatch = new StopwatchWrapper())
-        {
+        //using (var stopwatch = new StopwatchWrapper())
+        //{
             for (int i = 0; i < operations; i++)
             {
-                Debug.WriteLine("Iteration : " + i.ToString());
+                //Debug.WriteLine("Iteration : " + i.ToString());
                 GenerateTextFile(titleLength, contentLength, lineLength = 80, paragraphLength = 40, minRange = 32, maxRange = 1114111);
-                stopwatch.Test();
+                //stopwatch.Test();
             }
-        }
+        //}
     }
     /// <summary>
     /// Generates a single random text file and saves it to the directory the program is executed from.
@@ -123,22 +125,26 @@ public class RandomTextGenerator
         catch (ArgumentException e)
         {
             MessageBox.Show($"Processing failed: {e.Message}");
-            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+            File.AppendAllText("error.log", $"{DateTime.Now} : {e.Message} : Processing failed! " + Environment.NewLine);
+            File.AppendAllText("error.log", "ArgumentException: this is thrown when a method is invoked with an argument that is invalid or outside the acceptable range.");
         }
         catch (UnauthorizedAccessException e)
         {
-            Debug.WriteLine("Unauthorized access exception: " + e.Message);
-            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+            MessageBox.Show("Unauthorized access exception: " + e.Message);
+            File.AppendAllText("error.log", $"{DateTime.Now} : {e.Message} : Unauthorized access exception!" + Environment.NewLine);
+            File.AppendAllText("error.log", "UnauthorizedAccessException: this is thrown when the application does not have the necessary permissions to access a file or resource.");
         }
         catch (IOException e)
         {
-            Debug.WriteLine("IO exception: " + e.Message);
-            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+            MessageBox.Show("IO exception: " + e.Message);
+            File.AppendAllText("error.log", $"{DateTime.Now} : {e.Message} : IO exception!" + Environment.NewLine);
+            File.AppendAllText("error.log", "IOException: this is thrown when an I/ O operation fails, such as when trying to write to a file that is already in use or when there is not enough disk space.");
         }
         catch (Exception e)
         {
-            Debug.WriteLine("Unexpected exception: " + e.Message);
-            File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+            MessageBox.Show("Unexpected exception: " + e.Message);
+            File.AppendAllText("error.log", $"{DateTime.Now} : {e.Message} : Unexpected exception!" + Environment.NewLine);
+            File.AppendAllText("error.log", "Exception: this is a catch-all for any other unexpected exceptions that may occur.");
         }
     }
     /// <summary>

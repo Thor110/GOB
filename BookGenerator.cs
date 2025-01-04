@@ -10,6 +10,7 @@ public class RandomTextGenerator
     public int rangeMax;
     public int charCounter;
     public int lineCounter;
+    public int charLineCounter;
     public int surrogateLow = 55296;
     public int surrogateHigh = 57343;
     // Surrogate Code Points ( Low - High )
@@ -27,19 +28,15 @@ public class RandomTextGenerator
     public void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange)
     {
         setupCharacter(minRange, maxRange);
-
         setupString(titleLength);
         isFileName = true;
         string title = GenerateRandomString();
-
         setupString(contentLength);
         charString = GenerateRandomCharacter();
         setupParagraph(lineLength, paragraphLength);
         isFileName = false;
         AddNewLines(2);
-
         string content = GenerateRandomParagraph();
-
         File.WriteAllText(title + ".txt", content);
     }
     public void setupCharacter(int minRange, int maxRange)
@@ -51,7 +48,6 @@ public class RandomTextGenerator
         charCounter = 0;
         charString = GenerateRandomCharacter();
         charStringLength = charString.Length;
-        charCounter += charStringLength;
     }
     public void setupString(int length)
     {
@@ -63,8 +59,9 @@ public class RandomTextGenerator
         line = lineLength;
         charCounter = 0;
         lineCounter = 0;
+        charLineCounter = 0;
+        charLineCounter += charStringLength;
         charStringLength = charString.Length;
-        charCounter += charStringLength;
     }
     public string GenerateSingleCharacter(int minRange = 32, int maxRange = 1114111, bool fileName = false)
     {
@@ -98,23 +95,26 @@ public class RandomTextGenerator
     }
     public string GenerateRandomString()
     {
-        for (int i = 0; i < stringLength - charStringLength;) // length keeps exceeding required length
+        while(charCounter + charStringLength < stringLength) // length keeps exceeding required length
         {
             UpdateString();
-            charStringLength = charString.Length;
-            i += charStringLength;
+            if (charCounter + charStringLength > stringLength)
+            {
+                break;
+            }
         }
         return randomText.ToString();
+        //a string doesn't seem to
     }
     public string GenerateRandomParagraph()
     {
-        for (int i = 0; i < stringLength - charStringLength;) // length keeps exceeding required length
+        while(charCounter + charStringLength < stringLength) // length keeps exceeding required length
         {
             UpdateString();
-            if (charCounter + charStringLength > line)
+            if (charLineCounter + charStringLength > line)
             {
                 AddNewLines(1);
-                charCounter = 0;
+                charLineCounter = 0;
                 lineCounter++;
             }
             if (lineCounter == paragraph)
@@ -122,16 +122,21 @@ public class RandomTextGenerator
                 AddNewLines(1);
                 lineCounter = 0;
             }
-            charStringLength = charString.Length;
-            i += charStringLength;
+            if (charCounter + charStringLength > stringLength)
+            {
+                break;
+            }
         }
         return randomText.ToString();
+        //a paragraph always exceeds 80 per line
     }
     public void UpdateString()
     {
-        randomText.Append(charString);
-        charCounter += charStringLength;
-        charString = GenerateRandomCharacter();
+        charCounter += charStringLength;//previous
+        charLineCounter += charStringLength;//previous
+        randomText.Append(charString);//add
+        charString = GenerateRandomCharacter();//generate
+        charStringLength = charString.Length;//next
     }
     public void AddNewLines(int newLines)
     {

@@ -103,7 +103,7 @@ namespace VideoLOB
             //string temp = RTG.GenerateSingleParagraph();
 
             //MessageBox.Show(temp);
-            MessageBox.Show("Book Generated!");
+            //MessageBox.Show("Book Generated!");
         }
         private void trackBar1_Scroll(object sender, EventArgs e)
         {

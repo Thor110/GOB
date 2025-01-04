@@ -38,6 +38,9 @@ public class RandomTextGenerator
         AddNewLines(2);
         string content = GenerateRandomParagraph();
         File.WriteAllText(title + ".txt", content);
+        MessageBox.Show("Book Generated!");
+        //
+        //testFunction(1,2,true);
     }
     public void setupCharacter(int minRange, int maxRange)
     {
@@ -95,7 +98,7 @@ public class RandomTextGenerator
     }
     public string GenerateRandomString()
     {
-        while(charCounter + charStringLength < stringLength) // length keeps exceeding required length
+        while(charCounter + charStringLength < stringLength)
         {
             if (charCounter + charStringLength > stringLength)
             {
@@ -104,16 +107,15 @@ public class RandomTextGenerator
             UpdateString();
         }
         return randomText.ToString();
-        //a string doesn't seem to exceed required length
     }
     public string GenerateRandomParagraph()
     {
-        while(charCounter + charStringLength < stringLength) // length keeps exceeding required length
+        while(charCounter + charStringLength < stringLength)
         {
+            //debugFunctionA();
             if (charLineCounter + charStringLength > line)
             {
                 AddNewLines(1);
-                //charCounter = 0 = infinite loop = halting problem exercise
                 charLineCounter = 0;
                 lineCounter++;
             }
@@ -129,15 +131,14 @@ public class RandomTextGenerator
             UpdateString();
         }
         return randomText.ToString();
-        //a paragraph always exceeds 80 per line
     }
     public void UpdateString()
     {
-        charCounter += charStringLength;//previous
-        charLineCounter += charStringLength;//previous
-        randomText.Append(charString);//add
+        charCounter += charStringLength;//previous length
+        charLineCounter += charStringLength;//previous length
+        randomText.Append(charString);//add character to string
         charString = GenerateRandomCharacter();//generate
-        charStringLength = charString.Length;//next
+        charStringLength = charString.Length;//next length
     }
     public void AddNewLines(int newLines)
     {
@@ -147,6 +148,45 @@ public class RandomTextGenerator
             text += "\n";
         }
         randomText.Append(text);
+    }
+    //halting problem theory paper
+    public void testFunction(int a, int b, bool c)
+    {
+        //logForLoop(1,2);//finite loop
+        //logForLoop(3,2,true);//infinite loop
+        logForLoop(a, b, c);//test loop
+    }
+    public void logForLoop(int a = 0, int b = 1, bool log = false)
+    {
+        //log
+        if(!log)//check o from log
+        {
+            while (a < b)//check l from log
+            {
+                MessageBox.Show(a.ToString() + " is less than " + b.ToString());
+                //forFunction();
+                a++;
+            }
+            //testFunction(a, b, log);//stack overflow
+            //logForLoop(a, b, log);//stack overflow
+            //detecting a stack overflow is about as close to solving the halting problem as we can get
+        }
+        else// check o from log
+        {
+            while (a > b)//check g from log
+            {
+                MessageBox.Show(a.ToString() + " is more than " + b.ToString());
+                //forFunction();
+                a++;
+            }
+            //testFunction(a, b, log);//stack overflow
+            //logForLoop(a, b, log);//stack overflow
+            //detecting a stack overflow is about as close to solving the halting problem as we can get
+        }
+    }
+    public void forFunction()
+    {
+        //
     }
     public void thisIsASimplifiedForLoop(int a, int b)
     {
@@ -255,6 +295,12 @@ public class RandomTextGenerator
         //to look for the answer
         //
         //writing papers in my programs...
+        //
+        //a thought arises, if it's so easy to make a program that will loop forever, shouldn't it be possible to determine that algorithmically?
+        //
+        //approximate AI + TAS INTERFACE + PROGRAM
+        //
+        //or AUTOMATIC INTERFACE TESTING ALL POSSIBLE INPUTS IN ALL POSSIBLE CONFIGURATIONS USING A TAS INTERFACE ON A PROGRAM
         //
         //
     }

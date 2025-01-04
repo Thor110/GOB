@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
+using System.Diagnostics;
 public class RandomTextGenerator
 {
     public Random random = new Random();
@@ -20,13 +20,99 @@ public class RandomTextGenerator
     public int line;
     public int paragraph;
     public int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
-    //  Table of Excluded Characters ( Hex, Dec, Sym )
+    //  Table of Excluded Characters ( Hex, Dec, Sym ) 2,056 Characters including Surrogate Code Points
     //  0x5C    0x2F    0x3A    0x2A    0x3F    0x22    0x3C    0x3E    0x7C
     //  92      47      58      42      63      34      60      62      124
     //  \       /       :       *       ?       "       <       >       |
     public bool isFileName = true;
+    public class StopwatchWrapper : IDisposable
+    {
+        private readonly Stopwatch stopwatch;
+
+        public StopwatchWrapper()
+        {
+            stopwatch = new Stopwatch();
+            stopwatch.Start();
+        }
+
+        public void Dispose()
+        {
+            stopwatch.Stop();
+            Debug.WriteLine($"Function took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
+        }
+
+        public void Test()
+        {
+            Debug.WriteLine($"Code block took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
+        }
+    }
+
     public void GenerateTextFile(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange)
     {
+        using (var stopwatch = new StopwatchWrapper())
+        {
+            for (int i = 0; i < 1; i++)
+            {
+                setupCharacter(minRange, maxRange);
+                setupString(titleLength);
+                isFileName = true;
+                string title = GenerateRandomString();
+                setupString(contentLength);
+                charString = GenerateRandomCharacter();
+                setupParagraph(lineLength, paragraphLength);
+                isFileName = false;
+                AddNewLines(2);
+                string content = GenerateRandomParagraph();
+                try
+                {
+                    if (File.Exists(title + ".txt"))
+                    {
+                        int counter = 1;
+                        string newTitle = title;
+                        while (File.Exists(newTitle + ".txt"))
+                        {
+                            newTitle = title + "_" + counter.ToString();
+                            counter++;
+                        }
+                        //likelihood of the file already existing is 1,112,055^1,112,055^titleLength(default 16) = 1,236,666,323,025^16 / 1
+                        File.WriteAllText(newTitle + ".txt", content);
+                        MessageBox.Show("The chances of that happening were 1,236,666,323,025^16 to 1");
+                        MessageBox.Show("or 2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000 to 1");
+                        //2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000
+                        //1,236,666,323,025^16
+                        //2.992544e+193
+                    }
+                    else
+                    {
+                        File.WriteAllText(title + ".txt", content);
+                        MessageBox.Show("Book Generated!");
+                    }
+                }
+                catch (ArgumentException e)
+                {
+                    MessageBox.Show($"Processing failed: {e.Message}");
+                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+                }
+                catch (UnauthorizedAccessException e)
+                {
+                    Debug.WriteLine("Unauthorized access exception: " + e.Message);
+                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+                }
+                catch (IOException e)
+                {
+                    Debug.WriteLine("IO exception: " + e.Message);
+                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine("Unexpected exception: " + e.Message);
+                    File.AppendAllText("error.log", $"Processing failed: {e.Message}{DateTime.Now}" + Environment.NewLine);
+                }
+                Debug.WriteLine("Iteration : " + i.ToString());
+                stopwatch.Test();//3-28ms || 5-35ms
+            }
+        }
+        /*
         setupCharacter(minRange, maxRange);
         setupString(titleLength);
         isFileName = true;
@@ -39,6 +125,7 @@ public class RandomTextGenerator
         string content = GenerateRandomParagraph();
         File.WriteAllText(title + ".txt", content);
         MessageBox.Show("Book Generated!");
+        */
         //
         //testFunction(1,2,true);
     }
@@ -112,7 +199,6 @@ public class RandomTextGenerator
     {
         while(charCounter + charStringLength < stringLength)
         {
-            //debugFunctionA();
             if (charLineCounter + charStringLength > line)
             {
                 AddNewLines(1);
@@ -142,12 +228,13 @@ public class RandomTextGenerator
     }
     public void AddNewLines(int newLines)
     {
-        string text = string.Empty;
+        //string text = string.Empty;
         for (int i = 0; i < newLines; i++)
         {
-            text += "\n";
+            //text += "\n";
+            randomText.Append(Environment.NewLine);
         }
-        randomText.Append(text);
+        //randomText.Append(text);
     }
     //halting problem theory paper
     public void testFunction(int a, int b, bool c)

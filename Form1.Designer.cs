@@ -80,6 +80,7 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
+            checkBox1 = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -596,11 +597,23 @@
             label3.TabIndex = 58;
             label3.Text = "Character Range (UniCode)";
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Enabled = false;
+            checkBox1.Location = new Point(613, 186);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(90, 19);
+            checkBox1.TabIndex = 59;
+            checkBox1.Text = "Solid Object";
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(checkBox1);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -730,5 +743,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
+        private CheckBox checkBox1;
     }
 }

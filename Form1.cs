@@ -78,8 +78,9 @@ namespace VideoLOB
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
             int scale = Convert.ToInt32(scaleNumeric.Value);
+            bool generateSolid = checkBox1.Checked;
 
-            ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath);
+            ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
 
             MessageBox.Show("Model Generated!");
         }
@@ -92,7 +93,7 @@ namespace VideoLOB
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
             int minRange = trackBarA.Value;
             int maxRange = trackBarB.Value;
-            
+
             RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
 
             MessageBox.Show("Book Generated!");

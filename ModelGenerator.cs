@@ -1,9 +1,9 @@
 ﻿public class ModelGenerator
 {
     private static Random random = new Random();
-    public static void GenerateModel(int numVertices, int numFaces, int scale, string filePath)
+    public static void GenerateModel(int numVertices, int numFaces, int scale, string filePath, bool generateSolid)
     {
-        List<Mesh> meshes = GenerateRandom3DModel(numVertices, numFaces, scale);
+        List<Mesh> meshes = GenerateRandom3DModel(numVertices, numFaces, scale, generateSolid);
         WriteObjFile(filePath, meshes);
     }
     public static void WriteObjFile(string filePath, List<Mesh> meshes)
@@ -28,7 +28,7 @@
             }
         }
     }
-    public static List<Mesh> GenerateRandom3DModel(int numVertices, int numFaces, int scale)
+    public static List<Mesh> GenerateRandom3DModel(int numVertices, int numFaces, int scale, bool generateSolid)
     {
         List<Vertex> vertices = new List<Vertex>();
 
@@ -42,6 +42,11 @@
             vertices.Add(vertex);
         }
 
+
+        /*if (generateSolid && vertices.Count >= 3)
+        {
+            vertices = GetConvexHull(vertices);
+        }*/
         List<Mesh> meshes = new List<Mesh>();
 
         List<Vertex> faceVertices = new List<Vertex>();
@@ -66,6 +71,41 @@
 
         return meshes;
     }
+    /*
+    private static List<Vertex> GetConvexHull(List<Vertex> vertices)
+    {
+        if (vertices.Count < 3)
+        {
+            return vertices;
+        }
+        // Find the leftmost point
+        Vertex start = vertices.OrderBy(v => v.X).FirstOrDefault();
+
+        // Sort points by polar angle with the start point
+        List<Vertex> sortedVertices = vertices.OrderBy(v => Math.Atan2(v.Y - start.Y, v.X - start.X)).ToList();
+
+        // Initialize an empty stack and push the first three points to it
+        List<Vertex> hull = new List<Vertex>();
+        hull.Add(sortedVertices[0]);
+        hull.Add(sortedVertices[1]);
+        hull.Add(sortedVertices[2]);
+
+        // Process the rest of the points
+        for (int i = 3; i < sortedVertices.Count; i++)
+        {
+            while (hull.Count > 1 && !IsLeftTurn(hull[hull.Count - 2], hull[hull.Count - 1], sortedVertices[i]))
+            {
+                hull.RemoveAt(hull.Count - 1);
+            }
+            hull.Add(sortedVertices[i]);
+        }
+        return hull;
+    }
+    private static bool IsLeftTurn(Vertex p1, Vertex p2, Vertex p3)
+    {
+        double crossProduct = (p2.X - p1.X) * (p3.Y - p1.Y) - (p2.Y - p1.Y) * (p3.X - p1.X);
+        return crossProduct > 0;
+    }*/
 }
 public class Vertex
 {

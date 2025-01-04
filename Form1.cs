@@ -168,6 +168,8 @@ namespace VideoLOB
             // Unicode Consortium
             // International Organization for Standardization (ISO)
             // World Wide Web Consortium (W3C)
+            // https://www.ssec.wisc.edu/~tomw/java/unicode.html
+            // Unicode language info ^
             { 1, ("ASCII", 32, 126) },
             { 2, ("Arabic", 0x0600, 0x077F) },
             { 3, ("Chinese", 0x4E00, 0x9FFF) },

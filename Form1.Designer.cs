@@ -203,7 +203,6 @@
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
-            channelsBox.SelectedIndex = 0;
             // 
             // depthBox
             // 
@@ -214,7 +213,6 @@
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
-            depthBox.SelectedIndex = 1;
             // 
             // textBox1
             // 
@@ -854,7 +852,9 @@
             Controls.Add(seedText);
             Controls.Add(GenerateAudioButton);
             Controls.Add(GenerateVideoButton);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
             Name = "Form1";
             Text = "Gallery of Babel";
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).EndInit();

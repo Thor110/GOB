@@ -1,8 +1,5 @@
 ﻿using System.Text;
 using System.Diagnostics;
-using System.Windows.Forms;
-using System;
-//using System.Security.Cryptography.RandomNumberGenerator;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.

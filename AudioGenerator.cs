@@ -1,5 +1,4 @@
 ﻿using System.Text;
-
 public class AudioGenerator
 {
     private static Random random = new Random();

@@ -1,12 +1,4 @@
-﻿using Microsoft.VisualBasic.Logging;
-using System;
-using System.ComponentModel;
-using System.DirectoryServices;
-using System.Reflection;
-using System.Windows.Forms;
-using System.Xml.Linq;
-
-namespace VideoLOB
+﻿namespace VideoLOB
 {
     public partial class Form1 : Form
     {
@@ -16,24 +8,42 @@ namespace VideoLOB
         public Form1()
         {
             InitializeComponent();
+            InitializeTooltips();
+            InitializePresets();
+        }
+        /// <summary>
+        /// Initialize tooltips for all controls.
+        /// </summary>
+        private void InitializeTooltips()
+        {
             this.components = new System.ComponentModel.Container();
             this.tooltip = new System.Windows.Forms.ToolTip(this.components);
-
             foreach (Control control in this.Controls)
             {
-                control.MouseEnter += new EventHandler(tooltip_MouseEnter);
-                control.MouseLeave += new EventHandler(tooltip_MouseLeave);
+                if (excludedControlTypes.Contains(control.GetType()) != true)
+                {
+                    control.MouseEnter += new EventHandler(tooltip_MouseEnter);
+                    control.MouseLeave += new EventHandler(tooltip_MouseLeave);
+                }
             }
-
-            InitializeButtonHandlers();
         }
+        /// <summary>
+        /// Unicode Preset Initializer.
+        /// </summary>
+        private void InitializePresets()
+        {
+            foreach (var range in unicodeRanges.Values)
+            {
+                comboBox1.Items.Add(range.language);
+            }
+            comboBox1.SelectedIndex = 58; // "Basic Unicode Range"
+        }
+        /// <summary>
+        /// Tooltip mouse event handlers.
+        /// </summary>
         void tooltip_MouseEnter(object sender, EventArgs e)
         {
             Control control = (Control)sender;
-            if (excludedControlTypes.Contains(control.GetType()))
-            {
-                return;
-            }
             if (control.AccessibleDescription != null)
             {
                 this.tooltip.Show(control.AccessibleDescription.ToString(), control);
@@ -47,15 +57,9 @@ namespace VideoLOB
         {
             this.tooltip.Hide((Control)sender);
         }
-        private void InitializeButtonHandlers()
-        {
-            foreach (var range in unicodeRanges.Values)
-            {
-                comboBox1.Items.Add(range.language);
-            }
-            comboBox1.SelectedItem = "Basic Unicode Range";
-            richTextBox1.Text = "The basic range of Unicode characters.";
-        }
+        /// <summary>
+        /// Seed string generator (incomplete function)
+        /// </summary>
         private string GenerateSeedString()
         {
             // Generate a seed string that represents the video
@@ -63,27 +67,31 @@ namespace VideoLOB
             // For simplicity, let's just use a random string
             return Guid.NewGuid().ToString();
         }
+        /// <summary>
+        /// Video generator button.
+        /// </summary>
         private void GenerateVideoButton_Click(object sender, EventArgs e)
         {
-            // Generate the video and seed string
             string seedString = GenerateSeedString();
-            videoSeed.Text = seedString;
+            seedText.Text = seedString;
 
             string filePath = "random_video.avi";
-            int width = 640;
-            int height = 480;
-            int frameRate = 30;
-            int duration = 360;
+            int width = Convert.ToInt32(videoWidthNumeric.Value);
+            int height = Convert.ToInt32(videoHeightNumeric.Value);
+            int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
+            int duration = Convert.ToInt32(videoDurationNumeric.Value);
 
             VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
 
             MessageBox.Show("Video Generated!");
         }
+        /// <summary>
+        /// Audio generator button.
+        /// </summary>
         private void GenerateAudioButton_Click(object sender, EventArgs e)
         {
-            // Generate the audio and seed string
             string seedString = GenerateSeedString();
-            audioSeed.Text = seedString;
+            seedText.Text = seedString;
 
             // filename
             string filePath = "random_audio.wav";
@@ -92,22 +100,16 @@ namespace VideoLOB
             int frequency = Convert.ToInt32(frequencyNumeric.Value);// Frequency in Hz
             int duration = Convert.ToInt32(durationNumeric.Value);// Duration in seconds
             // default numChannels and bitDepth for WAV header
-            short numChannels = 1; // Number of channels (mono)
-            short bitDepth = 16; // Bit depth (16-bit audio)
-
-            if (channelsBox.SelectedItem != null)
-            {
-                numChannels = Convert.ToInt16(channelsBox.SelectedItem.ToString());
-            }
-            if (depthBox.SelectedItem != null)
-            {
-                bitDepth = Convert.ToInt16(depthBox.SelectedItem.ToString());
-            }
+            short numChannels = Convert.ToInt16(channelsBox.SelectedItem.ToString());
+            short bitDepth = Convert.ToInt16(depthBox.SelectedItem.ToString());
 
             AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
 
             MessageBox.Show("Audio Generated!");
         }
+        /// <summary>
+        /// Image generator button.
+        /// </summary>
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
             string filePath = "random_image.png";
@@ -119,7 +121,9 @@ namespace VideoLOB
 
             MessageBox.Show("Image Generated!");
         }
-
+        /// <summary>
+        /// 3D Model generator button.
+        /// </summary>
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             string filePath = "random_model.obj";
@@ -133,7 +137,9 @@ namespace VideoLOB
 
             MessageBox.Show("Model Generated!");
         }
-
+        /// <summary>
+        /// Book generator button.
+        /// </summary>
         private void GenerateBookButton_Click(object sender, EventArgs e)
         {
             int titleLength = Convert.ToInt32(titleNumeric.Value);
@@ -155,6 +161,9 @@ namespace VideoLOB
                 MessageBox.Show("Book Generated!");
             }
         }
+        /// <summary>
+        /// Book generator controls.
+        /// </summary>
         private void trackBar1_Scroll(object sender, EventArgs e)
         {
             if (trackBarMin.Value > trackBarMax.Value)
@@ -177,8 +186,9 @@ namespace VideoLOB
         }
         private void updateDescription()
         {
-            comboBox1.Text = "Custom";
-            richTextBox1.Text = "Custom";
+            string custom = "Custom";
+            comboBox1.Text = custom;
+            richTextBox1.Text = custom;
         }
         private void updateLabel1()
         {
@@ -340,7 +350,6 @@ namespace VideoLOB
             label1.Text = trackBarMin.Value.ToString();
             label2.Text = trackBarMax.Value.ToString();
         }
-
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             textFileNumeric.Enabled = checkBox2.Checked;

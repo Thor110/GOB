@@ -29,10 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            videoSeed = new RichTextBox();
             GenerateVideoButton = new Button();
             GenerateAudioButton = new Button();
-            audioSeed = new RichTextBox();
+            seedText = new RichTextBox();
             durationText = new TextBox();
             frequencyText = new TextBox();
             sampleRateText = new TextBox();
@@ -87,6 +86,14 @@
             textFileNumeric = new NumericUpDown();
             label5 = new Label();
             richTextBox1 = new RichTextBox();
+            textBox22 = new TextBox();
+            textBox23 = new TextBox();
+            videoHeightNumeric = new NumericUpDown();
+            videoWidthNumeric = new NumericUpDown();
+            videoFramerateNumeric = new NumericUpDown();
+            videoDurationNumeric = new NumericUpDown();
+            textBox24 = new TextBox();
+            textBox25 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -102,20 +109,16 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMax).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMin).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textFileNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)videoHeightNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)videoWidthNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)videoFramerateNumeric).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)videoDurationNumeric).BeginInit();
             SuspendLayout();
-            // 
-            // videoSeed
-            // 
-            videoSeed.Location = new Point(542, 216);
-            videoSeed.Name = "videoSeed";
-            videoSeed.Size = new Size(121, 51);
-            videoSeed.TabIndex = 0;
-            videoSeed.Text = "";
             // 
             // GenerateVideoButton
             // 
             GenerateVideoButton.Enabled = false;
-            GenerateVideoButton.Location = new Point(542, 187);
+            GenerateVideoButton.Location = new Point(541, 274);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);
             GenerateVideoButton.TabIndex = 1;
@@ -133,13 +136,14 @@
             GenerateAudioButton.UseVisualStyleBackColor = true;
             GenerateAudioButton.Click += GenerateAudioButton_Click;
             // 
-            // audioSeed
+            // seedText
             // 
-            audioSeed.Location = new Point(91, 216);
-            audioSeed.Name = "audioSeed";
-            audioSeed.Size = new Size(121, 51);
-            audioSeed.TabIndex = 4;
-            audioSeed.Text = "";
+            seedText.Location = new Point(12, 216);
+            seedText.Name = "seedText";
+            seedText.ReadOnly = true;
+            seedText.Size = new Size(355, 51);
+            seedText.TabIndex = 4;
+            seedText.Text = "";
             // 
             // durationText
             // 
@@ -196,7 +200,7 @@
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
-            channelsBox.Text = "Channels";
+            channelsBox.SelectedIndex = 0;
             // 
             // depthBox
             // 
@@ -206,7 +210,7 @@
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
-            depthBox.Text = "Bit Depth";
+            depthBox.SelectedIndex = 1;
             // 
             // textBox1
             // 
@@ -672,11 +676,101 @@
             richTextBox1.TabIndex = 76;
             richTextBox1.Text = "";
             // 
+            // textBox22
+            // 
+            textBox22.Enabled = false;
+            textBox22.Location = new Point(461, 186);
+            textBox22.Name = "textBox22";
+            textBox22.Size = new Size(75, 23);
+            textBox22.TabIndex = 80;
+            textBox22.Text = "Height";
+            textBox22.TextAlign = HorizontalAlignment.Right;
+            // 
+            // textBox23
+            // 
+            textBox23.Enabled = false;
+            textBox23.Location = new Point(461, 158);
+            textBox23.Name = "textBox23";
+            textBox23.Size = new Size(74, 23);
+            textBox23.TabIndex = 79;
+            textBox23.Text = "Width";
+            textBox23.TextAlign = HorizontalAlignment.Right;
+            // 
+            // videoHeightNumeric
+            // 
+            videoHeightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            videoHeightNumeric.Location = new Point(541, 187);
+            videoHeightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
+            videoHeightNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            videoHeightNumeric.Name = "videoHeightNumeric";
+            videoHeightNumeric.Size = new Size(120, 23);
+            videoHeightNumeric.TabIndex = 78;
+            videoHeightNumeric.Value = new decimal(new int[] { 480, 0, 0, 0 });
+            // 
+            // videoWidthNumeric
+            // 
+            videoWidthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
+            videoWidthNumeric.Location = new Point(541, 158);
+            videoWidthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
+            videoWidthNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
+            videoWidthNumeric.Name = "videoWidthNumeric";
+            videoWidthNumeric.Size = new Size(120, 23);
+            videoWidthNumeric.TabIndex = 77;
+            videoWidthNumeric.Value = new decimal(new int[] { 640, 0, 0, 0 });
+            // 
+            // videoFramerateNumeric
+            // 
+            videoFramerateNumeric.Location = new Point(541, 216);
+            videoFramerateNumeric.Maximum = new decimal(new int[] { 440, 0, 0, 0 });
+            videoFramerateNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            videoFramerateNumeric.Name = "videoFramerateNumeric";
+            videoFramerateNumeric.Size = new Size(120, 23);
+            videoFramerateNumeric.TabIndex = 84;
+            videoFramerateNumeric.Value = new decimal(new int[] { 30, 0, 0, 0 });
+            // 
+            // videoDurationNumeric
+            // 
+            videoDurationNumeric.Location = new Point(541, 245);
+            videoDurationNumeric.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
+            videoDurationNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
+            videoDurationNumeric.Name = "videoDurationNumeric";
+            videoDurationNumeric.Size = new Size(120, 23);
+            videoDurationNumeric.TabIndex = 83;
+            videoDurationNumeric.Value = new decimal(new int[] { 360, 0, 0, 0 });
+            // 
+            // textBox24
+            // 
+            textBox24.Enabled = false;
+            textBox24.Location = new Point(461, 245);
+            textBox24.Name = "textBox24";
+            textBox24.Size = new Size(73, 23);
+            textBox24.TabIndex = 82;
+            textBox24.Text = "Duration";
+            textBox24.TextAlign = HorizontalAlignment.Right;
+            // 
+            // textBox25
+            // 
+            textBox25.Enabled = false;
+            textBox25.Location = new Point(461, 216);
+            textBox25.Name = "textBox25";
+            textBox25.Size = new Size(73, 23);
+            textBox25.TabIndex = 81;
+            textBox25.Text = "Framerate";
+            textBox25.TextAlign = HorizontalAlignment.Right;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 450);
+            Controls.Add(videoFramerateNumeric);
+            Controls.Add(videoDurationNumeric);
+            Controls.Add(textBox24);
+            Controls.Add(textBox25);
+            Controls.Add(textBox22);
+            Controls.Add(textBox23);
+            Controls.Add(videoHeightNumeric);
+            Controls.Add(videoWidthNumeric);
             Controls.Add(richTextBox1);
             Controls.Add(label5);
             Controls.Add(textFileNumeric);
@@ -731,10 +825,9 @@
             Controls.Add(sampleRateText);
             Controls.Add(frequencyText);
             Controls.Add(durationText);
-            Controls.Add(audioSeed);
+            Controls.Add(seedText);
             Controls.Add(GenerateAudioButton);
             Controls.Add(GenerateVideoButton);
-            Controls.Add(videoSeed);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
             Text = "Gallery of Babel";
@@ -753,6 +846,10 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMax).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMin).EndInit();
             ((System.ComponentModel.ISupportInitialize)textFileNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)videoHeightNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)videoWidthNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)videoFramerateNumeric).EndInit();
+            ((System.ComponentModel.ISupportInitialize)videoDurationNumeric).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -764,9 +861,7 @@
         private Button GenerateAudioButton;
         private Button GenerateImageButton;
         private Button GenerateModelButton;
-        //Seed Boxes
-        private RichTextBox videoSeed;// Video Seed
-        private RichTextBox audioSeed;// Audio Seed
+        private RichTextBox seedText;// Audio Seed
         //Audio Parameters
         private TextBox durationText;
         private TextBox frequencyText;
@@ -821,5 +916,13 @@
         private NumericUpDown textFileNumeric;
         private Label label5;
         private RichTextBox richTextBox1;
+        private TextBox textBox22;
+        private TextBox textBox23;
+        private NumericUpDown videoHeightNumeric;
+        private NumericUpDown videoWidthNumeric;
+        private NumericUpDown videoFramerateNumeric;
+        private NumericUpDown videoDurationNumeric;
+        private TextBox textBox24;
+        private TextBox textBox25;
     }
 }

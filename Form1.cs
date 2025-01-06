@@ -1,4 +1,6 @@
-﻿namespace VideoLOB
+﻿using static System.Net.WebRequestMethods;
+
+namespace VideoLOB
 {
     /// <summary>
     /// Library of Babel generater form.
@@ -223,6 +225,8 @@
             // World Wide Web Consortium (W3C)
             // https://www.ssec.wisc.edu/~tomw/java/unicode.html
             // Unicode language info ^
+            // https://www.vertex42.com/ExcelTips/unicode-symbols.html
+            // More Unicode language info ^
             // Consider loading direct
             { 1, ("ASCII", 32, 126, "ASCII is an acronym for American Standard Code for Information Interchange, is a character encoding standard for electronic communication.") },
             { 2, ("Arabic", 0x0600, 0x077F, "Arabic is a Semitic language that first appeared in the mid-ninth century BCE in Northern Arabia and Sahara southern Levant.") },
@@ -281,9 +285,9 @@
             { 55, ("Dingbats", 0x2700, 0x27BF, "Dingbats is a Unicode block containing dingbats (or typographical ornaments, like the ❦ FLORAL HEART character).") },
             { 56, ("Kangxi Radicals", 0x2F00, 0x2FDF, "A set of 214 radicals that were collated in the 18th-century Kangxi Dictionary to aid categorization of Chinese characters.") },
             { 57, ("Currency Symbols", 0x20A0, 0x20CF, "Currency symbols are visual representations of a currency unit. They are often used on price tags and receipts.") },
-            { 58, ("", 32, 0xFFFD, "") },
-            { 59, ("Basic Unicode Range", 32, 0xFFFD, "The basic range of Unicode characters.") }/*,
-            { 60, ("", , "") },
+            { 58, ("Latin", 0x0081, 0x024F, "The language of ancient Rome and its empire, widely used historically as a language of scholarship and administration.") },
+            { 59, ("Basic Unicode Range", 32, 0xFFFD, "The basic range of Unicode characters.") },
+            { 60, ("Unified Canadian Aboriginal", 0x1400, 0x167F, "Canadian syllabic writing, or simply syllabics, is a family of writing systems used in a number of indigenous Canadian languages of the Algonquian, Inuit, and Athabaskan language families.") }/*,
             { 61, ("", , "") },
             { 62, ("", , "") },
             { 63, ("", , "") },
@@ -298,16 +302,9 @@
             /*
 0x3130, 0x318F   12592, 12687 Hangul Compatibility Jamo
 0xAC00, 0xD7A3   44032, 55203 Hangul Syllables
-            //
-0x0000, 0x007F   0, 127   Basic Latin
-0x0080, 0x00FF   128, 255 Latin, 1 Supplement
-0x0100, 0x017F   256, 383 Latin Extended, A
-0x0180, 0x024F   384, 591 Latin Extended, B
-            //
 0x0250, 0x02AF   592, 687 IPA Extensions
 0x02B0, 0x02FF   688, 767 Spacing Modifier Letters
 0x0300, 0x036F   768, 879 Combining Diacritical Marks
-0x1400, 0x167F   5120, 5759   Unified Canadian Aboriginal Syllabics
 0x1E00, 0x1EFF   7680, 7935   Latin Extended Additional
 0x2000, 0x206F   8192, 8303   General Punctuation
 0x2070, 0x209F   8304, 8351   Superscripts and Subscripts
@@ -326,11 +323,13 @@
 0x2600, 0x26FF   9728, 9983   Miscellaneous Symbols
 0x2800, 0x28FF   10240, 10495 Braille Patterns
 0x2E80, 0x2EFF   11904, 12031 CJK Radicals Supplement
+            //
 0x2FF0, 0x2FFF   12272, 12287 Ideographic Description Characters
 0x3000, 0x303F   12288, 12351 CJK Symbols and Punctuation
 0x3200, 0x32FF   12800, 13055 Enclosed CJK Letters and Months
 0x3300, 0x33FF   13056, 13311 CJK Compatibility
 0x3400, 0x4DB5   13312, 19893 CJK Unified Ideographs Extension A
+
 0x4E00, 0x9FFF   19968, 40959 CJK Unified Ideographs
             //
 0xA000, 0xA48F   40960, 42127 Yi Syllables
@@ -345,6 +344,7 @@
 0xF900, 0xFAFF   63744, 64255 CJK Compatibility Ideographs
 0xFB00, 0xFB4F   64256, 64335 Alphabetic Presentation Forms
 0xFB50, 0xFDFF   64336, 65023 Arabic Presentation Forms, A
+            //
 0xFE20, 0xFE2F   65056, 65071 Combining Half Marks
 0xFE30, 0xFE4F   65072, 65103 CJK Compatibility Forms
 0xFE50, 0xFE6F   65104, 65135 Small Form Variants

@@ -85,6 +85,8 @@
             comboBox1 = new ComboBox();
             checkBox2 = new CheckBox();
             textFileNumeric = new NumericUpDown();
+            label5 = new Label();
+            richTextBox1 = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -104,7 +106,7 @@
             // 
             // videoSeed
             // 
-            videoSeed.Location = new Point(885, 388);
+            videoSeed.Location = new Point(542, 216);
             videoSeed.Name = "videoSeed";
             videoSeed.Size = new Size(121, 51);
             videoSeed.TabIndex = 0;
@@ -113,7 +115,7 @@
             // GenerateVideoButton
             // 
             GenerateVideoButton.Enabled = false;
-            GenerateVideoButton.Location = new Point(885, 359);
+            GenerateVideoButton.Location = new Point(542, 187);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);
             GenerateVideoButton.TabIndex = 1;
@@ -556,18 +558,16 @@
             // 
             trackBarMax.Location = new Point(327, 394);
             trackBarMax.Maximum = 1114111;
-            trackBarMax.Minimum = 32;
             trackBarMax.Name = "trackBarMax";
             trackBarMax.Size = new Size(104, 45);
             trackBarMax.TabIndex = 54;
-            trackBarMax.Value = 1114111;
+            trackBarMax.Value = 65533;
             trackBarMax.Scroll += trackBar2_Scroll;
             // 
             // trackBarMin
             // 
             trackBarMin.Location = new Point(327, 328);
-            trackBarMin.Maximum = 1114112;
-            trackBarMin.Minimum = 32;
+            trackBarMin.Maximum = 1114111;
             trackBarMin.Name = "trackBarMin";
             trackBarMin.Size = new Size(104, 45);
             trackBarMin.TabIndex = 55;
@@ -588,9 +588,9 @@
             label2.AutoSize = true;
             label2.Location = new Point(437, 395);
             label2.Name = "label2";
-            label2.Size = new Size(49, 15);
+            label2.Size = new Size(37, 15);
             label2.TabIndex = 57;
-            label2.Text = "1114111";
+            label2.Text = "65533";
             // 
             // label3
             // 
@@ -643,6 +643,7 @@
             // 
             // textFileNumeric
             // 
+            textFileNumeric.AccessibleDescription = "";
             textFileNumeric.Enabled = false;
             textFileNumeric.Location = new Point(118, 300);
             textFileNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
@@ -652,11 +653,32 @@
             textFileNumeric.TabIndex = 74;
             textFileNumeric.Value = new decimal(new int[] { 2, 0, 0, 0 });
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(506, 366);
+            label5.Name = "label5";
+            label5.Size = new Size(67, 15);
+            label5.TabIndex = 75;
+            label5.Text = "Description";
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.AccessibleDescription = "This is a description of the chosen UniCode preset.";
+            richTextBox1.Location = new Point(486, 388);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.ReadOnly = true;
+            richTextBox1.Size = new Size(520, 51);
+            richTextBox1.TabIndex = 76;
+            richTextBox1.Text = "";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 450);
+            Controls.Add(richTextBox1);
+            Controls.Add(label5);
             Controls.Add(textFileNumeric);
             Controls.Add(checkBox2);
             Controls.Add(comboBox1);
@@ -797,5 +819,7 @@
         private ComboBox comboBox1;
         private CheckBox checkBox2;
         private NumericUpDown textFileNumeric;
+        private Label label5;
+        private RichTextBox richTextBox1;
     }
 }

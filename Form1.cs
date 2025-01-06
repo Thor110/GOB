@@ -1,5 +1,8 @@
 ﻿namespace VideoLOB
 {
+    /// <summary>
+    /// Library of Babel generater form.
+    /// </summary>
     public partial class Form1 : Form
     {
         RandomTextGenerator TextGenerator = new RandomTextGenerator();
@@ -162,9 +165,9 @@
             }
         }
         /// <summary>
-        /// Book generator controls.
+        /// Minimum Unicode Range
         /// </summary>
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void trackBarMin_Scroll(object sender, EventArgs e)
         {
             if (trackBarMin.Value > trackBarMax.Value)
             {
@@ -174,7 +177,10 @@
             updateLabel1();
             updateDescription();
         }
-        private void trackBar2_Scroll(object sender, EventArgs e)
+        /// <summary>
+        /// Maximum Unicode Range
+        /// </summary>
+        private void trackBarMax_Scroll(object sender, EventArgs e)
         {
             if (trackBarMax.Value < trackBarMin.Value)
             {
@@ -184,20 +190,32 @@
             updateLabel2();
             updateDescription();
         }
+        /// <summary>
+        /// Update description and Unicode combo box.
+        /// </summary>
         private void updateDescription()
         {
             string custom = "Custom";
             comboBox1.Text = custom;
             richTextBox1.Text = custom;
         }
+        /// <summary>
+        /// Update minimum Unicode range label.
+        /// </summary>
         private void updateLabel1()
         {
             label1.Text = trackBarMin.Value.ToString();
         }
+        /// <summary>
+        /// Update maximum Unicode range label.
+        /// </summary>
         private void updateLabel2()
         {
             label2.Text = trackBarMax.Value.ToString();
         }
+        /// <summary>
+        /// Unicode presets dictionary.
+        /// </summary>
         private Dictionary<int, (string language, int min, int max, string description)> unicodeRanges = new Dictionary<int, (string language, int min, int max, string description)>
         {
             // Unicode Consortium
@@ -336,6 +354,9 @@
 0xFFF0, 0xFFFD   65520, 65533 Specials
             */
         };
+        /// <summary>
+        /// Unicode combobox index changed.
+        /// </summary>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             var selectedLanguage = (string)comboBox1.SelectedItem;
@@ -343,6 +364,11 @@
             richTextBox1.Text = range.description;
             SetUnicodeRange(range.min, range.max);
         }
+        /// <summary>
+        /// Set Unicode Range function
+        /// </summary>
+        /// <param name="min">Minimum range of the Unicode characters.</param>
+        /// <param name="max">Maximum range of the Unicode characters.</param>
         private void SetUnicodeRange(int min, int max)
         {
             trackBarMin.Value = min;
@@ -350,6 +376,9 @@
             label1.Text = trackBarMin.Value.ToString();
             label2.Text = trackBarMax.Value.ToString();
         }
+        /// <summary>
+        /// Multiple files checkbox checked.
+        /// </summary>
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             textFileNumeric.Enabled = checkBox2.Checked;

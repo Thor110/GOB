@@ -584,7 +584,7 @@
             trackBarMax.Size = new Size(104, 45);
             trackBarMax.TabIndex = 54;
             trackBarMax.Value = 65533;
-            trackBarMax.Scroll += trackBar2_Scroll;
+            trackBarMax.Scroll += trackBarMax_Scroll;
             // 
             // trackBarMin
             // 
@@ -596,7 +596,7 @@
             trackBarMin.Size = new Size(104, 45);
             trackBarMin.TabIndex = 55;
             trackBarMin.Value = 32;
-            trackBarMin.Scroll += trackBar1_Scroll;
+            trackBarMin.Scroll += trackBarMin_Scroll;
             // 
             // label1
             // 

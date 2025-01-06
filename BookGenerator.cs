@@ -91,7 +91,7 @@ public class RandomTextGenerator
         isFileName = true;
         string title = GenerateRandomString();
         setupString(contentLength);
-        charString = GenerateRandomCharacter();
+        charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
         setupParagraph(lineLength, paragraphLength);
         isFileName = false;
         AddNewLines(2);
@@ -164,7 +164,7 @@ public class RandomTextGenerator
         rangeMin = minRange;
         rangeMax = maxRange;
         charCounter = 0;
-        charString = GenerateRandomCharacter();
+        charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
         charStringLength = charString.Length;
     }
     /// <summary>

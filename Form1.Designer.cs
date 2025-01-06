@@ -138,12 +138,14 @@
             // 
             // seedText
             // 
+            seedText.AccessibleDescription = "The seed string for the generated file.";
             seedText.Location = new Point(12, 216);
             seedText.Name = "seedText";
             seedText.ReadOnly = true;
             seedText.Size = new Size(355, 51);
             seedText.TabIndex = 4;
             seedText.Text = "";
+            seedText.Visible = false;
             // 
             // durationText
             // 
@@ -194,6 +196,7 @@
             // 
             // channelsBox
             // 
+            channelsBox.AccessibleDescription = "The number of channels for the audio file to be generated.";
             channelsBox.FormattingEnabled = true;
             channelsBox.Items.AddRange(new object[] { "1", "2" });
             channelsBox.Location = new Point(91, 128);
@@ -204,6 +207,7 @@
             // 
             // depthBox
             // 
+            depthBox.AccessibleDescription = "The bit depth of the audio file to be generated.";
             depthBox.FormattingEnabled = true;
             depthBox.Items.AddRange(new object[] { "8", "16", "24", "32" });
             depthBox.Location = new Point(91, 158);
@@ -264,6 +268,7 @@
             // 
             // verticesNumeric
             // 
+            verticesNumeric.AccessibleDescription = "The number of vertices for the 3D model to be generated.";
             verticesNumeric.Location = new Point(835, 41);
             verticesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             verticesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -274,6 +279,7 @@
             // 
             // facesNumeric
             // 
+            facesNumeric.AccessibleDescription = "The number of faces for the 3D model to be generated.";
             facesNumeric.Location = new Point(835, 70);
             facesNumeric.Maximum = new decimal(new int[] { 1000, 0, 0, 0 });
             facesNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -324,6 +330,7 @@
             // 
             // widthNumeric
             // 
+            widthNumeric.AccessibleDescription = "The width of the image to be generated.";
             widthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
             widthNumeric.Location = new Point(541, 40);
             widthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
@@ -335,6 +342,7 @@
             // 
             // heightNumeric
             // 
+            heightNumeric.AccessibleDescription = "The height of the image to be generated.";
             heightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
             heightNumeric.Location = new Point(541, 69);
             heightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
@@ -375,6 +383,7 @@
             // 
             // durationNumeric
             // 
+            durationNumeric.AccessibleDescription = "The length or duration of the audio file to be generated.";
             durationNumeric.Location = new Point(92, 98);
             durationNumeric.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
             durationNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -385,6 +394,7 @@
             // 
             // sampleNumeric
             // 
+            sampleNumeric.AccessibleDescription = "The sample rate of the audio file to be generated.";
             sampleNumeric.Location = new Point(92, 41);
             sampleNumeric.Maximum = new decimal(new int[] { 44100, 0, 0, 0 });
             sampleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -395,6 +405,7 @@
             // 
             // frequencyNumeric
             // 
+            frequencyNumeric.AccessibleDescription = "The frequency of the audio file to be generated.";
             frequencyNumeric.Location = new Point(92, 69);
             frequencyNumeric.Maximum = new decimal(new int[] { 440, 0, 0, 0 });
             frequencyNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -405,6 +416,7 @@
             // 
             // scaleNumeric
             // 
+            scaleNumeric.AccessibleDescription = "The scale of the 3D model to be generated.";
             scaleNumeric.Location = new Point(835, 128);
             scaleNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             scaleNumeric.Name = "scaleNumeric";
@@ -434,6 +446,7 @@
             // 
             // titleNumeric
             // 
+            titleNumeric.AccessibleDescription = "The length of the Title and Filename.";
             titleNumeric.Location = new Point(118, 329);
             titleNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
             titleNumeric.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
@@ -444,6 +457,7 @@
             // 
             // contentNumeric
             // 
+            contentNumeric.AccessibleDescription = "The length of the content of the book.";
             contentNumeric.Increment = new decimal(new int[] { 80, 0, 0, 0 });
             contentNumeric.Location = new Point(118, 358);
             contentNumeric.Maximum = new decimal(new int[] { 80000000, 0, 0, 0 });
@@ -512,6 +526,7 @@
             // 
             // lineNumeric
             // 
+            lineNumeric.AccessibleDescription = "The length of each line in the book.";
             lineNumeric.Location = new Point(118, 387);
             lineNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             lineNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
@@ -540,6 +555,7 @@
             // 
             // paragraphNumeric
             // 
+            paragraphNumeric.AccessibleDescription = "The length of each paragraph in the book.";
             paragraphNumeric.Location = new Point(118, 416);
             paragraphNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             paragraphNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
@@ -560,8 +576,10 @@
             // 
             // trackBarMax
             // 
+            trackBarMax.AccessibleDescription = "Maximum range of the Unicode characters.";
             trackBarMax.Location = new Point(327, 394);
             trackBarMax.Maximum = 1114111;
+            trackBarMax.Minimum = 32;
             trackBarMax.Name = "trackBarMax";
             trackBarMax.Size = new Size(104, 45);
             trackBarMax.TabIndex = 54;
@@ -570,8 +588,10 @@
             // 
             // trackBarMin
             // 
+            trackBarMin.AccessibleDescription = "Minimum range of the Unicode characters.";
             trackBarMin.Location = new Point(327, 328);
             trackBarMin.Maximum = 1114111;
+            trackBarMin.Minimum = 32;
             trackBarMin.Name = "trackBarMin";
             trackBarMin.Size = new Size(104, 45);
             trackBarMin.TabIndex = 55;
@@ -627,6 +647,7 @@
             // 
             // comboBox1
             // 
+            comboBox1.AccessibleDescription = "A range of presets for different languages.";
             comboBox1.FormattingEnabled = true;
             comboBox1.Location = new Point(486, 331);
             comboBox1.Name = "comboBox1";
@@ -636,6 +657,7 @@
             // 
             // checkBox2
             // 
+            checkBox2.AccessibleDescription = "Enables the option to generate multiple files.";
             checkBox2.AutoSize = true;
             checkBox2.Location = new Point(244, 303);
             checkBox2.Name = "checkBox2";
@@ -647,7 +669,7 @@
             // 
             // textFileNumeric
             // 
-            textFileNumeric.AccessibleDescription = "";
+            textFileNumeric.AccessibleDescription = "The number of text files to generate.";
             textFileNumeric.Enabled = false;
             textFileNumeric.Location = new Point(118, 300);
             textFileNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
@@ -698,6 +720,7 @@
             // 
             // videoHeightNumeric
             // 
+            videoHeightNumeric.AccessibleDescription = "The width of the height to be generated.";
             videoHeightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
             videoHeightNumeric.Location = new Point(541, 187);
             videoHeightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
@@ -709,6 +732,7 @@
             // 
             // videoWidthNumeric
             // 
+            videoWidthNumeric.AccessibleDescription = "The width of the video to be generated.";
             videoWidthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
             videoWidthNumeric.Location = new Point(541, 158);
             videoWidthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
@@ -720,6 +744,7 @@
             // 
             // videoFramerateNumeric
             // 
+            videoFramerateNumeric.AccessibleDescription = "The framerate of the video to be generated.";
             videoFramerateNumeric.Location = new Point(541, 216);
             videoFramerateNumeric.Maximum = new decimal(new int[] { 440, 0, 0, 0 });
             videoFramerateNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
@@ -730,6 +755,7 @@
             // 
             // videoDurationNumeric
             // 
+            videoDurationNumeric.AccessibleDescription = "The length or duration of the video to be generated.";
             videoDurationNumeric.Location = new Point(541, 245);
             videoDurationNumeric.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
             videoDurationNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });

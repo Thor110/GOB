@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Diagnostics;
+using System;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.
@@ -101,18 +102,25 @@ public class RandomTextGenerator
             {
                 int counter = 1;
                 string newTitle = title;
+                // calculate the actual odds of generating the same file twice.
+                int baseRange = maxRange - minRange + 1;
+                // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
+                double rangePower = Math.Pow(baseRange, baseRange);
+                double actualOdds = Math.Pow(rangePower, titleLength);
                 while (File.Exists(newTitle + ".txt"))
                 {
                     newTitle = title + "_" + counter.ToString();
                     counter++;
                 }
-                //likelihood of the file already existing is 1,112,055^1,112,055^titleLength(default 16) = 1,236,666,323,025^16 / 1
                 File.WriteAllText(newTitle + ".txt", content);
-                MessageBox.Show("The chances of that happening were 1,236,666,323,025^16 to 1");
-                MessageBox.Show("or 2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000 to 1");
-                //2,992,544,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000,000
-                //1,236,666,323,025^16
-                //2.992544e+193
+                if (double.IsInfinity(actualOdds))
+                {
+                    MessageBox.Show($"The chances of that happening are virtually impossible! {actualOdds}\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
+                }
+                else
+                {
+                    MessageBox.Show($"The chances of that happening were {actualOdds} to 1!\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
+                }
             }
             else
             {

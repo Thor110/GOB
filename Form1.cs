@@ -2,9 +2,9 @@
 {
     public partial class Form1 : Form
     {
-        RandomTextGenerator RTG = new RandomTextGenerator();
+        RandomTextGenerator TextGenerator = new RandomTextGenerator();
         private System.Windows.Forms.ToolTip tooltip;
-        private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label) };
+        private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label), typeof(Button) };
         public Form1()
         {
             InitializeComponent();
@@ -72,8 +72,8 @@
         /// </summary>
         private void GenerateVideoButton_Click(object sender, EventArgs e)
         {
-            string seedString = GenerateSeedString();
-            seedText.Text = seedString;
+            //string seedString = GenerateSeedString();
+            //seedText.Text = seedString;
 
             string filePath = "random_video.avi";
             int width = Convert.ToInt32(videoWidthNumeric.Value);
@@ -90,8 +90,8 @@
         /// </summary>
         private void GenerateAudioButton_Click(object sender, EventArgs e)
         {
-            string seedString = GenerateSeedString();
-            seedText.Text = seedString;
+            //string seedString = GenerateSeedString();
+            //seedText.Text = seedString;
 
             // filename
             string filePath = "random_audio.wav";
@@ -148,16 +148,16 @@
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
             int minRange = trackBarMin.Value;
             int maxRange = trackBarMax.Value;
-
-            int operations = Convert.ToInt32(textFileNumeric.Value);
+            int operations;
             if (checkBox2.Checked)
             {
-                RTG.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations);
+                operations = Convert.ToInt32(textFileNumeric.Value);
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations);
                 MessageBox.Show("Books Generated!");
             }
             else
             {
-                RTG.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
                 MessageBox.Show("Book Generated!");
             }
         }
@@ -263,8 +263,8 @@
             { 55, ("Dingbats", 0x2700, 0x27BF, "Dingbats is a Unicode block containing dingbats (or typographical ornaments, like the ❦ FLORAL HEART character).") },
             { 56, ("Kangxi Radicals", 0x2F00, 0x2FDF, "A set of 214 radicals that were collated in the 18th-century Kangxi Dictionary to aid categorization of Chinese characters.") },
             { 57, ("Currency Symbols", 0x20A0, 0x20CF, "Currency symbols are visual representations of a currency unit. They are often used on price tags and receipts.") },
-            { 58, ("", 0x0000, 0xFFFD, "") },
-            { 59, ("Basic Unicode Range", 0x0000, 0xFFFD, "The basic range of Unicode characters.") }/*,
+            { 58, ("", 32, 0xFFFD, "") },
+            { 59, ("Basic Unicode Range", 32, 0xFFFD, "The basic range of Unicode characters.") }/*,
             { 60, ("", , "") },
             { 61, ("", , "") },
             { 62, ("", , "") },

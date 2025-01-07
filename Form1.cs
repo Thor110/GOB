@@ -168,7 +168,7 @@ namespace VideoLOB
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
             int operations;
             bool surrogates = false;
-            if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62)
+            if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62) // Surrogate Code Points Dictionary Entries
             {
                 surrogates = true;
             }
@@ -306,9 +306,9 @@ namespace VideoLOB
             { 58, ("Latin", 0x0081, 0x024F, "The language of ancient Rome and its empire, widely used historically as a language of scholarship and administration.") },
             { 59, ("Basic Unicode Range", 32, 0xFFFD, "The basic range of Unicode characters.") },
             { 60, ("Unified Canadian Aboriginal", 0x1400, 0x167F, "Canadian syllabic writing, or simply syllabics, is a family of writing systems used in a number of indigenous Canadian languages of the Algonquian, Inuit, and Athabaskan language families.") },
-            { 61, ("High Surrogates", 0xD800, 0xDBFF, "") },
-            { 62, ("Low Surrogates", 0xDC00, 0xDFFF, "") },
-            { 63, ("All Surrogates", 0xD800, 0xDFFF, "") }/*,
+            { 61, ("High Surrogates", 0xD800, 0xDBFF, "High Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
+            { 62, ("Low Surrogates", 0xDC00, 0xDFFF, "Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
+            { 63, ("All Surrogates", 0xD800, 0xDFFF, "High & Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") }/*,
             { 64, ("", , "") },
             { 65, ("", , "") },
             { 66, ("", , "") },
@@ -318,10 +318,6 @@ namespace VideoLOB
             { 70, ("", , "") },
             { 71, ("", , "") }*/
             /*
-            //
-0xD800, 0xDB7F   55296, 56191 High Surrogates
-0xDB80, 0xDBFF   56192, 56319 High Private Use Surrogates
-0xDC00, 0xDFFF   56320, 57343 Low Surrogates
             //
 0x3130, 0x318F   12592, 12687 Hangul Compatibility Jamo
 0xAC00, 0xD7A3   44032, 55203 Hangul Syllables

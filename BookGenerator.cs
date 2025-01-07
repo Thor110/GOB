@@ -17,11 +17,6 @@ public class RandomTextGenerator
     public int charCounter;
     public int lineCounter;
     public int charLineCounter;
-
-    //{ 62, ("Low Surrogates", 0xDC00, 0xDFFF, "") },
-    //{ 61, ("High Surrogates", 0xD800, 0xDBFF, "") },
-    //{ 63, ("All Surrogates", 0xD800, 0xDFFF, "") }
-
     public const int surrogateLowLow = 0xDC00;
     public const int surrogateLowHigh = 0xDfff;
     public const int surrogateHighLow = 0xD800;
@@ -93,22 +88,14 @@ public class RandomTextGenerator
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false)
     {
         isSurrogates = surrogates;
-
         isFileName = true;
         setupString(titleLength);
         setupCharacter(minRange, maxRange);
         string title = GenerateRandomString();
-
-
-        /*charStringLength = 0;
-        charCounter = 0;
-        lineCounter = 0;*/
-
         isFileName = false;
         setupString(contentLength);
         charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
         setupParagraph(lineLength, paragraphLength);
-
         AddNewLines(2);
         string content = GenerateRandomParagraph();
         try

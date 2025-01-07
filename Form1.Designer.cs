@@ -203,6 +203,7 @@
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
+            channelsBox.SelectedIndex = 0;
             // 
             // depthBox
             // 
@@ -213,6 +214,7 @@
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
+            depthBox.SelectedIndex = 1;
             // 
             // textBox1
             // 

@@ -10,6 +10,9 @@ namespace VideoLOB
         RandomTextGenerator TextGenerator = new RandomTextGenerator();
         private System.Windows.Forms.ToolTip tooltip;
         private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label), typeof(Button) };
+        private int titleLength;
+        private int minRange;
+        private int maxRange;
         public Form1()
         {
             InitializeComponent();
@@ -80,7 +83,8 @@ namespace VideoLOB
             //string seedString = GenerateSeedString();
             //seedText.Text = seedString;
 
-            string filePath = "random_video.avi";
+            CollectNameVariables();
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".avi";
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
             int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
@@ -99,7 +103,9 @@ namespace VideoLOB
             //seedText.Text = seedString;
 
             // filename
-            string filePath = "random_audio.wav";
+            CollectNameVariables();
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".wav";
+
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
             int frequency = Convert.ToInt32(frequencyNumeric.Value);// Frequency in Hz
@@ -117,7 +123,8 @@ namespace VideoLOB
         /// </summary>
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
-            string filePath = "random_image.png";
+            CollectNameVariables();
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".png";
 
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
@@ -131,7 +138,8 @@ namespace VideoLOB
         /// </summary>
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
-            string filePath = "random_model.obj";
+            CollectNameVariables();
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".obj";
 
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
@@ -145,15 +153,24 @@ namespace VideoLOB
         /// <summary>
         /// Book generator button.
         /// </summary>
+        private void CollectNameVariables()
+        {
+            titleLength = Convert.ToInt32(titleNumeric.Value);
+            minRange = trackBarMin.Value;
+            maxRange = trackBarMax.Value;
+        }
         private void GenerateBookButton_Click(object sender, EventArgs e)
         {
+            CollectNameVariables();
             int titleLength = Convert.ToInt32(titleNumeric.Value);
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            int minRange = trackBarMin.Value;
-            int maxRange = trackBarMax.Value;
             int operations;
+
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".obj";
+            MessageBox.Show(filePath);
+
             if (checkBox2.Checked)
             {
                 operations = Convert.ToInt32(textFileNumeric.Value);

@@ -201,7 +201,7 @@ public class RandomTextGenerator
     /// <remarks>
     /// If the generated character is a surrogate code point or an excluded character, generates a new character.
     /// </remarks>
-    public string GenerateSingleCharacter(int minRange = 32, int maxRange = 1114111, bool fileName = false)
+    public string GenerateSingleCharacter(int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
         setupCharacter(minRange, maxRange);
         isFileName = fileName;
@@ -219,7 +219,7 @@ public class RandomTextGenerator
     /// <remarks>
     /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
     /// </remarks>
-    public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 1114111, bool fileName = false)
+    public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
         setupCharacter(minRange, maxRange);
         setupString(stringLength);
@@ -240,7 +240,7 @@ public class RandomTextGenerator
     /// <remarks>
     /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
     /// </remarks>
-    public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 1114111, bool fileName = false)
+    public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
         setupCharacter(minRange, maxRange);
         setupString(contentLength);

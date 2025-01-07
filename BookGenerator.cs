@@ -1,6 +1,7 @@
 ﻿using System.Text;
 using System.Diagnostics;
 using System;
+using System.Security.Policy;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.
@@ -16,11 +17,15 @@ public class RandomTextGenerator
     public int charCounter;
     public int lineCounter;
     public int charLineCounter;
-    public const int surrogateLow = 55296;
-    public const int surrogateHigh = 57343;
-    // Surrogate Code Points ( Low - High )
-    // 55296    - 57343
-    // 0xd800   - 0xdfff
+
+    //{ 62, ("Low Surrogates", 0xDC00, 0xDFFF, "") },
+    //{ 61, ("High Surrogates", 0xD800, 0xDBFF, "") },
+    //{ 63, ("All Surrogates", 0xD800, 0xDFFF, "") }
+
+    public const int surrogateLowLow = 0xDC00;
+    public const int surrogateLowHigh = 0xDfff;
+    public const int surrogateHighLow = 0xD800;
+    public const int surrogateHighHigh = 0xDBFF;
     public int stringLength;
     public int line;
     public int paragraph;
@@ -31,6 +36,7 @@ public class RandomTextGenerator
     //  92      47      58      42      63      34      60      62      124
     //  \       /       :       *       ?       "       <       >       |
     public bool isFileName = true;
+    public bool isSurrogates = false;
     /// <summary>
     /// StopwatchWrapper class for the timer function.
     /// </summary>
@@ -63,16 +69,16 @@ public class RandomTextGenerator
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <param name="operations">The number of times to execute the function</param>
-    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 1114111, int operations = 1)
+    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, bool surrogates = false)
     {
         //using (var stopwatch = new StopwatchWrapper())
         //{
-            for (int i = 0; i < operations; i++)
-            {
-                //Debug.WriteLine("Iteration : " + i.ToString());
-                GenerateTextFile(titleLength, contentLength, lineLength = 80, paragraphLength = 40, minRange = 32, maxRange = 1114111);
-                //stopwatch.Test();
-            }
+        for (int i = 0; i < operations; i++)
+        {
+            //Debug.WriteLine("Iteration : " + i.ToString());
+            GenerateTextFile(titleLength, contentLength, lineLength = 80, paragraphLength = 40, minRange = 32, maxRange = 65533);
+            //stopwatch.Test();
+        }
         //}
     }
     /// <summary>
@@ -84,16 +90,25 @@ public class RandomTextGenerator
     /// <param name="paragraphLength">The length of each paragraph</param>
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
-    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 1114111)
+    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false)
     {
-        setupCharacter(minRange, maxRange);
-        setupString(titleLength);
+        isSurrogates = surrogates;
+
         isFileName = true;
+        setupString(titleLength);
+        setupCharacter(minRange, maxRange);
         string title = GenerateRandomString();
+
+
+        /*charStringLength = 0;
+        charCounter = 0;
+        lineCounter = 0;*/
+
+        isFileName = false;
         setupString(contentLength);
         charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
         setupParagraph(lineLength, paragraphLength);
-        isFileName = false;
+
         AddNewLines(2);
         string content = GenerateRandomParagraph();
         try
@@ -120,6 +135,7 @@ public class RandomTextGenerator
                 else
                 {
                     MessageBox.Show($"The chances of that happening were {actualOdds} to 1!\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
+
                 }
             }
             else
@@ -187,6 +203,7 @@ public class RandomTextGenerator
         charCounter = 0;
         lineCounter = 0;
         charLineCounter = 0;
+        charStringLength = 0;
         charLineCounter += charStringLength;
         charStringLength = charString.Length;
     }
@@ -257,10 +274,36 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateRandomCharacter()
     {
-        Int32 codePoint = random.Next(rangeMin, rangeMax); // exclude surrogate code points or exclude \/:*?"<>| in file names
-        if (codePoint >= surrogateLow && codePoint <= surrogateHigh || isFileName && excludedCharacters.Contains(codePoint))
+        Int32 codePoint = random.Next(rangeMin, rangeMax);
+        if (isFileName)
         {
-            return GenerateRandomCharacter();
+            if (isSurrogates) // exclude surrogate code points in file names
+            {
+                codePoint = random.Next(32, 126);
+            }
+            if (excludedCharacters.Contains(codePoint)) // exclude \/:*?"<>| in file names
+            {
+                return GenerateRandomCharacter();
+            }
+        }
+        else
+        {
+            if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
+            {
+                int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
+                string highSurrogateString = ((char)codePoint).ToString();
+                string lowSurrogateString = ((char)lowSurrogate).ToString();
+                charStringLength = lowSurrogateString.Length;
+                return highSurrogateString + lowSurrogateString;
+            }
+            if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
+            {
+                int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
+                string highSurrogateString = ((char)highSurrogate).ToString();
+                string lowSurrogateString = ((char)codePoint).ToString();
+                charStringLength = highSurrogateString.Length;
+                return highSurrogateString + lowSurrogateString;
+            }
         }
         return char.ConvertFromUtf32(codePoint);
     }
@@ -273,7 +316,7 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateRandomString()
     {
-        while(charCounter + charStringLength < stringLength)
+        while (charCounter + charStringLength < stringLength)
         {
             if (charCounter + charStringLength > stringLength)
             {
@@ -292,7 +335,7 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateRandomParagraph()
     {
-        while(charCounter + charStringLength < stringLength)
+        while (charCounter + charStringLength < stringLength + 1)//1 nazi bastard
         {
             if (charLineCounter + charStringLength > line)
             {

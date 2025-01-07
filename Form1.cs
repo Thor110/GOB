@@ -167,19 +167,20 @@ namespace VideoLOB
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
             int operations;
-
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".obj";
-            MessageBox.Show(filePath);
-
+            bool surrogates = false;
+            if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62)
+            {
+                surrogates = true;
+            }
             if (checkBox2.Checked)
             {
                 operations = Convert.ToInt32(textFileNumeric.Value);
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations);
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates);
                 MessageBox.Show("Books Generated!");
             }
             else
             {
-                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange);
+                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates);
                 MessageBox.Show("Book Generated!");
             }
         }
@@ -304,10 +305,10 @@ namespace VideoLOB
             { 57, ("Currency Symbols", 0x20A0, 0x20CF, "Currency symbols are visual representations of a currency unit. They are often used on price tags and receipts.") },
             { 58, ("Latin", 0x0081, 0x024F, "The language of ancient Rome and its empire, widely used historically as a language of scholarship and administration.") },
             { 59, ("Basic Unicode Range", 32, 0xFFFD, "The basic range of Unicode characters.") },
-            { 60, ("Unified Canadian Aboriginal", 0x1400, 0x167F, "Canadian syllabic writing, or simply syllabics, is a family of writing systems used in a number of indigenous Canadian languages of the Algonquian, Inuit, and Athabaskan language families.") }/*,
-            { 61, ("", , "") },
-            { 62, ("", , "") },
-            { 63, ("", , "") },
+            { 60, ("Unified Canadian Aboriginal", 0x1400, 0x167F, "Canadian syllabic writing, or simply syllabics, is a family of writing systems used in a number of indigenous Canadian languages of the Algonquian, Inuit, and Athabaskan language families.") },
+            { 61, ("High Surrogates", 0xD800, 0xDBFF, "") },
+            { 62, ("Low Surrogates", 0xDC00, 0xDFFF, "") },
+            { 63, ("All Surrogates", 0xD800, 0xDFFF, "") }/*,
             { 64, ("", , "") },
             { 65, ("", , "") },
             { 66, ("", , "") },
@@ -317,6 +318,11 @@ namespace VideoLOB
             { 70, ("", , "") },
             { 71, ("", , "") }*/
             /*
+            //
+0xD800, 0xDB7F   55296, 56191 High Surrogates
+0xDB80, 0xDBFF   56192, 56319 High Private Use Surrogates
+0xDC00, 0xDFFF   56320, 57343 Low Surrogates
+            //
 0x3130, 0x318F   12592, 12687 Hangul Compatibility Jamo
 0xAC00, 0xD7A3   44032, 55203 Hangul Syllables
 0x0250, 0x02AF   592, 687 IPA Extensions
@@ -351,10 +357,6 @@ namespace VideoLOB
             //
 0xA000, 0xA48F   40960, 42127 Yi Syllables
 0xA490, 0xA4CF   42128, 42191 Yi Radicals
-            //
-0xD800, 0xDB7F   55296, 56191 High Surrogates
-0xDB80, 0xDBFF   56192, 56319 High Private Use Surrogates
-0xDC00, 0xDFFF   56320, 57343 Low Surrogates
             //
 0xE000, 0xF8FF   57344, 63743 Private Use
             //

@@ -17,10 +17,10 @@ public class RandomTextGenerator
     public int charCounter;
     public int lineCounter;
     public int charLineCounter;
-    public const int surrogateLowLow = 0xDC00;
-    public const int surrogateLowHigh = 0xDfff;
     public const int surrogateHighLow = 0xD800;
     public const int surrogateHighHigh = 0xDBFF;
+    public const int surrogateLowLow = 0xDC00;
+    public const int surrogateLowHigh = 0xDfff;
     public int stringLength;
     public int line;
     public int paragraph;
@@ -87,28 +87,31 @@ public class RandomTextGenerator
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false)
     {
-        isSurrogates = surrogates;
+        isSurrogates = surrogates; // are the surrogate code points presets being used
+        // file name
         isFileName = true;
         setupString(titleLength);
         setupCharacter(minRange, maxRange);
         string title = GenerateRandomString();
+        // body text
         isFileName = false;
         setupString(contentLength);
         charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
         setupParagraph(lineLength, paragraphLength);
+        // title/file name \n\n body text
         AddNewLines(2);
         string content = GenerateRandomParagraph();
+        // try catch exceptions
         try
         {
             if (File.Exists(title + ".txt"))
             {
                 int counter = 1;
                 string newTitle = title;
-                // calculate the actual odds of generating the same file twice.
-                int baseRange = maxRange - minRange + 1;
-                // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
-                double rangePower = Math.Pow(baseRange, baseRange);
-                double actualOdds = Math.Pow(rangePower, titleLength);
+                int baseRange = maxRange - minRange + 1; // calculate the actual odds of generating the same file twice.
+                double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
+                double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
+                double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
                 while (File.Exists(newTitle + ".txt"))
                 {
                     newTitle = title + "_" + counter.ToString();
@@ -122,7 +125,6 @@ public class RandomTextGenerator
                 else
                 {
                     MessageBox.Show($"The chances of that happening were {actualOdds} to 1!\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
-
                 }
             }
             else
@@ -239,17 +241,15 @@ public class RandomTextGenerator
     /// <param name="paragraphLength">The length of each paragraph</param>
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
-    /// <param name="fileName">Whether to exclude characters that are illegal for filenames</param>
     /// <returns>A single paragraph as a string</returns>
     /// <remarks>
     /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
     /// </remarks>
-    public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool fileName = false)
+    public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533)
     {
         setupCharacter(minRange, maxRange);
         setupString(contentLength);
         setupParagraph(lineLength, paragraphLength);
-        isFileName = fileName;
         return GenerateRandomParagraph();
     }
     /// <summary>
@@ -264,11 +264,11 @@ public class RandomTextGenerator
         Int32 codePoint = random.Next(rangeMin, rangeMax);
         if (isFileName)
         {
-            if (isSurrogates) // exclude surrogate code points in file names
+            if (isSurrogates) // exclude surrogate code points in file names when using the surrogate code points presets
             {
-                codePoint = random.Next(32, 126);
+                codePoint = random.Next(32, 126); // use the basic ASCII range for this case
             }
-            if (excludedCharacters.Contains(codePoint)) // exclude \/:*?"<>| in file names
+            if (excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
             {
                 return GenerateRandomCharacter();
             }
@@ -281,7 +281,7 @@ public class RandomTextGenerator
                 string highSurrogateString = ((char)codePoint).ToString();
                 string lowSurrogateString = ((char)lowSurrogate).ToString();
                 charStringLength = lowSurrogateString.Length;
-                return highSurrogateString + lowSurrogateString;
+                return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
             }
             if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
             {
@@ -289,7 +289,7 @@ public class RandomTextGenerator
                 string highSurrogateString = ((char)highSurrogate).ToString();
                 string lowSurrogateString = ((char)codePoint).ToString();
                 charStringLength = highSurrogateString.Length;
-                return highSurrogateString + lowSurrogateString;
+                return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
             }
         }
         return char.ConvertFromUtf32(codePoint);
@@ -322,7 +322,7 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateRandomParagraph()
     {
-        while (charCounter + charStringLength < stringLength + 1)//1 nazi bastard
+        while (charCounter + charStringLength < stringLength + 1) // account for zero ( + 1 )
         {
             if (charLineCounter + charStringLength > line)
             {

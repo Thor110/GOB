@@ -9,6 +9,8 @@ public class RandomTextGenerator
     public Random random = new Random();
     public StringBuilder randomText = new StringBuilder();
     public string charString = string.Empty;
+    public string title = string.Empty;
+    public string content = string.Empty;
     public int charStringLength;
     public int rangeMin;
     public int rangeMax;
@@ -65,16 +67,12 @@ public class RandomTextGenerator
     /// <param name="operations">The number of times to execute the function</param>
     public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, bool surrogates = false, List<Range> ranges = null!)
     {
-        if (ranges != null)
-        {
-            //use available ranges to generate the text on a per character basis.
-        }
         //using (var stopwatch = new StopwatchWrapper())
         //{
         for (int i = 0; i < operations; i++)
         {
             //Debug.WriteLine("Iteration : " + i.ToString());
-            GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates);
+            GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, ranges!);
             //stopwatch.Test();
         }
         //}
@@ -90,24 +88,52 @@ public class RandomTextGenerator
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false, List<Range> ranges = null!)
     {
-        if (ranges != null)
-        {
-            //use available ranges to generate the text on a per character basis.
-        }
         isSurrogates = surrogates; // are the surrogate code points presets being used
         // file name
         isFileName = true;
+        // use different ranges
         setupString(titleLength);
-        setupCharacter(minRange, maxRange);
-        string title = GenerateRandomString();
-        // body text
-        isFileName = false;
-        setupString(contentLength);
-        charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
-        setupParagraph(lineLength, paragraphLength);
-        // title/file name \n\n body text
-        AddNewLines(2);
-        string content = GenerateRandomParagraph();
+        if (ranges != null)
+        {
+            //use available ranges to generate the text on a per character basis.
+            int totalRandomCharactersToCollect = titleLength + contentLength;
+            for(int i = 0; i < totalRandomCharactersToCollect; i++)
+            {
+                // get a random range
+                int randomRange = random.Next(0, ranges.Count);
+                Range selectedRange = ranges[randomRange];
+                minRange = selectedRange.Start.Value;
+                maxRange = selectedRange.End.Value;
+                setupCharacter(minRange, maxRange);
+
+
+                //The following code needs either rewriting or adapting so that each character uses a different range
+                /*
+                // this all needs to be changed so that it doesn't use the same range repeatedly
+                title = GenerateRandomString();
+                // body text
+                isFileName = false;
+                setupString(contentLength);
+                charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
+                setupParagraph(lineLength, paragraphLength);
+                // title/file name \n\n body text
+                AddNewLines(2);
+                content = GenerateRandomParagraph();*/
+            }
+        }
+        else
+        {
+            setupCharacter(minRange, maxRange);
+            title = GenerateRandomString();
+            // body text
+            isFileName = false;
+            setupString(contentLength);
+            charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
+            setupParagraph(lineLength, paragraphLength);
+            // title/file name \n\n body text
+            AddNewLines(2);
+            content = GenerateRandomParagraph();
+        }
         // try catch exceptions
         try
         {

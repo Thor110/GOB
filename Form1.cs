@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace VideoLOB
 {
@@ -14,7 +15,7 @@ namespace VideoLOB
         private int minRange;
         private int maxRange;
         //private Range[] range = new Range[0]; // use an array of ranges to pass to the text generation functions
-        private List<Range> range = new List<Range>();
+        private List<Range> ranges = new List<Range>();
         private bool surrogates;
         public Form1()
         {
@@ -163,12 +164,18 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            if (comboBox2.Items.Count > 0)
+            if (comboBox2.Items.Count > 1)
             {
+                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, ranges);
                 MessageBox.Show("Generating using a list of presets. FUNCTION NOT READY YET!");
                 return;
             }
-            if (checkBox2.Checked)
+            else if(comboBox2.Items.Count == 1)
+            {
+                MessageBox.Show("Add more than one preset to the list.");
+                return;
+            }
+            else if (checkBox2.Checked)
             {
                 int operations = Convert.ToInt32(textFileNumeric.Value);
                 TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates);
@@ -452,11 +459,11 @@ namespace VideoLOB
         }
         private void AddRange(Range newRange)
         {
-            range.Add(newRange);
+            ranges.Add(newRange);
         }
         private void ClearRanges()
         {
-            range.Clear();
+            ranges.Clear();
         }
     }
 }

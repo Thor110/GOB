@@ -94,6 +94,10 @@
             videoDurationNumeric = new NumericUpDown();
             textBox24 = new TextBox();
             textBox25 = new TextBox();
+            addButton = new Button();
+            comboBox2 = new ComboBox();
+            clearButton = new Button();
+            label6 = new Label();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -203,7 +207,6 @@
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
-            channelsBox.SelectedIndex = 0;
             // 
             // depthBox
             // 
@@ -214,7 +217,6 @@
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
-            depthBox.SelectedIndex = 1;
             // 
             // textBox1
             // 
@@ -784,11 +786,53 @@
             textBox25.Text = "Framerate";
             textBox25.TextAlign = HorizontalAlignment.Right;
             // 
+            // addButton
+            // 
+            addButton.Location = new Point(669, 331);
+            addButton.Name = "addButton";
+            addButton.Size = new Size(75, 23);
+            addButton.TabIndex = 85;
+            addButton.Text = "Add";
+            addButton.UseVisualStyleBackColor = true;
+            addButton.Click += addButton_Click;
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(750, 331);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(175, 23);
+            comboBox2.TabIndex = 86;
+            comboBox2.Text = "Array of Presets";
+            // 
+            // clearButton
+            // 
+            clearButton.Location = new Point(931, 331);
+            clearButton.Name = "clearButton";
+            clearButton.Size = new Size(75, 23);
+            clearButton.TabIndex = 87;
+            clearButton.Text = "Clear";
+            clearButton.UseVisualStyleBackColor = true;
+            clearButton.Click += clearButton_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(779, 307);
+            label6.Name = "label6";
+            label6.Size = new Size(81, 15);
+            label6.TabIndex = 88;
+            label6.Text = "Presets To Use";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 450);
+            Controls.Add(label6);
+            Controls.Add(clearButton);
+            Controls.Add(comboBox2);
+            Controls.Add(addButton);
             Controls.Add(videoFramerateNumeric);
             Controls.Add(videoDurationNumeric);
             Controls.Add(textBox24);
@@ -952,5 +996,9 @@
         private NumericUpDown videoDurationNumeric;
         private TextBox textBox24;
         private TextBox textBox25;
+        private Button addButton;
+        private ComboBox comboBox2;
+        private Button clearButton;
+        private Label label6;
     }
 }

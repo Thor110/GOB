@@ -13,6 +13,7 @@ namespace VideoLOB
         private int titleLength;
         private int minRange;
         private int maxRange;
+        private bool surrogates;
         public Form1()
         {
             InitializeComponent();
@@ -84,7 +85,7 @@ namespace VideoLOB
             //seedText.Text = seedString;
 
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".avi";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".avi";
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
             int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
@@ -104,7 +105,7 @@ namespace VideoLOB
 
             // filename
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".wav";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".wav";
 
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
@@ -124,7 +125,7 @@ namespace VideoLOB
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".png";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".png";
 
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
@@ -139,7 +140,7 @@ namespace VideoLOB
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".obj";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".obj";
 
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
@@ -166,15 +167,14 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            int operations;
-            bool surrogates = false;
-            if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62) // Surrogate Code Points Dictionary Entries
+            if (comboBox2.Items.Count >= 1)
             {
-                surrogates = true;
+                MessageBox.Show("Generating using a list of presets. FUNCTION NOT READY YET!");
+                return;
             }
             if (checkBox2.Checked)
             {
-                operations = Convert.ToInt32(textFileNumeric.Value);
+                int operations = Convert.ToInt32(textFileNumeric.Value);
                 TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates);
                 MessageBox.Show("Books Generated!");
             }
@@ -374,6 +374,14 @@ namespace VideoLOB
         /// </summary>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62) // Surrogate Code Points Dictionary Entries
+            {
+                surrogates = true;
+            }
+            else
+            {
+                surrogates = false;
+            }
             var selectedLanguage = (string)comboBox1.SelectedItem;
             var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
             richTextBox1.Text = range.description;
@@ -397,6 +405,36 @@ namespace VideoLOB
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             textFileNumeric.Enabled = checkBox2.Checked;
+        }
+        private void addButton_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != "Custom")
+            {
+                if(comboBox2.Items.Contains(comboBox1.SelectedItem))
+                {
+                    MessageBox.Show("That preset has already been added to the list.");
+                }
+                else
+                {
+                    comboBox2.Items.Add(comboBox1.SelectedItem);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Select a preset to add to the list.");
+            }
+        }
+        private void clearButton_Click(object sender, EventArgs e)
+        {
+            if (comboBox2.Items.Count >= 1)
+            {
+                comboBox2.Items.Clear(); // the dropdown stays long?
+                comboBox2.Text = "Array of Presets";
+            }
+            else
+            {
+                MessageBox.Show("Nothing has been added to the list.");
+            }
         }
     }
 }

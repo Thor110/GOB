@@ -1,7 +1,5 @@
 ﻿using System.Text;
 using System.Diagnostics;
-using System;
-using System.Security.Policy;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.
@@ -71,7 +69,7 @@ public class RandomTextGenerator
         for (int i = 0; i < operations; i++)
         {
             //Debug.WriteLine("Iteration : " + i.ToString());
-            GenerateTextFile(titleLength, contentLength, lineLength = 80, paragraphLength = 40, minRange = 32, maxRange = 65533);
+            GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates);
             //stopwatch.Test();
         }
         //}
@@ -209,8 +207,8 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateSingleCharacter(int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
-        setupCharacter(minRange, maxRange);
         isFileName = fileName;
+        setupCharacter(minRange, maxRange);
         return GenerateRandomCharacter();
     }
     /// <summary>
@@ -225,11 +223,12 @@ public class RandomTextGenerator
     /// <remarks>
     /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
     /// </remarks>
-    public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 65533, bool fileName = false)
+    public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 65533, bool fileName = false, bool surrogates = false)
     {
+        isFileName = fileName;
+        isSurrogates = surrogates;
         setupCharacter(minRange, maxRange);
         setupString(stringLength);
-        isFileName = fileName;
         return GenerateRandomString();
     }
     /// <summary>
@@ -268,8 +267,8 @@ public class RandomTextGenerator
             {
                 codePoint = random.Next(32, 126); // use the basic ASCII range for this case
             }
-            if (excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
-            {
+            if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh || excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
+            { // check for surrogates here too for when generating regular file names
                 return GenerateRandomCharacter();
             }
         }

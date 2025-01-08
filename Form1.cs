@@ -167,6 +167,7 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            //Range []range = { }; // use an array of ranges to pass to the text generation functions
             if (comboBox2.Items.Count >= 1)
             {
                 MessageBox.Show("Generating using a list of presets. FUNCTION NOT READY YET!");

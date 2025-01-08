@@ -13,7 +13,8 @@ namespace VideoLOB
         private int titleLength;
         private int minRange;
         private int maxRange;
-        private Range[]range = new Range[0]; // use an array of ranges to pass to the text generation functions
+        //private Range[] range = new Range[0]; // use an array of ranges to pass to the text generation functions
+        private List<Range> range = new List<Range>();
         private bool surrogates;
         public Form1()
         {
@@ -27,7 +28,7 @@ namespace VideoLOB
         private void InitializeTooltips()
         {
             this.components = new System.ComponentModel.Container();
-            this.tooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.tooltip = new ToolTip(this.components);
             foreach (Control control in this.Controls)
             {
                 if (excludedControlTypes.Contains(control.GetType()) != true)
@@ -162,7 +163,7 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            if (comboBox2.Items.Count >= 1)
+            if (comboBox2.Items.Count > 0)
             {
                 MessageBox.Show("Generating using a list of presets. FUNCTION NOT READY YET!");
                 return;
@@ -312,8 +313,8 @@ namespace VideoLOB
             { 60, ("Unified Canadian Aboriginal", 0x1400, 0x167F, "Canadian syllabic writing, or simply syllabics, is a family of writing systems used in a number of indigenous Canadian languages of the Algonquian, Inuit, and Athabaskan language families.") },
             { 61, ("High Surrogates", 0xD800, 0xDBFF, "High Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
             { 62, ("Low Surrogates", 0xDC00, 0xDFFF, "Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
-            { 63, ("All Surrogates", 0xD800, 0xDFFF, "High & Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") }/*,
-            { 64, ("", , "") },
+            { 63, ("All Surrogates", 0xD800, 0xDFFF, "High & Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
+            { 64, ("Full Unicode Range", 32, 1114111, "The full range of the Unicode values, most of which are unused as of 2025.") }/*,
             { 65, ("", , "") },
             { 66, ("", , "") },
             { 67, ("", , "") },
@@ -412,33 +413,50 @@ namespace VideoLOB
         }
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text != "Custom")
+            if (comboBox1.Text == "Custom")
             {
-                if(comboBox2.Items.Contains(comboBox1.SelectedItem))
+                MessageBox.Show("Select a preset to add to the list.");
+            }
+            else if (comboBox1.Text == "Full Unicode Range")
+            {
+                MessageBox.Show("The Full Unicode Range preset cannot be added to the list as it contains all possible values.\n\nJust generate a file using this range instead.");
+            }
+            else
+            {
+                if (comboBox2.Items.Contains(comboBox1.SelectedItem))
                 {
                     MessageBox.Show("That preset has already been added to the list.");
                 }
                 else
                 {
                     comboBox2.Items.Add(comboBox1.SelectedItem);
+                    var selectedLanguage = (string)comboBox1.SelectedItem;
+                    var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
+                    Range theRange = new Range(range.min, range.max);
+                    AddRange(theRange);
                 }
-            }
-            else
-            {
-                MessageBox.Show("Select a preset to add to the list.");
             }
         }
         private void clearButton_Click(object sender, EventArgs e)
         {
-            if (comboBox2.Items.Count >= 1)
+            if (comboBox2.Items.Count > 0)
             {
                 comboBox2.Items.Clear(); // the dropdown retains its height?
                 comboBox2.Text = "Array of Presets";
+                ClearRanges();
             }
             else
             {
                 MessageBox.Show("Nothing has been added to the list.");
             }
+        }
+        private void AddRange(Range newRange)
+        {
+            range.Add(newRange);
+        }
+        private void ClearRanges()
+        {
+            range.Clear();
         }
     }
 }

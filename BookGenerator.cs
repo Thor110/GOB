@@ -30,6 +30,7 @@ public class RandomTextGenerator
     //  \       /       :       *       ?       "       <       >       |
     public bool isFileName = true;
     public bool isSurrogates = false;
+    private List<Range> range = new List<Range>();
     /// <summary>
     /// StopwatchWrapper class for the timer function.
     /// </summary>
@@ -62,8 +63,12 @@ public class RandomTextGenerator
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <param name="operations">The number of times to execute the function</param>
-    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, bool surrogates = false)
+    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, bool surrogates = false, List<Range> ranges = null!)
     {
+        if (ranges != null)
+        {
+            //use available ranges to generate the text on a per character basis.
+        }
         //using (var stopwatch = new StopwatchWrapper())
         //{
         for (int i = 0; i < operations; i++)
@@ -83,8 +88,12 @@ public class RandomTextGenerator
     /// <param name="paragraphLength">The length of each paragraph</param>
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
-    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false)
+    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false, List<Range> ranges = null!)
     {
+        if (ranges != null)
+        {
+            //use available ranges to generate the text on a per character basis.
+        }
         isSurrogates = surrogates; // are the surrogate code points presets being used
         // file name
         isFileName = true;

@@ -1,4 +1,4 @@
-﻿using static System.Net.WebRequestMethods;
+﻿using System.Windows.Forms;
 
 namespace VideoLOB
 {
@@ -8,11 +8,12 @@ namespace VideoLOB
     public partial class Form1 : Form
     {
         RandomTextGenerator TextGenerator = new RandomTextGenerator();
-        private System.Windows.Forms.ToolTip tooltip;
+        private ToolTip tooltip = new ToolTip();
         private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label), typeof(Button) };
         private int titleLength;
         private int minRange;
         private int maxRange;
+        private Range[]range = new Range[0]; // use an array of ranges to pass to the text generation functions
         private bool surrogates;
         public Form1()
         {
@@ -50,9 +51,9 @@ namespace VideoLOB
         /// <summary>
         /// Tooltip mouse event handlers.
         /// </summary>
-        void tooltip_MouseEnter(object sender, EventArgs e)
+        void tooltip_MouseEnter(object? sender, EventArgs e)
         {
-            Control control = (Control)sender;
+            Control control = (Control)sender!;
             if (control.AccessibleDescription != null)
             {
                 this.tooltip.Show(control.AccessibleDescription.ToString(), control);
@@ -62,9 +63,9 @@ namespace VideoLOB
                 this.tooltip.Show("No description available", control);
             }
         }
-        void tooltip_MouseLeave(object sender, EventArgs e)
+        void tooltip_MouseLeave(object? sender, EventArgs e)
         {
-            this.tooltip.Hide((Control)sender);
+            tooltip.Hide((Control)sender!);
         }
         /// <summary>
         /// Seed string generator (incomplete function)
@@ -154,12 +155,6 @@ namespace VideoLOB
         /// <summary>
         /// Book generator button.
         /// </summary>
-        private void CollectNameVariables()
-        {
-            titleLength = Convert.ToInt32(titleNumeric.Value);
-            minRange = trackBarMin.Value;
-            maxRange = trackBarMax.Value;
-        }
         private void GenerateBookButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
@@ -167,7 +162,6 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            //Range []range = { }; // use an array of ranges to pass to the text generation functions
             if (comboBox2.Items.Count >= 1)
             {
                 MessageBox.Show("Generating using a list of presets. FUNCTION NOT READY YET!");
@@ -184,6 +178,15 @@ namespace VideoLOB
                 TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates);
                 MessageBox.Show("Book Generated!");
             }
+        }
+        /// <summary>
+        /// Collet named variables for generating filenames.
+        /// </summary>
+        private void CollectNameVariables()
+        {
+            titleLength = Convert.ToInt32(titleNumeric.Value);
+            minRange = trackBarMin.Value;
+            maxRange = trackBarMax.Value;
         }
         /// <summary>
         /// Minimum Unicode Range
@@ -429,7 +432,7 @@ namespace VideoLOB
         {
             if (comboBox2.Items.Count >= 1)
             {
-                comboBox2.Items.Clear(); // the dropdown stays long?
+                comboBox2.Items.Clear(); // the dropdown retains its height?
                 comboBox2.Text = "Array of Presets";
             }
             else

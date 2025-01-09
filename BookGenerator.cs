@@ -1,6 +1,5 @@
 ﻿using System.Text;
 using System.Diagnostics;
-using System;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.
@@ -33,7 +32,6 @@ public class RandomTextGenerator
     //  \       /       :       *       ?       "       <       >       |
     public bool isFileName = true;
     public bool isSurrogates = false;
-    private List<Range> range = new List<Range>();
     /// <summary>
     /// StopwatchWrapper class for the timer function.
     /// </summary>
@@ -261,7 +259,7 @@ public class RandomTextGenerator
     {
         charStringLength = 0;
         charString = "";
-        //randomText.Clear();
+        randomText.Clear();
         rangeMin = minRange;
         rangeMax = maxRange;
         charCounter = 0;

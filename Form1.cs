@@ -164,28 +164,30 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            if (comboBox2.Items.Count > 1)
+            if (comboBox2.Items.Count <= 1)
             {
-                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, ranges);
-                MessageBox.Show("Generating using a list of presets. FUNCTION NOT READY YET!");
-                return;
+                if (comboBox2.Items.Count == 1)
+                {
+                    MessageBox.Show("Add more than one preset to the list.");
+                    return;
+                }
             }
-            else if(comboBox2.Items.Count == 1)
+            GenerateBook(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, comboBox2.Items.Count > 1 ? ranges : null!);
+        }
+        private void GenerateBook(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange, bool surrogates, List<Range> ranges)
+        {
+            bool generateMultipleFiles = checkBox2.Checked;
+            int operations = generateMultipleFiles ? Convert.ToInt32(textFileNumeric.Value) : 1;
+            string message = generateMultipleFiles ? (ranges != null ? "Books Generated! PRESET RANGES MULTIPLE FILES" : "Books Generated!") : (ranges != null ? "Book Generated! PRESET RANGES" : "Book Generated!");
+            if (generateMultipleFiles)
             {
-                MessageBox.Show("Add more than one preset to the list.");
-                return;
-            }
-            else if (checkBox2.Checked)
-            {
-                int operations = Convert.ToInt32(textFileNumeric.Value);
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates);
-                MessageBox.Show("Books Generated!");
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates, ranges!);
             }
             else
             {
-                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates);
-                MessageBox.Show("Book Generated!");
+                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, ranges!);
             }
+            MessageBox.Show(message);
         }
         /// <summary>
         /// Collet named variables for generating filenames.

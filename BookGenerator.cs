@@ -95,30 +95,35 @@ public class RandomTextGenerator
         setupString(titleLength);
         if (ranges != null)
         {
-            //use available ranges to generate the text on a per character basis.
-            int totalRandomCharactersToCollect = titleLength + contentLength;
-            for(int i = 0; i < totalRandomCharactersToCollect; i++)
+            // get first random
+            int randomRange = random.Next(0, ranges.Count);
+            Range selectedRange = ranges[randomRange];
+            title = "";
+            content = "";
+            for (int i = 0; i < titleLength; i++)
             {
-                // get a random range
-                int randomRange = random.Next(0, ranges.Count);
-                Range selectedRange = ranges[randomRange];
-                minRange = selectedRange.Start.Value;
-                maxRange = selectedRange.End.Value;
-                setupCharacter(minRange, maxRange);
-
-
-                //The following code needs either rewriting or adapting so that each character uses a different range
-                /*
-                // this all needs to be changed so that it doesn't use the same range repeatedly
-                title = GenerateRandomString();
-                // body text
-                isFileName = false;
-                setupString(contentLength);
-                charString = GenerateRandomCharacter(); // Generate the second random character and ensure it is added to the Length value. - Must be done here.
-                setupParagraph(lineLength, paragraphLength);
-                // title/file name \n\n body text
-                AddNewLines(2);
-                content = GenerateRandomParagraph();*/
+                rangeMin = selectedRange.Start.Value;
+                rangeMax = selectedRange.End.Value;
+                charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
+                title += charString;
+                // get new random
+                randomRange = random.Next(0, ranges.Count);
+                selectedRange = ranges[randomRange];
+            }
+            content += title;
+            content += "\n\n";
+            // get new random
+            randomRange = random.Next(0, ranges.Count);
+            selectedRange = ranges[randomRange];
+            for (int i = 0; i < contentLength; i++)
+            {
+                rangeMin = selectedRange.Start.Value;
+                rangeMax = selectedRange.End.Value;
+                charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
+                content += charString;
+                // get new random
+                randomRange = random.Next(0, ranges.Count);
+                selectedRange = ranges[randomRange];
             }
         }
         else

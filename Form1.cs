@@ -184,7 +184,7 @@ namespace VideoLOB
                 MessageBox.Show("Add more than one preset to the list.");
                 return;
             }
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates, generateMultipleFiles ? ranges! : null!);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates, ranges.Count != 0 ? ranges! : null!);
             MessageBox.Show(message);
         }
         /// <summary>
@@ -424,9 +424,13 @@ namespace VideoLOB
             {
                 MessageBox.Show("Select a preset to add to the list.");
             }
+            else if (comboBox1.Text == "Basic Unicode Range")
+            {
+                MessageBox.Show("The Basic Unicode Range preset cannot be added to the list as it contains all the basic possible values.\n\nJust generate a file using this range instead.");
+            }
             else if (comboBox1.Text == "Full Unicode Range")
             {
-                MessageBox.Show("The Full Unicode Range preset cannot be added to the list as it contains all possible values.\n\nJust generate a file using this range instead.");
+                MessageBox.Show("The Full Unicode Range preset cannot be added to the list as it contains all the extended possible values.\n\nJust generate a file using this range instead.");
             }
             else
             {

@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Diagnostics;
+using System;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.
@@ -25,7 +26,7 @@ public class RandomTextGenerator
     public int line;
     public int paragraph;
     public int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
-    //  1,114,079 all possible UniCode characters included excluding 0-31
+    //  1,114,079 all possible UniCode characters included excluding control characters 0-32
     //  Table of Excluded Characters ( Hex, Dec, Sym ) 2,056 Excluded Characters including Surrogate Code Points
     //  0x5C    0x2F    0x3A    0x2A    0x3F    0x22    0x3C    0x3E    0x7C
     //  92      47      58      42      63      34      60      62      124
@@ -89,10 +90,11 @@ public class RandomTextGenerator
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false, List<Range> ranges = null!)
     {
         isSurrogates = surrogates; // are the surrogate code points presets being used
-        // file name
-        isFileName = true;
+        
+        isFileName = true; // is generating a file name first always
+        //setupString(titleLength);
+        //stringLength = titleLength;
         // use different ranges
-        setupString(titleLength);
         if (ranges != null)
         {
             // get first random
@@ -106,28 +108,82 @@ public class RandomTextGenerator
                 rangeMax = selectedRange.End.Value;
                 charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
                 title += charString;
-                // get new random
+                // get new random range
                 randomRange = random.Next(0, ranges.Count);
                 selectedRange = ranges[randomRange];
             }
             content += title;
             content += "\n\n";
-            // get new random
+            isFileName = false;
+            //charStringLength = 0;
+            // get new random range
             randomRange = random.Next(0, ranges.Count);
             selectedRange = ranges[randomRange];
             for (int i = 0; i < contentLength; i++)
             {
+                if (charCounter + charStringLength < contentLength + 1) // account for zero ( + 1 )
+                {
+                    if (charLineCounter + charStringLength > lineLength)
+                    {
+                        content += "\n";
+                        charLineCounter = 0;
+                        lineCounter++;
+                    }
+                    if (lineCounter == paragraphLength)
+                    {
+                        content += "\n";
+                        lineCounter = 0;
+                    }
+                    charCounter += charStringLength;
+                    charLineCounter += charStringLength;
+                    charStringLength = charString.Length;
+                }
                 rangeMin = selectedRange.Start.Value;
                 rangeMax = selectedRange.End.Value;
                 charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
                 content += charString;
-                // get new random
+                // get new random range
                 randomRange = random.Next(0, ranges.Count);
                 selectedRange = ranges[randomRange];
             }
         }
         else
         {
+            // get first random
+            /*title = "";
+            content = "";
+            for (int i = 0; i < titleLength; i++)
+            {
+                charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
+                title += charString;
+                // get new random range
+            }
+            MessageBox.Show(title);
+            content += title;
+            content += "\n\n";
+            for (int i = 0; i < contentLength; i++)
+            {
+                if (charCounter + charStringLength < contentLength + 1) // account for zero ( + 1 )
+                {
+                    if (charLineCounter + charStringLength > lineLength)
+                    {
+                        content += "\n";
+                        charLineCounter = 0;
+                        lineCounter++;
+                    }
+                    if (lineCounter == paragraphLength)
+                    {
+                        content += "\n";
+                        lineCounter = 0;
+                    }
+                    charCounter += charStringLength;
+                    charLineCounter += charStringLength;
+                    charStringLength = charString.Length;
+                }
+                charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
+                content += charString;
+            }*/
+            setupString(titleLength);
             setupCharacter(minRange, maxRange);
             title = GenerateRandomString();
             // body text

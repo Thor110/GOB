@@ -165,9 +165,6 @@ namespace VideoLOB
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
             bool generateMultipleFiles = checkBox2.Checked;
-            /*int operations = generateMultipleFiles ? Convert.ToInt32(textFileNumeric.Value) : 1;
-            string message = generateMultipleFiles ? "Books Generated!" : "Books Generated!";*/
-            //string message = generateMultipleFiles ? (ranges != null ? "Books Generated! PRESET RANGES MULTIPLE FILES" : "Books Generated!") : (ranges != null ? "Book Generated! PRESET RANGES" : "Book Generated!");
             int operations = 1;
             string message;
             if (generateMultipleFiles)

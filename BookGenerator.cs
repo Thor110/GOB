@@ -112,7 +112,6 @@ public class RandomTextGenerator
             content += title;
             content += "\n\n";
             isFileName = false;
-            //charStringLength = 0;
             // get new random range
             randomRange = random.Next(0, ranges.Count);
             selectedRange = ranges[randomRange];

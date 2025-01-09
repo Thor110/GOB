@@ -66,6 +66,8 @@ public class RandomTextGenerator
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <param name="operations">The number of times to execute the function</param>
+    /// <param name="surrogates">Whether or not surrogate code points are being used</param>
+    /// <param name="ranges">Lists all chosen ranges selected by the user</param>
     public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, bool surrogates = false, List<Range> ranges = null!)
     {
         //using (var stopwatch = new StopwatchWrapper())
@@ -87,6 +89,8 @@ public class RandomTextGenerator
     /// <param name="paragraphLength">The length of each paragraph</param>
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
+    /// <param name="surrogates">Whether or not surrogate code points are being used</param>
+    /// <param name="ranges">Lists all chosen ranges selected by the user</param>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false, List<Range> ranges = null!)
     {
         isSurrogates = surrogates; // are the surrogate code points presets being used
@@ -257,7 +261,8 @@ public class RandomTextGenerator
     public void setupCharacter(int minRange, int maxRange)
     {
         charStringLength = 0;
-        randomText.Clear();
+        charString = "";
+        //randomText.Clear();
         rangeMin = minRange;
         rangeMax = maxRange;
         charCounter = 0;
@@ -404,6 +409,7 @@ public class RandomTextGenerator
             }
             UpdateString();
         }
+        //return title;
         return randomText.ToString();
     }
     /// <summary>
@@ -434,6 +440,7 @@ public class RandomTextGenerator
             }
             UpdateString();
         }
+        //return content;
         return randomText.ToString();
     }
     /// <summary>
@@ -443,6 +450,7 @@ public class RandomTextGenerator
     {
         charCounter += charStringLength;//previous length
         charLineCounter += charStringLength;//previous length
+        //content += charString;
         randomText.Append(charString);//add character to string
         charString = GenerateRandomCharacter();//generate
         charStringLength = charString.Length;//next length
@@ -455,6 +463,7 @@ public class RandomTextGenerator
     {
         for (int i = 0; i < newLines; i++)
         {
+            //content += Environment.NewLine;
             randomText.Append(Environment.NewLine);
         }
     }

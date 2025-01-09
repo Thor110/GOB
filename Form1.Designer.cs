@@ -788,6 +788,7 @@
             // 
             // addButton
             // 
+            addButton.AccessibleDescription = "Add to the presets array.";
             addButton.Location = new Point(669, 331);
             addButton.Name = "addButton";
             addButton.Size = new Size(75, 23);
@@ -798,6 +799,7 @@
             // 
             // comboBox2
             // 
+            comboBox2.AccessibleDescription = "An array of presets for generating text using different presets at the same time.";
             comboBox2.FormattingEnabled = true;
             comboBox2.Location = new Point(750, 331);
             comboBox2.Name = "comboBox2";
@@ -807,6 +809,7 @@
             // 
             // clearButton
             // 
+            clearButton.AccessibleDescription = "Clear the presets array.";
             clearButton.Location = new Point(931, 331);
             clearButton.Name = "clearButton";
             clearButton.Size = new Size(75, 23);

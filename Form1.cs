@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace VideoLOB
+﻿namespace VideoLOB
 {
     /// <summary>
     /// Library of Babel generater form.
@@ -14,9 +11,7 @@ namespace VideoLOB
         private int titleLength;
         private int minRange;
         private int maxRange;
-        //private Range[] range = new Range[0]; // use an array of ranges to pass to the text generation functions
         private List<Range> ranges = new List<Range>();
-        private bool surrogates;
         public Form1()
         {
             InitializeComponent();
@@ -88,7 +83,7 @@ namespace VideoLOB
             //seedText.Text = seedString;
 
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".avi";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".avi";
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
             int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
@@ -108,7 +103,7 @@ namespace VideoLOB
 
             // filename
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".wav";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".wav";
 
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
@@ -128,7 +123,7 @@ namespace VideoLOB
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".png";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".png";
 
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
@@ -143,7 +138,7 @@ namespace VideoLOB
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true, surrogates) + ".obj";
+            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".obj";
 
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
@@ -181,7 +176,7 @@ namespace VideoLOB
                 MessageBox.Show("Add more than one preset to the list.");
                 return;
             }
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates, ranges.Count != 0 ? ranges! : null!);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!);
             MessageBox.Show(message);
         }
         /// <summary>
@@ -385,13 +380,13 @@ namespace VideoLOB
         {
             if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62) // Surrogate Code Points Dictionary Entries
             {
-                surrogates = true;
+                //surrogates = true;
                 MessageBox.Show("Surrogate code points cannot be used in file names, so ASCII will be used instead and the text inside the file will contain surrogate pairs.");
-            }
+            }/*
             else
             {
                 surrogates = false;
-            }
+            }*/
             var selectedLanguage = (string)comboBox1.SelectedItem;
             var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
             richTextBox1.Text = range.description;
@@ -466,6 +461,19 @@ namespace VideoLOB
         private void ClearRanges()
         {
             ranges.Clear();
+        }
+        // Buttons specifically for testing the reusable methods that return a single character, string or paragraph.
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(TextGenerator.GenerateSingleCharacter());
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(TextGenerator.GenerateSingleString());
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(TextGenerator.GenerateSingleParagraph());
         }
     }
 }

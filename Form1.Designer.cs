@@ -98,6 +98,9 @@
             comboBox2 = new ComboBox();
             clearButton = new Button();
             label6 = new Label();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -827,11 +830,44 @@
             label6.TabIndex = 88;
             label6.Text = "Presets To Use";
             // 
+            // button1
+            // 
+            button1.Location = new Point(12, 271);
+            button1.Name = "button1";
+            button1.Size = new Size(100, 23);
+            button1.TabIndex = 89;
+            button1.Text = "Character";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // button2
+            // 
+            button2.Location = new Point(118, 271);
+            button2.Name = "button2";
+            button2.Size = new Size(100, 23);
+            button2.TabIndex = 90;
+            button2.Text = "String";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
+            // 
+            // button3
+            // 
+            button3.Location = new Point(224, 271);
+            button3.Name = "button3";
+            button3.Size = new Size(100, 23);
+            button3.TabIndex = 91;
+            button3.Text = "Paragraph";
+            button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 450);
+            Controls.Add(button3);
+            Controls.Add(button2);
+            Controls.Add(button1);
             Controls.Add(label6);
             Controls.Add(clearButton);
             Controls.Add(comboBox2);
@@ -1003,5 +1039,8 @@
         private ComboBox comboBox2;
         private Button clearButton;
         private Label label6;
+        private Button button1;
+        private Button button2;
+        private Button button3;
     }
 }

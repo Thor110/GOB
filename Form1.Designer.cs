@@ -832,6 +832,7 @@
             // 
             // button1
             // 
+            button1.AccessibleDescription = "Generates and displays a single random character using the selected preset.";
             button1.Location = new Point(12, 271);
             button1.Name = "button1";
             button1.Size = new Size(100, 23);
@@ -842,6 +843,7 @@
             // 
             // button2
             // 
+            button2.AccessibleDescription = "Generates and displays a single random string using the selected preset.";
             button2.Location = new Point(118, 271);
             button2.Name = "button2";
             button2.Size = new Size(100, 23);
@@ -852,6 +854,7 @@
             // 
             // button3
             // 
+            button3.AccessibleDescription = "Generates and displays a single random paragraph using the selected preset.";
             button3.Location = new Point(224, 271);
             button3.Name = "button3";
             button3.Size = new Size(100, 23);

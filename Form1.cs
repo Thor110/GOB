@@ -465,15 +465,18 @@
         // Buttons specifically for testing the reusable methods that return a single character, string or paragraph.
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(TextGenerator.GenerateSingleCharacter());
+            CollectNameVariables();
+            MessageBox.Show(TextGenerator.GenerateSingleCharacter(minRange, maxRange, false));
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(TextGenerator.GenerateSingleString());
+            CollectNameVariables();
+            MessageBox.Show(TextGenerator.GenerateSingleString(16, minRange, maxRange, false));
         }
         private void button3_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(TextGenerator.GenerateSingleParagraph());
+            CollectNameVariables();
+            MessageBox.Show(TextGenerator.GenerateSingleParagraph(800, 80, 40, minRange, maxRange));
         }
     }
 }

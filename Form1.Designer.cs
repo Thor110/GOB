@@ -848,7 +848,7 @@
             button2.Name = "button2";
             button2.Size = new Size(100, 23);
             button2.TabIndex = 90;
-            button2.Text = "String";
+            button2.Text = "Title";
             button2.UseVisualStyleBackColor = true;
             button2.Click += button2_Click;
             // 
@@ -859,7 +859,7 @@
             button3.Name = "button3";
             button3.Size = new Size(100, 23);
             button3.TabIndex = 91;
-            button3.Text = "Paragraph";
+            button3.Text = "Content";
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 

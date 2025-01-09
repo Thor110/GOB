@@ -111,7 +111,7 @@ public class RandomTextGenerator
                 title += charString;
             }
             content += title;
-            content += "\n\n";
+            AddNewLines(2);
             isFileName = false;
             int totalContentLength = 0;
             int totalLines = contentLength / lineLength;
@@ -128,13 +128,13 @@ public class RandomTextGenerator
                 {
                     currentLine++;
                     if (currentLine >= totalLines) { break; }
-                    content += "\n";
+                    AddNewLines(1);
                     charLineCounter = 0;
                     lineCounter++;
                 }
                 if (lineCounter == paragraphLength)
                 {
-                    content += "\n";
+                    AddNewLines(1);
                     lineCounter = 0;
                 }
                 charCounter += charStringLength;
@@ -155,7 +155,7 @@ public class RandomTextGenerator
                 title += charString;
             }
             content += title;
-            content += "\n\n";
+            AddNewLines(2);
             isFileName = false;
             int totalContentLength = 0;
             int totalLines = contentLength / lineLength;
@@ -168,13 +168,13 @@ public class RandomTextGenerator
                 {
                     currentLine++;
                     if (currentLine >= totalLines) { break; }
-                    content += "\n";
+                    AddNewLines(1);
                     charLineCounter = 0;
                     lineCounter++;
                 }
                 if (lineCounter == paragraphLength)
                 {
-                    content += "\n";
+                    AddNewLines(1);
                     lineCounter = 0;
                 }
                 charCounter += charStringLength;

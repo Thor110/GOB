@@ -93,34 +93,40 @@ public class RandomTextGenerator
     /// <param name="ranges">Lists all chosen ranges selected by the user</param>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false, List<Range> ranges = null!)
     {
-        isSurrogates = surrogates; // are the surrogate code points presets being used
-        isFileName = true; // is generating a file name first always
+        isSurrogates = surrogates;
+        isFileName = true;
+        // reset specific values
+        title = "";
+        content = "";
+        charLineCounter = 0;
+        lineCounter = 0;
+        charCounter = 0;
+        charStringLength = 0;
         // use different ranges
         if (ranges != null)
         {
-            // get first random
-            int randomRange = random.Next(0, ranges.Count);
-            Range selectedRange = ranges[randomRange];
-            title = "";
-            content = "";
+            int randomRange;
+            Range selectedRange;
             for (int i = 0; i < titleLength; i++)
             {
-                rangeMin = selectedRange.Start.Value;
-                rangeMax = selectedRange.End.Value;
-                charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
-                title += charString;
-                // get new random range
                 randomRange = random.Next(0, ranges.Count);
                 selectedRange = ranges[randomRange];
+                rangeMin = selectedRange.Start.Value;
+                rangeMax = selectedRange.End.Value;
+                charString = GenerateRandomCharacter(); 
+                title += charString;
             }
             content += title;
             content += "\n\n";
             isFileName = false;
-            // get new random range
-            randomRange = random.Next(0, ranges.Count);
-            selectedRange = ranges[randomRange];
             for (int i = 0; i < contentLength; i++)
             {
+                randomRange = random.Next(0, ranges.Count);
+                selectedRange = ranges[randomRange];
+                rangeMin = selectedRange.Start.Value;
+                rangeMax = selectedRange.End.Value;
+                charString = GenerateRandomCharacter();
+                content += charString;
                 if (charCounter + charStringLength < contentLength + 1) // account for zero ( + 1 )
                 {
                     if (charLineCounter + charStringLength > lineLength)
@@ -138,13 +144,6 @@ public class RandomTextGenerator
                     charLineCounter += charStringLength;
                     charStringLength = charString.Length;
                 }
-                rangeMin = selectedRange.Start.Value;
-                rangeMax = selectedRange.End.Value;
-                charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
-                content += charString;
-                // get new random range
-                randomRange = random.Next(0, ranges.Count);
-                selectedRange = ranges[randomRange];
             }
         }
         else
@@ -366,7 +365,7 @@ public class RandomTextGenerator
             {
                 codePoint = random.Next(32, 126); // use the basic ASCII range for this case
             }
-            if (excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
+            if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh || excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
             {
                 return GenerateRandomCharacter();
             }
@@ -409,7 +408,6 @@ public class RandomTextGenerator
             }
             UpdateString();
         }
-        //return title;
         return randomText.ToString();
     }
     /// <summary>
@@ -440,7 +438,6 @@ public class RandomTextGenerator
             }
             UpdateString();
         }
-        //return content;
         return randomText.ToString();
     }
     /// <summary>
@@ -450,7 +447,6 @@ public class RandomTextGenerator
     {
         charCounter += charStringLength;//previous length
         charLineCounter += charStringLength;//previous length
-        //content += charString;
         randomText.Append(charString);//add character to string
         charString = GenerateRandomCharacter();//generate
         charStringLength = charString.Length;//next length
@@ -463,7 +459,6 @@ public class RandomTextGenerator
     {
         for (int i = 0; i < newLines; i++)
         {
-            //content += Environment.NewLine;
             randomText.Append(Environment.NewLine);
         }
     }

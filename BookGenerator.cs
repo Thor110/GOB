@@ -390,7 +390,7 @@ public class RandomTextGenerator
     {
         while (charCounter + charStringLength < stringLength)
         {
-            if (charCounter + charStringLength > stringLength)
+            if (charCounter + charStringLength > stringLength + 1) // account for zero ( + 1 )
             {
                 break;
             }

@@ -471,12 +471,16 @@
         private void button2_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            MessageBox.Show(TextGenerator.GenerateSingleString(16, minRange, maxRange, false));
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            MessageBox.Show(TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, false));
         }
         private void button3_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            MessageBox.Show(TextGenerator.GenerateSingleParagraph(800, 80, 40, minRange, maxRange));
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            MessageBox.Show(TextGenerator.GenerateSingleParagraph(contentLength, lineLength, paragraphLength, minRange, maxRange));
         }
     }
 }

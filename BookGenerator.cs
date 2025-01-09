@@ -25,7 +25,7 @@ public class RandomTextGenerator
     public int line;
     public int paragraph;
     public int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
-    //  1,112,055 all possible UniCode characters included
+    //  1,114,079 all possible UniCode characters included excluding 0-31
     //  Table of Excluded Characters ( Hex, Dec, Sym ) 2,056 Excluded Characters including Surrogate Code Points
     //  0x5C    0x2F    0x3A    0x2A    0x3F    0x22    0x3C    0x3E    0x7C
     //  92      47      58      42      63      34      60      62      124

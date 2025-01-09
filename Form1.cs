@@ -164,29 +164,27 @@ namespace VideoLOB
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            if (comboBox2.Items.Count <= 1)
-            {
-                if (comboBox2.Items.Count == 1)
-                {
-                    MessageBox.Show("Add more than one preset to the list.");
-                    return;
-                }
-            }
-            GenerateBook(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, comboBox2.Items.Count > 1 ? ranges : null!);
-        }
-        private void GenerateBook(int titleLength, int contentLength, int lineLength, int paragraphLength, int minRange, int maxRange, bool surrogates, List<Range> ranges)
-        {
             bool generateMultipleFiles = checkBox2.Checked;
-            int operations = generateMultipleFiles ? Convert.ToInt32(textFileNumeric.Value) : 1;
-            string message = generateMultipleFiles ? (ranges != null ? "Books Generated! PRESET RANGES MULTIPLE FILES" : "Books Generated!") : (ranges != null ? "Book Generated! PRESET RANGES" : "Book Generated!");
+            /*int operations = generateMultipleFiles ? Convert.ToInt32(textFileNumeric.Value) : 1;
+            string message = generateMultipleFiles ? "Books Generated!" : "Books Generated!";*/
+            //string message = generateMultipleFiles ? (ranges != null ? "Books Generated! PRESET RANGES MULTIPLE FILES" : "Books Generated!") : (ranges != null ? "Book Generated! PRESET RANGES" : "Book Generated!");
+            int operations = 1;
+            string message;
             if (generateMultipleFiles)
             {
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates, ranges!);
+                operations = Convert.ToInt32(textFileNumeric.Value);
+                message = "Books Generated!";
             }
             else
             {
-                TextGenerator.GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, surrogates, ranges!);
+                message = "Book Generated!";
             }
+            if (comboBox2.Items.Count == 1)
+            {
+                MessageBox.Show("Add more than one preset to the list.");
+                return;
+            }
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, surrogates, generateMultipleFiles ? ranges! : null!);
             MessageBox.Show(message);
         }
         /// <summary>

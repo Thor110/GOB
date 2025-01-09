@@ -90,10 +90,7 @@ public class RandomTextGenerator
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, bool surrogates = false, List<Range> ranges = null!)
     {
         isSurrogates = surrogates; // are the surrogate code points presets being used
-        
         isFileName = true; // is generating a file name first always
-        //setupString(titleLength);
-        //stringLength = titleLength;
         // use different ranges
         if (ranges != null)
         {
@@ -149,6 +146,7 @@ public class RandomTextGenerator
         }
         else
         {
+            //New Method returning illegal filenames somehow?
             // get first random
             /*title = "";
             content = "";
@@ -183,6 +181,7 @@ public class RandomTextGenerator
                 charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
                 content += charString;
             }*/
+            //Old String Builder Method
             setupString(titleLength);
             setupCharacter(minRange, maxRange);
             title = GenerateRandomString();
@@ -363,8 +362,8 @@ public class RandomTextGenerator
             {
                 codePoint = random.Next(32, 126); // use the basic ASCII range for this case
             }
-            if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh || excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
-            { // check for surrogates here too for when generating regular file names
+            if (excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
+            {
                 return GenerateRandomCharacter();
             }
         }

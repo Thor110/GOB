@@ -200,6 +200,8 @@ public class RandomTextGenerator
             File.AppendAllText("error.log", "Exception: this is a catch-all for any other unexpected exceptions that may occur.");
         }
         // enclosed methods to reduce code duplication
+        // consider promoting to reusable methods
+        // that does however mean promoting the ranges variable which results in it being passed to the class then created rather than just being passed.
         void ReturnRandomRange()
         {
             randomRange = random.Next(0, ranges.Count);
@@ -298,6 +300,7 @@ public class RandomTextGenerator
     /*
      * Everything below is the old method and individual reusable methods for returning a single character, string or paragraph.
      * Might or might not be worth updating.
+     * Updated GenerateSingleString, now just pass ranges or not.
      */
     /// <summary>
     /// Generates a single random character and returns it as a string.
@@ -330,10 +333,22 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
-        isFileName = fileName;
-        setupCharacter(minRange, maxRange);
-        setupString(stringLength);
-        return GenerateRandomString();
+        isFileName = fileName; // is filename or not
+        //setupCharacter(minRange, maxRange);
+        // refactoring >
+        charStringLength = 0;
+        charString = "";
+        content = "";
+        rangeMin = minRange;
+        rangeMax = maxRange;
+        charCounter = 0;
+        // refactoring ^
+        title = ""; // reset title variable
+        for (int i = 0; i < stringLength; i++)
+        {
+            GenerateTitle();
+        }
+        return title;
     }
     /// <summary>
     /// Generates a single random paragraph and returns it as a string.
@@ -351,8 +366,17 @@ public class RandomTextGenerator
     public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533)
     {
         setupCharacter(minRange, maxRange);
-        setupString(contentLength);
-        setupParagraph(lineLength, paragraphLength);
+        stringLength = contentLength;
+        //setupParagraph(lineLength, paragraphLength);
+        paragraph = paragraphLength;
+        line = lineLength;
+        charCounter = 0;
+        lineCounter = 0;
+        charLineCounter = 0;
+        charStringLength = 0;
+        charLineCounter += charStringLength;
+        charStringLength = charString.Length;
+        // ^ old setupParagraph block
         return GenerateRandomParagraph();
     }
     /// <summary>
@@ -372,36 +396,6 @@ public class RandomTextGenerator
         rangeMax = maxRange;
         charCounter = 0;
         charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
-        charStringLength = charString.Length;
-    }
-    /// <summary>
-    /// Setup for generating a single string.
-    /// </summary>
-    /// <param name="length">The length of the string</param>
-    /// <remarks>
-    /// Sets up the required variables for generating a string.
-    /// </remarks>
-    public void setupString(int length)
-    {
-        stringLength = length;
-    }
-    /// <summary>
-    /// Setup for generating a single paragraph.
-    /// </summary>
-    /// <param name="lineLength">The length of each line</param>
-    /// <param name="paragraphLength">The length of each paragraph</param>
-    /// <remarks>
-    /// Sets up the required variables for generating a paragraph.
-    /// </remarks>
-    public void setupParagraph(int lineLength, int paragraphLength)
-    {
-        paragraph = paragraphLength;
-        line = lineLength;
-        charCounter = 0;
-        lineCounter = 0;
-        charLineCounter = 0;
-        charStringLength = 0;
-        charLineCounter += charStringLength;
         charStringLength = charString.Length;
     }
     /// <summary>

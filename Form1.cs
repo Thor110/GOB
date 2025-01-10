@@ -307,71 +307,55 @@
             { 55, ("Dingbats", 0x2700, 0x27BF, "Dingbats is a Unicode block containing dingbats (or typographical ornaments, like the ❦ FLORAL HEART character).") },
             { 56, ("Kangxi Radicals", 0x2F00, 0x2FDF, "A set of 214 radicals that were collated in the 18th-century Kangxi Dictionary to aid categorization of Chinese characters.") },
             { 57, ("Currency Symbols", 0x20A0, 0x20CF, "Currency symbols are visual representations of a currency unit. They are often used on price tags and receipts.") },
-            { 58, ("Latin", 0x0081, 0x024F, "The language of ancient Rome and its empire, widely used historically as a language of scholarship and administration.") },
+            { 58, ("Latin-1 Supplement & Extended A + B", 0x0081, 0x024F, "The language of ancient Rome and its empire, widely used historically as a language of scholarship and administration.") },
             { 59, ("Basic Unicode Range", 32, 0xFFFD, "The basic range of Unicode characters.") },
             { 60, ("Unified Canadian Aboriginal", 0x1400, 0x167F, "Canadian syllabic writing, or simply syllabics, is a family of writing systems used in a number of indigenous Canadian languages of the Algonquian, Inuit, and Athabaskan language families.") },
             { 61, ("High Surrogates", 0xD800, 0xDBFF, "High Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
             { 62, ("Low Surrogates", 0xDC00, 0xDFFF, "Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
             { 63, ("All Surrogates", 0xD800, 0xDFFF, "High & Low Surrogate Code Points. Surrogates are bit patterns used in the UTF-16 encoding of Unicode code points to indicate that a particular 16-bit field does not encode a complete code point by itself, and must be combined with the following or preceding 16-bit field to produce a double-width encoding of some code point.") },
-            { 64, ("Full Unicode Range", 32, 1114111, "The full range of the Unicode values, most of which are unused as of 2025.") }/*,
-            { 65, ("", , "") },
-            { 66, ("", , "") },
-            { 67, ("", , "") },
-            { 68, ("", , "") },
-            { 69, ("", , "") },
-            { 70, ("", , "") },
-            { 71, ("", , "") }*/
-            /*
-            //
-0x3130, 0x318F   12592, 12687 Hangul Compatibility Jamo
-0xAC00, 0xD7A3   44032, 55203 Hangul Syllables
-0x0250, 0x02AF   592, 687 IPA Extensions
-0x02B0, 0x02FF   688, 767 Spacing Modifier Letters
-0x0300, 0x036F   768, 879 Combining Diacritical Marks
-0x1E00, 0x1EFF   7680, 7935   Latin Extended Additional
-0x2000, 0x206F   8192, 8303   General Punctuation
-0x2070, 0x209F   8304, 8351   Superscripts and Subscripts
-0x20D0, 0x20FF   8400, 8447   Combining Marks for Symbols
-0x2100, 0x214F   8448, 8527   Letterlike Symbols
-0x2150, 0x218F   8528, 8591   Number Forms
-0x2190, 0x21FF   8592, 8703   Arrows
-0x2200, 0x22FF   8704, 8959   Mathematical Operators
-0x2300, 0x23FF   8960, 9215   Miscellaneous Technical
-0x2400, 0x243F   9216, 9279   Control Pictures
-0x2440, 0x245F   9280, 9311   Optical Character Recognition
-0x2460, 0x24FF   9312, 9471   Enclosed Alphanumerics
-0x2500, 0x257F   9472, 9599   Box Drawing
-0x2580, 0x259F   9600, 9631   Block Elements
-0x25A0, 0x25FF   9632, 9727   Geometric Shapes
-0x2600, 0x26FF   9728, 9983   Miscellaneous Symbols
-0x2800, 0x28FF   10240, 10495 Braille Patterns
-0x2E80, 0x2EFF   11904, 12031 CJK Radicals Supplement
-            //
-0x2FF0, 0x2FFF   12272, 12287 Ideographic Description Characters
-0x3000, 0x303F   12288, 12351 CJK Symbols and Punctuation
-0x3200, 0x32FF   12800, 13055 Enclosed CJK Letters and Months
-0x3300, 0x33FF   13056, 13311 CJK Compatibility
-0x3400, 0x4DB5   13312, 19893 CJK Unified Ideographs Extension A
-
-0x4E00, 0x9FFF   19968, 40959 CJK Unified Ideographs
-            //
-0xA000, 0xA48F   40960, 42127 Yi Syllables
-0xA490, 0xA4CF   42128, 42191 Yi Radicals
-            //
-0xE000, 0xF8FF   57344, 63743 Private Use
-            //
-0xF900, 0xFAFF   63744, 64255 CJK Compatibility Ideographs
-0xFB00, 0xFB4F   64256, 64335 Alphabetic Presentation Forms
-0xFB50, 0xFDFF   64336, 65023 Arabic Presentation Forms, A
-            //
-0xFE20, 0xFE2F   65056, 65071 Combining Half Marks
-0xFE30, 0xFE4F   65072, 65103 CJK Compatibility Forms
-0xFE50, 0xFE6F   65104, 65135 Small Form Variants
-0xFE70, 0xFEFE   65136, 65278 Arabic Presentation Forms, B
-0xFEFF, 0xFEFF   65279, 65279 Specials
-0xFF00, 0xFFEF   65280, 65519 Halfwidth and Fullwidth Forms
-0xFFF0, 0xFFFD   65520, 65533 Specials
-            */
+            { 64, ("Full Unicode Range", 32, 1114111, "The full range of the Unicode values, most of which are unused as of 2025.") },
+            { 65, ("Box Drawing", 0x2500, 0x257F, "Characters for creating box-like structures, including borders, corners, and intersections, used for drawing tables, frames, and other rectangular shapes. Includes horizontal, vertical, and diagonal lines, as well as corners and junctions.") },
+            { 66, ("Block Elements", 0x2580, 0x259F, "Characters for creating larger patterns and designs using blocks of different sizes and shapes used for creating charts, graphs, and other visual representations of data. Includes blocks of different sizes, shapes, and shading, as well as quarter blocks and other fractional blocks.") },
+            { 67, ("Geometric Shapes", 0x25A0, 0x25FF, "Characters representing various geometric shapes, including squares, circles, triangles, and more used for creating diagrams, illustrations, and other visual aids. Includes shapes with different orientations, sizes, and fills, as well as shapes with holes or cutouts.") },
+            { 68, ("Arrows", 0x2190, 0x21FF, "Characters representing different types of arrows, including single-headed, double-headed, and curved arrows, used for indicating direction, movement, or relationships between objects. Includes arrows of different lengths, orientations, and styles, as well as arrows with different types of heads and tails.") },
+            { 69, ("Mathematical Operators", 0x2200, 0x22FF, "Characters for mathematical operators, including symbols for arithmetic, algebra, and other mathematical operations.") },
+            { 70, ("IPA Extensions", 0x0250, 0x02AF, "Characters for representing phonetic transcriptions using the International Phonetic Alphabet (IPA).") },
+            { 71, ("Number Forms", 0x2150, 0x218F, "Characters for writing numbers in different forms, including Roman numerals and other specialized number systems.") },
+            { 72, ("Letterlike Symbols", 0x2100, 0x214F, "Characters that resemble letters but are used as symbols, including characters for numbers, fractions, and other mathematical concepts.") },
+            { 73, ("Spacing Modifier Letters", 0x02B0, 0x02FF, "Characters that modify the spacing of adjacent characters, used in phonetic transcriptions and other specialized contexts.") },
+            { 74, ("Combining Diacritical Marks", 0x0300, 0x036F, "Characters that combine with other characters to form accented or modified characters, used in many languages.") },
+            { 75, ("Latin Extended Additional", 0x1E00, 0x1EFF, "Additional characters for writing in the Latin script, including letters and symbols not found in the basic Latin alphabet.") },
+            { 76, ("General Punctuation", 0x2000, 0x206F, "Characters for general punctuation, including symbols for quotation marks, dashes, and other common punctuation marks.") },
+            { 77, ("Superscripts and Subscripts", 0x2070, 0x209F, "Characters for writing superscripts and subscripts, used in mathematical and scientific notation.") },
+            { 78, ("Combining Marks for Symbols", 0x20D0, 0x20FF, "Characters that combine with symbols to form modified symbols, used in mathematical and technical contexts.") },
+            { 79, ("Miscellaneous Technical", 0x2300, 0x23FF, "Characters for technical and scientific notation, including symbols for units, measurements, and other specialized concepts.") },
+            { 80, ("Control Pictures", 0x2400, 0x243F, "Characters for representing control characters, including symbols for tab, newline, and other control codes.") },
+            { 81, ("Optical Character Recognition", 0x2440, 0x245F, "Characters for optical character recognition (OCR) systems, including symbols for recognizing printed characters.") },
+            { 82, ("Enclosed Alphanumerics", 0x2460, 0x24FF, "Characters for enclosing alphanumeric characters, including symbols for parentheses, brackets, and other enclosing characters.") },
+            { 83, ("Miscellaneous Symbols", 0x2600, 0x26FF, "Characters for miscellaneous symbols, including symbols for weather, emotions, and other concepts.") },
+            { 84, ("Braille Patterns", 0x2800, 0x28FF, "Characters for Braille patterns, including symbols for reading and writing in Braille.") },
+            { 85, ("CJK Radicals Supplement", 0x2E80, 0x2EFF, "Characters for CJK (Chinese, Japanese, and Korean) radicals, including symbols for components of CJK characters.") },
+            { 86, ("Ideographic Description Characters", 0x2FF0, 0x2FFF, "Characters for describing ideographs, including symbols for components and variants of CJK characters.") },
+            { 87, ("CJK Symbols and Punctuation", 0x3000, 0x303F, "Characters for CJK symbols and punctuation, including symbols for punctuation, currency, and other concepts.") },
+            { 88, ("Enclosed CJK Letters and Months", 0x3200, 0x32FF, "Characters for enclosing CJK letters and months, including symbols for parentheses, brackets, and other enclosing characters.") },
+            { 89, ("CJK Compatibility", 0x3300, 0x33FF, "Characters for CJK compatibility, including symbols for compatibility with older character sets and systems.") },
+            { 90, ("Yi Syllables", 0xA000, 0xA48F, "Characters for writing in the Yi script, including syllables and other characters.") },
+            { 91, ("Yi Radicals", 0xA490, 0xA4CF, "Characters for Yi radicals, including symbols for components of Yi characters.") },
+            { 92, ("Private Use", 0xE000, 0xF8FF, "Characters for private use, including symbols for custom or proprietary characters.") },
+            { 93, ("CJK Compatibility Ideographs", 0xF900, 0xFAFF, "Characters for CJK compatibility ideographs, including symbols for compatibility with older character sets and systems.") },
+            { 94, ("Alphabetic Presentation Forms", 0xFB00, 0xFB4F, "Characters for alphabetic presentation forms, including symbols for displaying letters and other characters in a specific way.") },
+            { 95, ("Arabic Presentation Forms, A", 0xFB50, 0xFDFF, "Characters for Arabic presentation forms, including symbols for displaying Arabic text in a specific way.") },
+            { 96, ("Combining Half Marks", 0xFE20, 0xFE2F, "Characters for combining half marks, including symbols for modifying adjacent characters.") },
+            { 97, ("CJK Compatibility Forms", 0xFE30, 0xFE4F, "Characters for CJK compatibility forms, including symbols for compatibility with older character sets and systems.") },
+            { 98, ("Small Form Variants", 0xFE50, 0xFE6F, "Characters for small form variants, including symbols for displaying characters in a smaller size.") },
+            { 99, ("Arabic Presentation Forms, B", 0xFE70, 0xFEFE, "Characters for Arabic presentation forms, including symbols for displaying Arabic text in a specific way.") },
+            { 100, ("Specials A", 0xFEFF, 0xFEFF, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+            { 101, ("Specials B", 0xFFF0, 0xFFFD, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+            { 102, ("Halfwidth and Fullwidth Forms", 0xFF00, 0xFFEF, "Characters for halfwidth and fullwidth forms, including symbols for displaying characters in a specific width.") },
+            { 103, ("CJK Unified Ideographs Extension A", 0x3400, 0x4DB5, "Additional characters for writing in Chinese, Japanese, and Korean, including symbols for extended ideographs and variants.") },
+            { 104, ("CJK Unified Ideographs", 0x4E00, 0x9FFF, "Characters for writing in Chinese, Japanese, and Korean, including symbols for common ideographs and characters used in these languages.") },
+            { 105, ("Hangul Compatibility Jamo", 0x3130, 0x318F, "Characters for compatibility with older Hangul character sets, including jamo and other symbols for writing in the Hangul script.") },
+            { 106, ("Hangul Syllables", 0xAC00, 0xD7A3, "Characters for writing in the Hangul script, including syllables and other symbols for representing words and phrases in Korean.") }
         };
         /// <summary>
         /// Unicode combobox index changed.

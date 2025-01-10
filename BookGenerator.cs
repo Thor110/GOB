@@ -63,6 +63,9 @@ public class RandomTextGenerator
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <param name="operations">The number of times to execute the function</param>
     /// <param name="ranges">Lists all chosen ranges selected by the user</param>
+    /// <remarks>
+    /// Used when generating multiple text files.
+    /// </remarks>
     public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!)
     {
         //using (var stopwatch = new StopwatchWrapper())
@@ -85,6 +88,9 @@ public class RandomTextGenerator
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <param name="ranges">Lists all chosen ranges selected by the user</param>
+    /// <remarks>
+    /// Generates random text files.
+    /// </remarks>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!)
     {
         isFileName = true;
@@ -245,11 +251,13 @@ public class RandomTextGenerator
     /// </summary>
     /// <param name="minRange">The minimum range of the generated character in UniCode</param>
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
+    /// <remarks>
+    /// Sets up the required variables for generating a character.
+    /// </remarks>
     public void setupCharacter(int minRange, int maxRange)
     {
         charStringLength = 0;
         charString = "";
-        //randomText.Clear();
         content = "";
         rangeMin = minRange;
         rangeMax = maxRange;
@@ -261,6 +269,9 @@ public class RandomTextGenerator
     /// Setup for generating a single string.
     /// </summary>
     /// <param name="length">The length of the string</param>
+    /// <remarks>
+    /// Sets up the required variables for generating a string.
+    /// </remarks>
     public void setupString(int length)
     {
         stringLength = length;
@@ -270,6 +281,9 @@ public class RandomTextGenerator
     /// </summary>
     /// <param name="lineLength">The length of each line</param>
     /// <param name="paragraphLength">The length of each paragraph</param>
+    /// <remarks>
+    /// Sets up the required variables for generating a paragraph.
+    /// </remarks>
     public void setupParagraph(int lineLength, int paragraphLength)
     {
         paragraph = paragraphLength;
@@ -290,7 +304,7 @@ public class RandomTextGenerator
     /// <param name="fileName">Whether to exclude characters that are illegal for filenames</param>
     /// <returns>A single character as a string</returns>
     /// <remarks>
-    /// If the generated character is a surrogate code point or an excluded character, generates a new character.
+    /// Sets up the required variables and then generates a random character to return as a string.
     /// </remarks>
     public string GenerateSingleCharacter(int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
@@ -308,7 +322,7 @@ public class RandomTextGenerator
     /// <param name="fileName">Whether to exclude characters that are illegal for filenames</param>
     /// <returns>A single string as a string</returns>
     /// <remarks>
-    /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
+    /// Sets up the required variables and then generates a random string to return as a string.
     /// </remarks>
     public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
@@ -328,7 +342,7 @@ public class RandomTextGenerator
     /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <returns>A single paragraph as a string</returns>
     /// <remarks>
-    /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
+    /// Sets up the required variables and then generates a random paragraph to return as a string.
     /// </remarks>
     public string GenerateSingleParagraph(int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533)
     {
@@ -342,7 +356,7 @@ public class RandomTextGenerator
     /// </summary>
     /// <returns>A single character as a string</returns>
     /// <remarks>
-    /// If the generated character is a surrogate code point or an excluded character, generates a new character.
+    /// Generates a new random character, excludes illegal characters and surrogate code poitns in filenames and combines surrogate code points for bodies of text.
     /// </remarks>
     public string GenerateRandomCharacter()
     {
@@ -384,7 +398,7 @@ public class RandomTextGenerator
     /// </summary>
     /// <returns>A single string as a string</returns>
     /// <remarks>
-    /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
+    /// Check line length when generating a random string.
     /// </remarks>
     public string GenerateRandomString()
     {
@@ -403,7 +417,7 @@ public class RandomTextGenerator
     /// </summary>
     /// <returns>A single paragraph as a string</returns>
     /// <remarks>
-    /// If any of the generated characters are surrogate code points or excluded characters, generates a new character.
+    /// Check line length and paragraph length when generating a random paragraph.
     /// </remarks>
     public string GenerateRandomParagraph()
     {

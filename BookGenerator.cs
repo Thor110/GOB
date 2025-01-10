@@ -122,7 +122,7 @@ public class RandomTextGenerator
             for (int i = 0; i < contentLength; i++)
             {
                 ReturnRandomRange();
-                ReturnContent();
+                GenerateContent();
             }
         }
         else
@@ -136,7 +136,7 @@ public class RandomTextGenerator
             ReturnTitle();
             for (int i = 0; i < contentLength; i++)
             {
-                ReturnContent();
+                GenerateContent();
             }
         }
         // try catch exceptions
@@ -209,7 +209,7 @@ public class RandomTextGenerator
             rangeMin = selectedRange.Start.Value;
             rangeMax = selectedRange.End.Value;
         }
-        void ReturnContent()
+        void GenerateContent()
         {
             charString = GenerateRandomCharacter();
             charStringLength = charString.Length;
@@ -233,11 +233,17 @@ public class RandomTextGenerator
             if (totalContentLength >= contentLength) { return; }
         }
     }
+    /// <summary>
+    /// Generates a random character and adds it to the title string.
+    /// </summary>
     public void GenerateTitle()
     {
         charString = GenerateRandomCharacter();
         title += charString;
     }
+    /// <summary>
+    /// Adds the title to the content string, adds two new lines and then sets filename to false.
+    /// </summary>
     public void ReturnTitle()
     {
         content += title;
@@ -250,6 +256,7 @@ public class RandomTextGenerator
     /// <param name="newLines">The number of new lins to add</param>
     public void AddNewLines(int newLines)
     {
+        // consider extracting this method into it's own class and making iy a string method so that it can add new lines to any string it is passed.
         for (int i = 0; i < newLines; i++)
         {
             content += Environment.NewLine;
@@ -333,16 +340,15 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateSingleString(int stringLength = 16, int minRange = 32, int maxRange = 65533, bool fileName = false)
     {
-        isFileName = fileName; // is filename or not
-        //setupCharacter(minRange, maxRange);
-        // refactoring >
+        isFileName = fileName;
+        // old setupString block
         charStringLength = 0;
         charString = "";
         content = "";
         rangeMin = minRange;
         rangeMax = maxRange;
         charCounter = 0;
-        // refactoring ^
+        // ^ old setupString block
         title = ""; // reset title variable
         for (int i = 0; i < stringLength; i++)
         {

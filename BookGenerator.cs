@@ -29,7 +29,7 @@ public class RandomTextGenerator
     //  0x5C    0x2F    0x3A    0x2A    0x3F    0x22    0x3C    0x3E    0x7C
     //  92      47      58      42      63      34      60      62      124
     //  \       /       :       *       ?       "       <       >       |
-    public bool isFileName = true;
+    public bool isFileName;
     public int totalContentLength;
     public int totalLines;
     public int currentLine;
@@ -291,7 +291,6 @@ public class RandomTextGenerator
                 int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
                 string highSurrogateString = ((char)codePoint).ToString();
                 string lowSurrogateString = ((char)lowSurrogate).ToString();
-                charStringLength = lowSurrogateString.Length;
                 return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
             }
             if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
@@ -299,7 +298,6 @@ public class RandomTextGenerator
                 int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
                 string highSurrogateString = ((char)highSurrogate).ToString();
                 string lowSurrogateString = ((char)codePoint).ToString();
-                charStringLength = highSurrogateString.Length;
                 return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
             }
         }

@@ -30,6 +30,9 @@ public class RandomTextGenerator
     //  92      47      58      42      63      34      60      62      124
     //  \       /       :       *       ?       "       <       >       |
     public bool isFileName = true;
+    public int totalContentLength;
+    public int totalLines;
+    public int currentLine;
     /// <summary>
     /// StopwatchWrapper class for the timer function.
     /// </summary>
@@ -93,6 +96,7 @@ public class RandomTextGenerator
     /// </remarks>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!)
     {
+        // demote variable to exist here instead? that way they just exist when the function is called and don't need to be reset.
         isFileName = true;
         // reset specific values
         title = "";
@@ -101,93 +105,38 @@ public class RandomTextGenerator
         lineCounter = 0;
         charCounter = 0;
         charStringLength = 0;
+        totalContentLength = 0;
+        totalLines = contentLength / lineLength;
+        currentLine = 0;
+        int randomRange;
+        Range selectedRange;
         // use different ranges
         if (ranges != null)
         {
-            int randomRange;
-            Range selectedRange;
-            // new non stringbuilder method
             for (int i = 0; i < titleLength; i++)
             {
-                randomRange = random.Next(0, ranges.Count);
-                selectedRange = ranges[randomRange];
-                rangeMin = selectedRange.Start.Value;
-                rangeMax = selectedRange.End.Value;
-                charString = GenerateRandomCharacter();
-                title += charString;
+                ReturnRandomRange();
+                GenerateTitle();
             }
-            content += title;
-            AddNewLines(2);
-            isFileName = false;
-            int totalContentLength = 0;
-            int totalLines = contentLength / lineLength;
-            int currentLine = 0;
+            ReturnTitle();
             for (int i = 0; i < contentLength; i++)
             {
-                randomRange = random.Next(0, ranges.Count);
-                selectedRange = ranges[randomRange];
-                rangeMin = selectedRange.Start.Value;
-                rangeMax = selectedRange.End.Value;
-                charString = GenerateRandomCharacter();
-                charStringLength = charString.Length;
-                if (charLineCounter + charStringLength > lineLength)
-                {
-                    currentLine++;
-                    if (currentLine >= totalLines) { break; }
-                    AddNewLines(1);
-                    charLineCounter = 0;
-                    lineCounter++;
-                }
-                if (lineCounter == paragraphLength)
-                {
-                    AddNewLines(1);
-                    lineCounter = 0;
-                }
-                charCounter += charStringLength;
-                charLineCounter += charStringLength;
-                content += charString;
-                totalContentLength += charStringLength;
-                if (totalContentLength >= contentLength) { break; }
+                ReturnRandomRange();
+                ReturnContent();
             }
         }
         else
         {
             rangeMin = minRange;
             rangeMax = maxRange;
-            // new non stringbuilder method
             for (int i = 0; i < titleLength; i++)
             {
-                charString = GenerateRandomCharacter();
-                title += charString;
+                GenerateTitle();
             }
-            content += title;
-            AddNewLines(2);
-            isFileName = false;
-            int totalContentLength = 0;
-            int totalLines = contentLength / lineLength;
-            int currentLine = 0;
+            ReturnTitle();
             for (int i = 0; i < contentLength; i++)
             {
-                charString = GenerateRandomCharacter();
-                charStringLength = charString.Length;
-                if (charLineCounter + charStringLength > lineLength)
-                {
-                    currentLine++;
-                    if (currentLine >= totalLines) { break; }
-                    AddNewLines(1);
-                    charLineCounter = 0;
-                    lineCounter++;
-                }
-                if (lineCounter == paragraphLength)
-                {
-                    AddNewLines(1);
-                    lineCounter = 0;
-                }
-                charCounter += charStringLength;
-                charLineCounter += charStringLength;
-                content += charString;
-                totalContentLength += charStringLength;
-                if (totalContentLength >= contentLength) { break; }
+                ReturnContent();
             }
         }
         // try catch exceptions
@@ -197,10 +146,15 @@ public class RandomTextGenerator
             {
                 int counter = 1;
                 string newTitle = title;
+                // odds calculation is completely different if using custom preset ranges
                 int baseRange = maxRange - minRange + 1; // calculate the actual odds of generating the same file twice.
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
                 double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
+                // if using custom ranges it would be
+                // double customOdds = Math.Pow(actualOdds, ranges.Count);
+                // I think
+                // The odds also become different if using surrogate code points
                 while (File.Exists(newTitle + ".txt"))
                 {
                     newTitle = title + "_" + counter.ToString();
@@ -245,56 +199,106 @@ public class RandomTextGenerator
             File.AppendAllText("error.log", $"{DateTime.Now} : {e.Message} : Unexpected exception!" + Environment.NewLine);
             File.AppendAllText("error.log", "Exception: this is a catch-all for any other unexpected exceptions that may occur.");
         }
+        // enclosed methods to reduce code duplication
+        void ReturnRandomRange()
+        {
+            randomRange = random.Next(0, ranges.Count);
+            selectedRange = ranges[randomRange];
+            rangeMin = selectedRange.Start.Value;
+            rangeMax = selectedRange.End.Value;
+        }
+        void ReturnContent()
+        {
+            charString = GenerateRandomCharacter();
+            charStringLength = charString.Length;
+            if (charLineCounter + charStringLength > lineLength)
+            {
+                currentLine++;
+                if (currentLine >= totalLines) { return; }
+                AddNewLines(1);
+                charLineCounter = 0;
+                lineCounter++;
+            }
+            if (lineCounter == paragraphLength)
+            {
+                AddNewLines(1);
+                lineCounter = 0;
+            }
+            charCounter += charStringLength;
+            charLineCounter += charStringLength;
+            content += charString;
+            totalContentLength += charStringLength;
+            if (totalContentLength >= contentLength) { return; }
+        }
+    }
+    public void GenerateTitle()
+    {
+        charString = GenerateRandomCharacter();
+        title += charString;
+    }
+    public void ReturnTitle()
+    {
+        content += title;
+        AddNewLines(2);
+        isFileName = false;
     }
     /// <summary>
-    /// Setup for generating a single character.
+    /// Adds new lines to the string when required.
     /// </summary>
-    /// <param name="minRange">The minimum range of the generated character in UniCode</param>
-    /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
-    /// <remarks>
-    /// Sets up the required variables for generating a character.
-    /// </remarks>
-    public void setupCharacter(int minRange, int maxRange)
+    /// <param name="newLines">The number of new lins to add</param>
+    public void AddNewLines(int newLines)
     {
-        charStringLength = 0;
-        charString = "";
-        content = "";
-        rangeMin = minRange;
-        rangeMax = maxRange;
-        charCounter = 0;
-        charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
-        charStringLength = charString.Length;
+        for (int i = 0; i < newLines; i++)
+        {
+            content += Environment.NewLine;
+        }
     }
     /// <summary>
-    /// Setup for generating a single string.
+    /// Generates a single random character and returns it as a string.
     /// </summary>
-    /// <param name="length">The length of the string</param>
+    /// <returns>A single character as a string</returns>
     /// <remarks>
-    /// Sets up the required variables for generating a string.
+    /// Generates a new random character, excludes illegal characters and surrogate code poitns in filenames and combines surrogate code points for bodies of text.
     /// </remarks>
-    public void setupString(int length)
+    public string GenerateRandomCharacter()
     {
-        stringLength = length;
+        Int32 codePoint = random.Next(rangeMin, rangeMax);
+        if (isFileName)
+        {
+            if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh) // exclude surrogate code points in file names when using the surrogate code points presets
+            {
+                codePoint = random.Next(32, 126); // use the basic ASCII range for this case
+            }
+            if (excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
+            {
+                return GenerateRandomCharacter();
+            }
+        }
+        else
+        {
+            if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
+            {
+                int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
+                string highSurrogateString = ((char)codePoint).ToString();
+                string lowSurrogateString = ((char)lowSurrogate).ToString();
+                charStringLength = lowSurrogateString.Length;
+                return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
+            }
+            if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
+            {
+                int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
+                string highSurrogateString = ((char)highSurrogate).ToString();
+                string lowSurrogateString = ((char)codePoint).ToString();
+                charStringLength = highSurrogateString.Length;
+                return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
+            }
+        }
+        return char.ConvertFromUtf32(codePoint);
     }
-    /// <summary>
-    /// Setup for generating a single paragraph.
-    /// </summary>
-    /// <param name="lineLength">The length of each line</param>
-    /// <param name="paragraphLength">The length of each paragraph</param>
-    /// <remarks>
-    /// Sets up the required variables for generating a paragraph.
-    /// </remarks>
-    public void setupParagraph(int lineLength, int paragraphLength)
-    {
-        paragraph = paragraphLength;
-        line = lineLength;
-        charCounter = 0;
-        lineCounter = 0;
-        charLineCounter = 0;
-        charStringLength = 0;
-        charLineCounter += charStringLength;
-        charStringLength = charString.Length;
-    }
+    /*
+     * Everything below is the old method and individual reusable methods for returning a single character, string or paragraph.
+     * Might or might not be worth updating.
+     */
     /// <summary>
     /// Generates a single random character and returns it as a string.
     /// If the generated character is a surrogate code point or an excluded character, generates a new character.
@@ -352,46 +356,53 @@ public class RandomTextGenerator
         return GenerateRandomParagraph();
     }
     /// <summary>
-    /// Generates a single random character and returns it as a string.
+    /// Setup for generating a single character.
     /// </summary>
-    /// <returns>A single character as a string</returns>
+    /// <param name="minRange">The minimum range of the generated character in UniCode</param>
+    /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
     /// <remarks>
-    /// Generates a new random character, excludes illegal characters and surrogate code poitns in filenames and combines surrogate code points for bodies of text.
+    /// Sets up the required variables for generating a character.
     /// </remarks>
-    public string GenerateRandomCharacter()
+    public void setupCharacter(int minRange, int maxRange)
     {
-        Int32 codePoint = random.Next(rangeMin, rangeMax);
-        if (isFileName)
-        {
-            if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh) // exclude surrogate code points in file names when using the surrogate code points presets
-            {
-                codePoint = random.Next(32, 126); // use the basic ASCII range for this case
-            }
-            if (excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
-            {
-                return GenerateRandomCharacter();
-            }
-        }
-        else
-        {
-            if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
-            {
-                int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
-                string highSurrogateString = ((char)codePoint).ToString();
-                string lowSurrogateString = ((char)lowSurrogate).ToString();
-                charStringLength = lowSurrogateString.Length;
-                return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
-            }
-            if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
-            {
-                int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
-                string highSurrogateString = ((char)highSurrogate).ToString();
-                string lowSurrogateString = ((char)codePoint).ToString();
-                charStringLength = highSurrogateString.Length;
-                return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
-            }
-        }
-        return char.ConvertFromUtf32(codePoint);
+        charStringLength = 0;
+        charString = "";
+        content = "";
+        rangeMin = minRange;
+        rangeMax = maxRange;
+        charCounter = 0;
+        charString = GenerateRandomCharacter(); // Generate the first random character and ensure it is added to the Length value. - Must be done here.
+        charStringLength = charString.Length;
+    }
+    /// <summary>
+    /// Setup for generating a single string.
+    /// </summary>
+    /// <param name="length">The length of the string</param>
+    /// <remarks>
+    /// Sets up the required variables for generating a string.
+    /// </remarks>
+    public void setupString(int length)
+    {
+        stringLength = length;
+    }
+    /// <summary>
+    /// Setup for generating a single paragraph.
+    /// </summary>
+    /// <param name="lineLength">The length of each line</param>
+    /// <param name="paragraphLength">The length of each paragraph</param>
+    /// <remarks>
+    /// Sets up the required variables for generating a paragraph.
+    /// </remarks>
+    public void setupParagraph(int lineLength, int paragraphLength)
+    {
+        paragraph = paragraphLength;
+        line = lineLength;
+        charCounter = 0;
+        lineCounter = 0;
+        charLineCounter = 0;
+        charStringLength = 0;
+        charLineCounter += charStringLength;
+        charStringLength = charString.Length;
     }
     /// <summary>
     /// Generates a single random string and returns it as a string.
@@ -452,16 +463,5 @@ public class RandomTextGenerator
         content += charString;//add character to string
         charString = GenerateRandomCharacter();//generate
         charStringLength = charString.Length;//next length
-    }
-    /// <summary>
-    /// Adds new lines to the string when required.
-    /// </summary>
-    /// <param name="newLines">The number of new lins to add</param>
-    public void AddNewLines(int newLines)
-    {
-        for (int i = 0; i < newLines; i++)
-        {
-            content += Environment.NewLine;
-        }
     }
 }

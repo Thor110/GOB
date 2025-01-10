@@ -372,13 +372,8 @@
         {
             if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62) // Surrogate Code Points Dictionary Entries
             {
-                //surrogates = true;
                 MessageBox.Show("Surrogate code points cannot be used in file names, so ASCII will be used instead and the text inside the file will contain surrogate pairs.");
-            }/*
-            else
-            {
-                surrogates = false;
-            }*/
+            }
             var selectedLanguage = (string)comboBox1.SelectedItem;
             var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
             richTextBox1.Text = range.description;

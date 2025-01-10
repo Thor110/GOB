@@ -99,6 +99,7 @@ public class RandomTextGenerator
         // demote variable to exist here instead? that way they just exist when the function is called and don't need to be reset.
         isFileName = true;
         // reset specific values
+        // consider demoting variables to exist within this function
         title = "";
         content = "";
         charLineCounter = 0;

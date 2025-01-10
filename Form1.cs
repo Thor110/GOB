@@ -350,19 +350,21 @@
             { 98, ("Hangul Compatibility Jamo", 0x3130, 0x318F, "Characters for compatibility with older Hangul character sets, including jamo and other symbols for writing in the Hangul script.") },
             { 99, ("Hangul Syllables", 0xAC00, 0xD7A3, "Characters for writing in the Hangul script, including syllables and other symbols for representing words and phrases in Korean.") }
         };
-        //Excluded Character Ranges
+        //Excluded Character Preset Ranges
         //Excluded because it only contains one character with no appearance.
 //{ 100, ("Specials A", 0xFEFF, 0xFEFF, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+
         //Excluded because it only contains five characters, three of which have no appearance.
-//{ 101, ("Specials", 0xFFF0, 0xFFFD, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+//{ 101, ("Specials B", 0xFFF0, 0xFFFD, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+
         //Excluded because it only contains two characters that are just a square.
 //{ 102, ("Private Use", 0xE000, 0xF8FF, "Characters for private use, including symbols for custom or proprietary characters.") },
+
         //Excluded because they don't contain many symbols and aren't practical for generating bodies of text with.
 //{ 103, ("Combining Diacritical Marks", 0x0300, 0x036F, "Characters that combine with other characters to form accented or modified characters, used in many languages.") },
 //{ 104, ("Combining Marks for Symbols", 0x20D0, 0x20FF, "Characters that combine with symbols to form modified symbols, used in mathematical and technical contexts.") },
 //{ 105, ("Control Pictures", 0x2400, 0x243F, "Characters for representing control characters, including symbols for tab, newline, and other control codes.") },
 //{ 106, ("Optical Character Recognition", 0x2440, 0x245F, "Characters for optical character recognition (OCR) systems, including symbols for recognizing printed characters.") },
-
         /// <summary>
         /// Unicode combobox index changed.
         /// </summary>

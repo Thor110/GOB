@@ -64,15 +64,15 @@ public class RandomTextGenerator
     /// </remarks>
     public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = true)
     {
-        //using (var stopwatch = new StopwatchWrapper())
-        //{
+        using (var stopwatch = new StopwatchWrapper())
+        {
         for (int i = 0; i < operations; i++)
         {
             //Debug.WriteLine("Iteration : " + i.ToString());
             GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges!, textFile, contentType, fileName);
-            //stopwatch.Test();
+            stopwatch.Test();
         }
-        //}
+        }
     }
     /// <summary>
     /// Generates a single random text file and saves it to the directory the program is executed from.
@@ -110,6 +110,9 @@ public class RandomTextGenerator
         int randomRange;
         Range selectedRange;
         // use different ranges
+        //inlining everything within the following if/else statement improves efficiency by about 30-40%
+        //but it heavily duplicates code...
+        // TODO: Inline these function for performance optimization
         if (ranges != null)
         {
             if (!textFile && contentType) // 01 = Character
@@ -232,6 +235,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Generates a random title string within a custom set of ranges.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void RangeTitle()
         {
             for (int i = 0; i < titleLength; i++)
@@ -243,6 +247,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Generates a random paragraph string within a custom set of ranges.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void RangeContent()
         {
             for (int i = 0; i < contentLength; i++)
@@ -254,6 +259,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Generates a random title string.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void Title()
         {
             for (int i = 0; i < titleLength; i++)
@@ -264,6 +270,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Generates a random paragraph string.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void Content()
         {
             for (int i = 0; i < contentLength; i++)
@@ -274,6 +281,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Sets the rangeMin and rangeMax values to a random range within the ranges list.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void ReturnRandomRange()
         {
             randomRange = random.Next(0, ranges.Count);
@@ -284,6 +292,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Generates a new character for a random paragraph string.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void GenerateContent()
         {
             charString = GenerateRandomCharacter();
@@ -310,6 +319,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Generates a random character and adds it to the title string.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void GenerateTitle()
         {
             charString = GenerateRandomCharacter();
@@ -318,6 +328,7 @@ public class RandomTextGenerator
         /// <summary>
         /// Adds the title to the content string, adds two new lines and then sets filename to false.
         /// </summary>
+        // TODO: Inline this function for performance optimization
         void ReturnTitle()
         {
             content.Append(title);

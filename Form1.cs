@@ -245,6 +245,7 @@
         private Dictionary<int, (string language, int min, int max, string description)> unicodeRanges = new Dictionary<int, (string language, int min, int max, string description)>
         {
             // Unicode Consortium
+            // https://home.unicode.org/
             // International Organization for Standardization (ISO)
             // World Wide Web Consortium (W3C)
             // https://www.ssec.wisc.edu/~tomw/java/unicode.html

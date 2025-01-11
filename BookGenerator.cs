@@ -62,7 +62,7 @@ public class RandomTextGenerator
     /// <remarks>
     /// Used when generating multiple text files.
     /// </remarks>
-    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = true)
+    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
     {
         using (var stopwatch = new StopwatchWrapper())
         {
@@ -89,13 +89,13 @@ public class RandomTextGenerator
     /// <param name="fileName">If a filename is being generated.</param>
     /// <remarks>
     /// The two booleans "textFile" and "contentType" can be used to generate four different types of text:
-    /// 01 = Character  -   just generates a random character stored in charString the variable.
-    /// 00 = String     -   just generates a random string stored in title the variable.
+    /// 00 = Character  -   just generates a random character stored in charString the variable.
+    /// 01 = String     -   just generates a random string stored in title the variable.
     /// 10 = Paragraph  -   just generates a random paragraph stored in the content variable.
     /// 11 = Text File  -   just generates a random text file saved locally and stored in the content variable.
     /// Note: If the "textFile" and "contentType" parameters are not specified, the method will generate a text file by default.
     /// </remarks>
-    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = true)
+    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
     {
         content = new StringBuilder(contentLength);
         title = new StringBuilder(titleLength);
@@ -115,23 +115,23 @@ public class RandomTextGenerator
         // TODO: Inline these function for performance optimization
         if (ranges != null)
         {
-            if (!textFile && contentType) // 01 = Character
+            if (!textFile && !contentType) // 00 = Character
             {
                 ReturnRandomRange(); // TODO: Inline
                 charString = GenerateRandomCharacter();
             }
-            if (!textFile && !contentType) //00 = String
+            if (!textFile && contentType) //01 = String
             {
                 RangeTitle(); // TODO: Inline
+            }
+            if (textFile && !contentType) //10 = Paragraph
+            {
+                RangeContent(); // TODO: Inline
             }
             if (textFile && contentType) // 11 = Text File
             {
                 RangeTitle(); // TODO: Inline
                 ReturnTitle(); // TODO: Inline
-                RangeContent(); // TODO: Inline
-            }
-            if (textFile && !contentType) //10 = Paragraph
-            {
                 RangeContent(); // TODO: Inline
             }
         }
@@ -139,22 +139,22 @@ public class RandomTextGenerator
         {
             rangeMin = minRange;
             rangeMax = maxRange;
-            if (!textFile && contentType) // 01 = Character
+            if (!textFile && !contentType) // 00 = Character
             {
                 charString = GenerateRandomCharacter();
             }
-            if (!textFile && !contentType) //00 = String
+            if (!textFile && contentType) //01 = String
             {
                 Title(); // TODO: Inline
+            }
+            if (textFile && !contentType) //10 = Paragraph
+            {
+                Content(); // TODO: Inline
             }
             if (textFile && contentType) // 11 = Text File
             {
                 Title(); // TODO: Inline
                 ReturnTitle(); // TODO: Inline
-                Content(); // TODO: Inline
-            }
-            if (textFile && !contentType) //10 = Paragraph
-            {
                 Content(); // TODO: Inline
             }
         }

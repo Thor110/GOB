@@ -89,7 +89,7 @@
             //seedText.Text = seedString;
             //
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, true);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
             string filePath = TextGenerator.title + ".avi";
             //
             int width = Convert.ToInt32(videoWidthNumeric.Value);
@@ -108,7 +108,7 @@
             //seedText.Text = seedString;
             //
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, true);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
             string filePath = TextGenerator.title + ".wav";
             //
             // Define the audio parameters
@@ -127,7 +127,7 @@
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, true);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
             string filePath = TextGenerator.title + ".png";
             //
             int width = Convert.ToInt32(widthNumeric.Value);
@@ -142,7 +142,7 @@
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, true);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
             string filePath = TextGenerator.title + ".obj";
             //
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
@@ -457,13 +457,13 @@
         private void button1_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, false);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, false);
             MessageBox.Show(TextGenerator.charString);
         }
         private void button2_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, false);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, false);
             MessageBox.Show(TextGenerator.title.ToString());
         }
         private void button3_Click(object sender, EventArgs e)

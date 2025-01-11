@@ -8,12 +8,6 @@ public class RandomTextGenerator
 {
     public Random random = new Random();
     public string charString = string.Empty;
-    public int charStringLength;
-    public int rangeMin;
-    public int rangeMax;
-    public int charCounter;
-    public int lineCounter;
-    public int charLineCounter;
     public const int surrogateHighLow = 0xD800;
     public const int surrogateHighHigh = 0xDBFF;
     public const int surrogateLowLow = 0xDC00;
@@ -25,9 +19,8 @@ public class RandomTextGenerator
     //  92      47      58      42      63      34      60      62      124
     //  \       /       :       *       ?       "       <       >       |
     public bool isFileName;
-    public int totalContentLength;
-    public int totalLines;
-    public int currentLine;
+    public int rangeMin;
+    public int rangeMax;
     public StringBuilder content = new StringBuilder();
     public StringBuilder title = new StringBuilder();
     /// <summary>
@@ -65,17 +58,18 @@ public class RandomTextGenerator
     /// <param name="ranges">Lists all chosen ranges selected by the user</param>
     /// <param name="textFile">Whether to generate a text file.</param>
     /// <param name="contentType">Whether to generate a character or paragraph.</param>
+    /// <param name="fileName">If a filename is being generated.</param>
     /// <remarks>
     /// Used when generating multiple text files.
     /// </remarks>
-    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!, bool textFile = true, bool contentType = true)
+    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = true)
     {
         //using (var stopwatch = new StopwatchWrapper())
         //{
         for (int i = 0; i < operations; i++)
         {
             //Debug.WriteLine("Iteration : " + i.ToString());
-            GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges!, textFile, contentType);
+            GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges!, textFile, contentType, fileName);
             //stopwatch.Test();
         }
         //}
@@ -92,6 +86,7 @@ public class RandomTextGenerator
     /// <param name="ranges">Lists all chosen ranges selected by the user</param>
     /// <param name="textFile">Whether to generate a text file.</param>
     /// <param name="contentType">Whether to generate a character or paragraph.</param>
+    /// <param name="fileName">If a filename is being generated.</param>
     /// <remarks>
     /// The two booleans "textFile" and "contentType" can be used to generate four different types of text:
     /// 01 = Character  -   just generates a random character stored in charString the variable.
@@ -100,21 +95,18 @@ public class RandomTextGenerator
     /// 11 = Text File  -   just generates a random text file saved locally and stored in the content variable.
     /// Note: If the "textFile" and "contentType" parameters are not specified, the method will generate a text file by default.
     /// </remarks>
-    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true)
+    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = true)
     {
         content = new StringBuilder(contentLength);
         title = new StringBuilder(titleLength);
-        // consider demoting variable to exist here instead? that way they just exist when the function is called and don't need to be reset.
-        isFileName = true;
-        // reset specific values
-        // consider demoting variables to exist within this function
-        charLineCounter = 0;
-        lineCounter = 0;
-        charCounter = 0;
-        charStringLength = 0;
-        totalContentLength = 0;
-        totalLines = contentLength / lineLength;
-        currentLine = 0;
+        isFileName = fileName;
+        int charStringLength;
+        int charCounter = 0;
+        int lineCounter = 0;
+        int charLineCounter = 0;
+        int totalContentLength = 0;
+        int totalLines = contentLength / lineLength;
+        int currentLine = 0;
         int randomRange;
         Range selectedRange;
         // use different ranges
@@ -190,7 +182,8 @@ public class RandomTextGenerator
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
                 // if using custom ranges it would be
                 // double customOdds = Math.Pow(actualOdds, ranges.Count);
-                // I think
+                // approximately, but the actual odds in this case would have to take into account the base range calculations for each custom range used.
+                // writing the code to work that out from ranges just isn't worth it.
                 // The odds also become different if using surrogate code points
                 while (File.Exists(newTitle + ".txt"))
                 {

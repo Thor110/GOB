@@ -117,22 +117,22 @@ public class RandomTextGenerator
         {
             if (!textFile && contentType) // 01 = Character
             {
-                ReturnRandomRange();
+                ReturnRandomRange(); // TODO: Inline
                 charString = GenerateRandomCharacter();
             }
             if (!textFile && !contentType) //00 = String
             {
-                RangeTitle();
+                RangeTitle(); // TODO: Inline
             }
             if (textFile && contentType) // 11 = Text File
             {
-                RangeTitle();
-                ReturnTitle();
-                RangeContent();
+                RangeTitle(); // TODO: Inline
+                ReturnTitle(); // TODO: Inline
+                RangeContent(); // TODO: Inline
             }
             if (textFile && !contentType) //10 = Paragraph
             {
-                RangeContent();
+                RangeContent(); // TODO: Inline
             }
         }
         else
@@ -145,17 +145,17 @@ public class RandomTextGenerator
             }
             if (!textFile && !contentType) //00 = String
             {
-                Title();
+                Title(); // TODO: Inline
             }
             if (textFile && contentType) // 11 = Text File
             {
-                Title();
-                ReturnTitle();
-                Content();
+                Title(); // TODO: Inline
+                ReturnTitle(); // TODO: Inline
+                Content(); // TODO: Inline
             }
             if (textFile && !contentType) //10 = Paragraph
             {
-                Content();
+                Content(); // TODO: Inline
             }
         }
         // return when only generating a character, string or paragraph.
@@ -240,8 +240,8 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < titleLength; i++)
             {
-                ReturnRandomRange();
-                GenerateTitle();
+                ReturnRandomRange(); // TODO: Inline
+                GenerateTitle(); // TODO: Inline
             }
         }
         /// <summary>
@@ -252,8 +252,8 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < contentLength; i++)
             {
-                ReturnRandomRange();
-                GenerateContent();
+                ReturnRandomRange(); // TODO: Inline
+                GenerateContent(); // TODO: Inline
             }
         }
         /// <summary>
@@ -264,7 +264,7 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < titleLength; i++)
             {
-                GenerateTitle();
+                GenerateTitle(); // TODO: Inline
             }
         }
         /// <summary>
@@ -275,7 +275,7 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < contentLength; i++)
             {
-                GenerateContent();
+                GenerateContent(); // TODO: Inline
             }
         }
         /// <summary>
@@ -301,13 +301,13 @@ public class RandomTextGenerator
             {
                 currentLine++;
                 if (currentLine >= totalLines) { return; }
-                AddNewLines(1);
+                AddNewLines(1); // DO NOT INLINE
                 charLineCounter = 0;
                 lineCounter++;
             }
             if (lineCounter == paragraphLength)
             {
-                AddNewLines(1);
+                AddNewLines(1); // DO NOT INLINE
                 lineCounter = 0;
             }
             charCounter += charStringLength;
@@ -332,7 +332,7 @@ public class RandomTextGenerator
         void ReturnTitle()
         {
             content.Append(title);
-            AddNewLines(2);
+            AddNewLines(2); // DO NOT INLINE
             isFileName = false;
         }
     }

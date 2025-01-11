@@ -410,6 +410,7 @@ public class RandomTextGenerator
             }
             return char.ConvertFromUtf32(codePoint);
         }
+        MessageBox.Show("Failed to generate a valid character after " + maxAttempts + " attempts.");
         throw new InvalidOperationException("Failed to generate a valid character after " + maxAttempts + " attempts.");
     }
 }

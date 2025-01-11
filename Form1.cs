@@ -15,6 +15,7 @@
         private int minRange;
         private int maxRange;
         private int operations = 1;
+        private string custom = "Custom";
         private bool generateMultipleFiles;
         private List<Range> ranges = new List<Range>();
         public Form1()
@@ -86,18 +87,16 @@
         {
             //string seedString = GenerateSeedString();
             //seedText.Text = seedString;
-
+            //
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
             string filePath = TextGenerator.title + ".avi";
-
+            //
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
             int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
             int duration = Convert.ToInt32(videoDurationNumeric.Value);
-
             VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
-
             MessageBox.Show("Video Generated!");
         }
         /// <summary>
@@ -107,12 +106,11 @@
         {
             //string seedString = GenerateSeedString();
             //seedText.Text = seedString;
-
-            // filename
+            //
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
             string filePath = TextGenerator.title + ".wav";
-
+            //
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
             int frequency = Convert.ToInt32(frequencyNumeric.Value);// Frequency in Hz
@@ -120,9 +118,7 @@
             // default numChannels and bitDepth for WAV header
             short numChannels = Convert.ToInt16(channelsBox.SelectedItem.ToString());
             short bitDepth = Convert.ToInt16(depthBox.SelectedItem.ToString());
-
             AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
-
             MessageBox.Show("Audio Generated!");
         }
         /// <summary>
@@ -133,12 +129,11 @@
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
             string filePath = TextGenerator.title + ".png";
-
+            //
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
-
+            //
             ImageGenerator.GenerateImage(filePath, width, height);
-
             MessageBox.Show("Image Generated!");
         }
         /// <summary>
@@ -149,15 +144,13 @@
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
             string filePath = TextGenerator.title + ".obj";
-
-
+            //
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
             int scale = Convert.ToInt32(scaleNumeric.Value);
             bool generateSolid = checkBox1.Checked;
-
+            //
             ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
-
             MessageBox.Show("Model Generated!");
         }
         /// <summary>
@@ -229,7 +222,6 @@
         /// </summary>
         private void updateDescription()
         {
-            string custom = "Custom";
             comboBox1.Text = custom;
             richTextBox1.Text = custom;
         }
@@ -410,7 +402,7 @@
         }
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text == "Custom")
+            if (comboBox1.Text == custom)
             {
                 MessageBox.Show("Select a preset to add to the list.");
             }
@@ -460,6 +452,7 @@
             ranges.Clear();
         }
         // Buttons specifically for testing the reusable methods that return a single character, string or paragraph.
+        // do not test with large paragraphs....
         private void button1_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
@@ -470,13 +463,13 @@
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
-            MessageBox.Show(TextGenerator.title);
+            MessageBox.Show(TextGenerator.title.ToString());
         }
         private void button3_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, true, false);
-            MessageBox.Show(TextGenerator.content);
+            MessageBox.Show(TextGenerator.content.ToString());
         }
     }
 }

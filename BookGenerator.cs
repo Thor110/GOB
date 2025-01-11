@@ -8,8 +8,6 @@ public class RandomTextGenerator
 {
     public Random random = new Random();
     public string charString = string.Empty;
-    public string title = string.Empty;
-    public string content = string.Empty;
     public int charStringLength;
     public int rangeMin;
     public int rangeMax;
@@ -20,9 +18,6 @@ public class RandomTextGenerator
     public const int surrogateHighHigh = 0xDBFF;
     public const int surrogateLowLow = 0xDC00;
     public const int surrogateLowHigh = 0xDfff;
-    public int stringLength;
-    public int line;
-    public int paragraph;
     public int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
     //  1,114,079 all possible UniCode characters included excluding control characters 0-32
     //  Table of Excluded Characters ( Hex, Dec, Sym ) 2,056 Excluded Characters including Surrogate Code Points
@@ -33,6 +28,8 @@ public class RandomTextGenerator
     public int totalContentLength;
     public int totalLines;
     public int currentLine;
+    public StringBuilder content = new StringBuilder();
+    public StringBuilder title = new StringBuilder();
     /// <summary>
     /// StopwatchWrapper class for the timer function.
     /// </summary>
@@ -105,12 +102,12 @@ public class RandomTextGenerator
     /// </remarks>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true)
     {
-        // demote variable to exist here instead? that way they just exist when the function is called and don't need to be reset.
+        content = new StringBuilder(contentLength);
+        title = new StringBuilder(titleLength);
+        // consider demoting variable to exist here instead? that way they just exist when the function is called and don't need to be reset.
         isFileName = true;
         // reset specific values
         // consider demoting variables to exist within this function
-        title = "";
-        content = "";
         charLineCounter = 0;
         lineCounter = 0;
         charCounter = 0;
@@ -185,7 +182,7 @@ public class RandomTextGenerator
             if (File.Exists(title + ".txt"))
             {
                 int counter = 1;
-                string newTitle = title;
+                string newTitle = title.ToString();
                 // odds calculation is completely different if using custom preset ranges
                 int baseRange = maxRange - minRange + 1; // calculate the actual odds of generating the same file twice.
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
@@ -200,7 +197,7 @@ public class RandomTextGenerator
                     newTitle = title + "_" + counter.ToString();
                     counter++;
                 }
-                File.WriteAllText(newTitle + ".txt", content);
+                File.WriteAllText(newTitle + ".txt", content.ToString());
                 if (double.IsInfinity(actualOdds))
                 {
                     MessageBox.Show($"The chances of that happening are virtually impossible! {actualOdds}\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
@@ -212,7 +209,7 @@ public class RandomTextGenerator
             }
             else
             {
-                File.WriteAllText(title + ".txt", content);
+                File.WriteAllText(title + ".txt", content.ToString());
             }
         }
         catch (ArgumentException e)
@@ -313,7 +310,7 @@ public class RandomTextGenerator
             }
             charCounter += charStringLength;
             charLineCounter += charStringLength;
-            content += charString;
+            content.Append(charString);
             totalContentLength += charStringLength;
             if (totalContentLength >= contentLength) { return; }
         }
@@ -323,14 +320,14 @@ public class RandomTextGenerator
         void GenerateTitle()
         {
             charString = GenerateRandomCharacter();
-            title += charString;
+            title.Append(charString);
         }
         /// <summary>
         /// Adds the title to the content string, adds two new lines and then sets filename to false.
         /// </summary>
         void ReturnTitle()
         {
-            content += title;
+            content.Append(title);
             AddNewLines(2);
             isFileName = false;
         }
@@ -344,7 +341,7 @@ public class RandomTextGenerator
         // consider extracting this method into it's own class and making it a string method so that it can add new lines to any string it is passed.
         for (int i = 0; i < newLines; i++)
         {
-            content += Environment.NewLine;
+            content.Append(Environment.NewLine);
         }
     }
     /// <summary>

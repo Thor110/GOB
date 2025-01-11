@@ -240,11 +240,8 @@ public class RandomTextGenerator
             File.AppendAllText("error.log", "Exception: this is a catch-all for any other unexpected exceptions that may occur.");
         }
         /// <summary>
-        /// 
+        /// Generates a random title string within a custom set of ranges.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         void RangeTitle()
         {
             for (int i = 0; i < titleLength; i++)
@@ -254,11 +251,8 @@ public class RandomTextGenerator
             }
         }
         /// <summary>
-        /// 
+        /// Generates a random paragraph string within a custom set of ranges.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         void RangeContent()
         {
             for (int i = 0; i < contentLength; i++)
@@ -268,11 +262,8 @@ public class RandomTextGenerator
             }
         }
         /// <summary>
-        /// 
+        /// Generates a random title string.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         void Title()
         {
             for (int i = 0; i < titleLength; i++)
@@ -281,11 +272,8 @@ public class RandomTextGenerator
             }
         }
         /// <summary>
-        /// 
+        /// Generates a random paragraph string.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         void Content()
         {
             for (int i = 0; i < contentLength; i++)
@@ -294,11 +282,8 @@ public class RandomTextGenerator
             }
         }
         /// <summary>
-        /// 
+        /// Sets the rangeMin and rangeMax values to a random range within the ranges list.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         void ReturnRandomRange()
         {
             randomRange = random.Next(0, ranges.Count);
@@ -307,11 +292,8 @@ public class RandomTextGenerator
             rangeMax = selectedRange.End.Value;
         }
         /// <summary>
-        /// 
+        /// Generates a new character for a random paragraph string.
         /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
         void GenerateContent()
         {
             charString = GenerateRandomCharacter();
@@ -335,23 +317,23 @@ public class RandomTextGenerator
             totalContentLength += charStringLength;
             if (totalContentLength >= contentLength) { return; }
         }
-    }
-    /// <summary>
-    /// Generates a random character and adds it to the title string.
-    /// </summary>
-    public void GenerateTitle()
-    {
-        charString = GenerateRandomCharacter();
-        title += charString;
-    }
-    /// <summary>
-    /// Adds the title to the content string, adds two new lines and then sets filename to false.
-    /// </summary>
-    public void ReturnTitle()
-    {
-        content += title;
-        AddNewLines(2);
-        isFileName = false;
+        /// <summary>
+        /// Generates a random character and adds it to the title string.
+        /// </summary>
+        void GenerateTitle()
+        {
+            charString = GenerateRandomCharacter();
+            title += charString;
+        }
+        /// <summary>
+        /// Adds the title to the content string, adds two new lines and then sets filename to false.
+        /// </summary>
+        void ReturnTitle()
+        {
+            content += title;
+            AddNewLines(2);
+            isFileName = false;
+        }
     }
     /// <summary>
     /// Adds new lines to the string when required.
@@ -359,7 +341,7 @@ public class RandomTextGenerator
     /// <param name="newLines">The number of new lins to add</param>
     public void AddNewLines(int newLines)
     {
-        // consider extracting this method into it's own class and making iy a string method so that it can add new lines to any string it is passed.
+        // consider extracting this method into it's own class and making it a string method so that it can add new lines to any string it is passed.
         for (int i = 0; i < newLines; i++)
         {
             content += Environment.NewLine;

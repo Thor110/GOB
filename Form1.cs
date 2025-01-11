@@ -83,7 +83,14 @@
             //seedText.Text = seedString;
 
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".avi";
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
+            string filePath = TextGenerator.title + ".avi";
+
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
             int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
@@ -103,7 +110,13 @@
 
             // filename
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".wav";
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
+            string filePath = TextGenerator.title + ".wav";
 
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
@@ -123,7 +136,13 @@
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".png";
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
+            string filePath = TextGenerator.title + ".png";
 
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
@@ -138,7 +157,14 @@
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            string filePath = TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, true) + ".obj";
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
+            string filePath = TextGenerator.title + ".obj";
+
 
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
@@ -176,7 +202,7 @@
                 MessageBox.Show("Add more than one preset to the list.");
                 return;
             }
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!);
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, true, true);
             MessageBox.Show(message);
         }
         /// <summary>
@@ -453,13 +479,24 @@
         private void button1_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            MessageBox.Show(TextGenerator.GenerateSingleCharacter(minRange, maxRange, false));
+            int titleLength = Convert.ToInt32(titleNumeric.Value);
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true);
+            MessageBox.Show(TextGenerator.charString);
         }
         private void button2_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
             int titleLength = Convert.ToInt32(titleNumeric.Value);
-            MessageBox.Show(TextGenerator.GenerateSingleString(titleLength, minRange, maxRange, false));
+            int contentLength = Convert.ToInt32(contentNumeric.Value);
+            int lineLength = Convert.ToInt32(lineNumeric.Value);
+            int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false);
+            MessageBox.Show(TextGenerator.title);
         }
         private void button3_Click(object sender, EventArgs e)
         {
@@ -467,7 +504,9 @@
             int contentLength = Convert.ToInt32(contentNumeric.Value);
             int lineLength = Convert.ToInt32(lineNumeric.Value);
             int paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            MessageBox.Show(TextGenerator.GenerateSingleParagraph(contentLength, lineLength, paragraphLength, minRange, maxRange));
+            int operations = 1;
+            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, true, false);
+            MessageBox.Show(TextGenerator.content);
         }
     }
 }

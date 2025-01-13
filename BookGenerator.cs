@@ -113,6 +113,7 @@ public class RandomTextGenerator
         //inlining everything within the following if/else statement improves efficiency by about 30-40%
         //but it heavily duplicates code...
         // TODO: Inline these function for performance optimization
+        // Inlining these functions provides around a 0.7 second increase in speed when generating a text file with 80 million characters.
         if (ranges != null)
         {
             if (!textFile && !contentType) // 00 = Character

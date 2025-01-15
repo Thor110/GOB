@@ -90,7 +90,7 @@
             //
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.title + ".avi";
+            string filePath = TextGenerator.titleString + ".avi";
             //
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
@@ -109,7 +109,7 @@
             //
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.title + ".wav";
+            string filePath = TextGenerator.titleString + ".wav";
             //
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
@@ -128,7 +128,7 @@
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.title + ".png";
+            string filePath = TextGenerator.titleString + ".png";
             //
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
@@ -143,7 +143,7 @@
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.title + ".obj";
+            string filePath = TextGenerator.titleString + ".obj";
             //
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
@@ -458,19 +458,19 @@
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, false);
-            MessageBox.Show(TextGenerator.charString);
+            MessageBox.Show(TextGenerator.characterString);
         }
         private void button2_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, false);
-            MessageBox.Show(TextGenerator.title.ToString());
+            MessageBox.Show(TextGenerator.titleString.ToString());
         }
         private void button3_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, true, false, false);
-            MessageBox.Show(TextGenerator.content.ToString());
+            MessageBox.Show(TextGenerator.contentString.ToString());
         }
     }
 }

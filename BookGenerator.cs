@@ -7,7 +7,7 @@ using System.Diagnostics;
 public class RandomTextGenerator
 {
     public Random random = new Random();
-    public string charString = string.Empty;
+    public string characterString = string.Empty;
     public const int surrogateHighLow = 0xD800;
     public const int surrogateHighHigh = 0xDBFF;
     public const int surrogateLowLow = 0xDC00;
@@ -21,8 +21,8 @@ public class RandomTextGenerator
     public bool isFileName;
     public int rangeMin;
     public int rangeMax;
-    public StringBuilder content = new StringBuilder();
-    public StringBuilder title = new StringBuilder();
+    public StringBuilder contentString = new StringBuilder();
+    public StringBuilder titleString = new StringBuilder();
     /// <summary>
     /// StopwatchWrapper class for the timer function.
     /// </summary>
@@ -66,12 +66,12 @@ public class RandomTextGenerator
     {
         using (var stopwatch = new StopwatchWrapper())
         {
-        for (int i = 0; i < operations; i++)
-        {
-            //Debug.WriteLine("Iteration : " + i.ToString());
-            GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges!, textFile, contentType, fileName);
-            stopwatch.Test();
-        }
+            for (int i = 0; i < operations; i++)
+            {
+                //Debug.WriteLine("Iteration : " + i.ToString());
+                GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges!, textFile, contentType, fileName);
+                stopwatch.Test();
+            }
         }
     }
     /// <summary>
@@ -97,8 +97,8 @@ public class RandomTextGenerator
     /// </remarks>
     public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
     {
-        content = new StringBuilder(contentLength);
-        title = new StringBuilder(titleLength);
+        contentString = new StringBuilder(contentLength);
+        titleString = new StringBuilder(titleLength);
         isFileName = fileName;
         int charStringLength;
         int lineCounter = 0;
@@ -119,7 +119,7 @@ public class RandomTextGenerator
             if (!textFile && !contentType) // 00 = Character
             {
                 ReturnRandomRange(); // TODO: Inline
-                charString = GenerateRandomCharacter();
+                characterString = GenerateRandomCharacter();
                 return;
             }
             else if (!textFile && contentType) //01 = String // XOR Operator must be used after this condition
@@ -145,7 +145,7 @@ public class RandomTextGenerator
             rangeMax = maxRange;
             if (!textFile && !contentType) // 00 = Character
             {
-                charString = GenerateRandomCharacter();
+                characterString = GenerateRandomCharacter();
                 return;
             }
             else if (!textFile && contentType) //01 = String // XOR Operator must be used after this condition
@@ -228,8 +228,8 @@ public class RandomTextGenerator
         // TODO: Inline this function for performance optimization
         void GenerateTitle()
         {
-            charString = GenerateRandomCharacter();
-            title.Append(charString);
+            characterString = GenerateRandomCharacter();
+            titleString.Append(characterString);
         }
         /// <summary>
         /// Adds the title to the content string, adds two new lines and then sets filename to false.
@@ -237,7 +237,7 @@ public class RandomTextGenerator
         // TODO: Inline this function for performance optimization
         void ReturnTitle()
         {
-            content.Append(title);
+            contentString.Append(titleString);
             AddNewLines(2); // DO NOT INLINE
             isFileName = false;
         }
@@ -247,8 +247,8 @@ public class RandomTextGenerator
         // TODO: Inline this function for performance optimization
         void GenerateContent()
         {
-            charString = GenerateRandomCharacter();
-            charStringLength = charString.Length;
+            characterString = GenerateRandomCharacter();
+            charStringLength = characterString.Length;
             if (charLineCounter + charStringLength > lineLength)
             {
                 currentLine++;
@@ -264,17 +264,17 @@ public class RandomTextGenerator
             }
             charLineCounter += charStringLength;
             totalContentLength += charStringLength;
-            content.Append(charString);
+            contentString.Append(characterString);
             if (totalContentLength >= contentLength) { return; }
         }
-        // TODO: Inline the above functions
+        // TODO: Inline the above functions to increase performance
         // NOTE: Moving the below code to it's own method only serves to slow down code execution
         try
         {
-            if (File.Exists(title + ".txt"))
+            if (File.Exists(titleString + ".txt"))
             {
                 int counter = 1;
-                string newTitle = title.ToString();
+                string newTitle = titleString.ToString();
                 // odds calculation is completely different if using custom preset ranges
                 int baseRange = rangeMin - rangeMax + 1; // calculate the actual odds of generating the same file twice.
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
@@ -287,10 +287,10 @@ public class RandomTextGenerator
                 // The odds also become different if using surrogate code points
                 while (File.Exists(newTitle + ".txt"))
                 {
-                    newTitle = title + "_" + counter.ToString();
+                    newTitle = titleString + "_" + counter.ToString();
                     counter++;
                 }
-                File.WriteAllText(newTitle + ".txt", content.ToString());
+                File.WriteAllText(newTitle + ".txt", contentString.ToString());
                 if (double.IsInfinity(actualOdds))
                 {
                     MessageBox.Show($"The chances of that happening are virtually impossible! {actualOdds}\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
@@ -302,7 +302,7 @@ public class RandomTextGenerator
             }
             else
             {
-                File.WriteAllText(title + ".txt", content.ToString());
+                File.WriteAllText(titleString + ".txt", contentString.ToString());
             }
         }
         catch (ArgumentException e)
@@ -387,7 +387,7 @@ public class RandomTextGenerator
         // consider extracting this method into it's own class and making it a string method so that it can add new lines to any string it is passed.
         for (int i = 0; i < newLines; i++)
         {
-            content.Append(Environment.NewLine);
+            contentString.Append(Environment.NewLine);
         }
     }
 }

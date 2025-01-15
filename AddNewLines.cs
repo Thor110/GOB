@@ -1,20 +1,20 @@
-﻿using System.Text;
-
-namespace VideoLOB
+﻿namespace System.Text
 {
-    internal class AddNewLines
+    public static class StringBuilderExtensions
     {
         /// <summary>
-        /// Adds new lines to a string
+        /// Adds new lines to a StringBuilder object.
         /// </summary>
-        /// <param name="newLines">The number of new lins to add</param>
-        /// <param name="inputString">The string to add new lines to</param>
-        public void AddNewLine(int newLines, StringBuilder inputString)
+        /// <param name="builder">The StringBuilder object to add new lines to</param>
+        /// <param name="newLines">The number of new lines to add</param>
+        /// <returns>The modified StringBuilder object</returns>
+        public static StringBuilder AddNewLines(this StringBuilder builder, int newLines)
         {
             for (int i = 0; i < newLines; i++)
             {
-                inputString.Append(Environment.NewLine);
+                builder.Append(Environment.NewLine);
             }
+            return builder;
         }
     }
 }

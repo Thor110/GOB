@@ -37,12 +37,12 @@ public class RandomTextGenerator
         public void Dispose()
         {
             stopwatch.Stop();
-            Debug.WriteLine($"Function Disposal took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
+            Debug.WriteLine($"Function Disposal took {stopwatch.ElapsedTicks} ticks to execute.");
         }
         public void Test()
         {
-            Debug.WriteLine($"Code block took {stopwatch.ElapsedMilliseconds} milliseconds to execute.");
-            File.AppendAllText("timer.log", $"Code block took: {stopwatch.ElapsedMilliseconds} milliseconds to execute." + Environment.NewLine);
+            Debug.WriteLine($"Code block took {stopwatch.ElapsedTicks} ticks to execute.");
+            File.AppendAllText("timer.log", $"Code block took: {stopwatch.ElapsedTicks} ticks to execute." + Environment.NewLine);
         }
     }
     /// <summary>
@@ -114,22 +114,26 @@ public class RandomTextGenerator
         //but it heavily duplicates code...
         // TODO: Inline these function for performance optimization
         // Inlining these functions provides around a 0.7 second increase in speed when generating a text file with 80 million characters.
+        // Current : 2.6 seconds    Inlined : 1.9 seconds
         if (ranges != null)
         {
             if (!textFile && !contentType) // 00 = Character
             {
                 ReturnRandomRange(); // TODO: Inline
                 charString = GenerateRandomCharacter();
+                return;
             }
-            if (!textFile && contentType) //01 = String
+            else if (!textFile && contentType) //01 = String // XOR Operator must be used after this condition
             {
                 RangeTitle(); // TODO: Inline
+                return;
             }
-            if (textFile && !contentType) //10 = Paragraph
+            else if(textFile ^ contentType) //10 = Paragraph // XOR Operator (^) results in less assembly instructions than "else if (textFile && !contentType)"
             {
                 RangeContent(); // TODO: Inline
+                return;
             }
-            if (textFile && contentType) // 11 = Text File
+            else if(textFile && contentType) // 11 = Text File
             {
                 RangeTitle(); // TODO: Inline
                 ReturnTitle(); // TODO: Inline
@@ -143,34 +147,24 @@ public class RandomTextGenerator
             if (!textFile && !contentType) // 00 = Character
             {
                 charString = GenerateRandomCharacter();
+                return;
             }
-            if (!textFile && contentType) //01 = String
+            else if (!textFile && contentType) //01 = String // XOR Operator must be used after this condition
             {
                 Title(); // TODO: Inline
+                return;
             }
-            if (textFile && !contentType) //10 = Paragraph
+            else if (textFile ^ contentType) //10 = Paragraph // XOR Operator (^) results in less assembly instructions than "else if (textFile && !contentType)"
             {
                 Content(); // TODO: Inline
+                return;
             }
-            if (textFile && contentType) // 11 = Text File
+            else if (textFile && contentType) // 11 = Text File
             {
                 Title(); // TODO: Inline
                 ReturnTitle(); // TODO: Inline
                 Content(); // TODO: Inline
             }
-        }
-        // return when only generating a character, string or paragraph.
-        if (!textFile && contentType) // 01 = Character
-        {
-            return;
-        }
-        if (!textFile && !contentType) //00 = String
-        {
-            return;
-        }
-        if (textFile && !contentType) //10 = Paragraph
-        {
-            return;
         }
         // try catch exceptions
         try

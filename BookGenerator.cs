@@ -101,7 +101,6 @@ public class RandomTextGenerator
         title = new StringBuilder(titleLength);
         isFileName = fileName;
         int charStringLength;
-        int charCounter = 0;
         int lineCounter = 0;
         int charLineCounter = 0;
         int totalContentLength = 0;
@@ -305,10 +304,9 @@ public class RandomTextGenerator
                 AddNewLines(1); // DO NOT INLINE
                 lineCounter = 0;
             }
-            charCounter += charStringLength;
             charLineCounter += charStringLength;
-            content.Append(charString);
             totalContentLength += charStringLength;
+            content.Append(charString);
             if (totalContentLength >= contentLength) { return; }
         }
         /// <summary>

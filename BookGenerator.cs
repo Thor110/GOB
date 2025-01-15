@@ -113,7 +113,7 @@ public class RandomTextGenerator
         //but it heavily duplicates code...
         // TODO: Inline these function for performance optimization
         // Inlining these functions provides around a 0.7 second increase in speed when generating a text file with 80 million characters.
-        // Current : 2.6 seconds    Inlined : 1.9 seconds
+        // Current : ~2.6 seconds    Inlined : ~1.9 seconds
         if (ranges != null)
         {
             if (!textFile && !contentType) // 00 = Character
@@ -165,7 +165,110 @@ public class RandomTextGenerator
                 Content(); // TODO: Inline
             }
         }
-        // try catch exceptions
+        /// <summary>
+        /// Sets the rangeMin and rangeMax values to a random range within the ranges list.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void ReturnRandomRange()
+        {
+            randomRange = random.Next(0, ranges.Count);
+            selectedRange = ranges[randomRange];
+            rangeMin = selectedRange.Start.Value;
+            rangeMax = selectedRange.End.Value;
+        }
+        /// <summary>
+        /// Generates a random title string within a custom set of ranges.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void RangeTitle()
+        {
+            for (int i = 0; i < titleLength; i++)
+            {
+                ReturnRandomRange(); // TODO: Inline
+                GenerateTitle(); // TODO: Inline
+            }
+        }
+        /// <summary>
+        /// Generates a random paragraph string within a custom set of ranges.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void RangeContent()
+        {
+            for (int i = 0; i < contentLength; i++)
+            {
+                ReturnRandomRange(); // TODO: Inline
+                GenerateContent(); // TODO: Inline
+            }
+        }
+        /// <summary>
+        /// Generates a random title string.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void Title()
+        {
+            for (int i = 0; i < titleLength; i++)
+            {
+                GenerateTitle(); // TODO: Inline
+            }
+        }
+        /// <summary>
+        /// Generates a random paragraph string.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void Content()
+        {
+            for (int i = 0; i < contentLength; i++)
+            {
+                GenerateContent(); // TODO: Inline
+            }
+        }
+        /// <summary>
+        /// Generates a random character and adds it to the title string.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void GenerateTitle()
+        {
+            charString = GenerateRandomCharacter();
+            title.Append(charString);
+        }
+        /// <summary>
+        /// Adds the title to the content string, adds two new lines and then sets filename to false.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void ReturnTitle()
+        {
+            content.Append(title);
+            AddNewLines(2); // DO NOT INLINE
+            isFileName = false;
+        }
+        /// <summary>
+        /// Generates a new character for a random paragraph string.
+        /// </summary>
+        // TODO: Inline this function for performance optimization
+        void GenerateContent()
+        {
+            charString = GenerateRandomCharacter();
+            charStringLength = charString.Length;
+            if (charLineCounter + charStringLength > lineLength)
+            {
+                currentLine++;
+                if (currentLine >= totalLines) { return; }
+                AddNewLines(1); // DO NOT INLINE
+                charLineCounter = 0;
+                lineCounter++;
+            }
+            if (lineCounter == paragraphLength)
+            {
+                AddNewLines(1); // DO NOT INLINE
+                lineCounter = 0;
+            }
+            charLineCounter += charStringLength;
+            totalContentLength += charStringLength;
+            content.Append(charString);
+            if (totalContentLength >= contentLength) { return; }
+        }
+        // TODO: Inline the above functions
+        // NOTE: Moving the below code to it's own method only serves to slow down code execution
         try
         {
             if (File.Exists(title + ".txt"))
@@ -173,7 +276,7 @@ public class RandomTextGenerator
                 int counter = 1;
                 string newTitle = title.ToString();
                 // odds calculation is completely different if using custom preset ranges
-                int baseRange = maxRange - minRange + 1; // calculate the actual odds of generating the same file twice.
+                int baseRange = rangeMin - rangeMax + 1; // calculate the actual odds of generating the same file twice.
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
                 double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
@@ -226,120 +329,6 @@ public class RandomTextGenerator
             File.AppendAllText("error.log", $"{DateTime.Now} : {e.Message} : Unexpected exception!" + Environment.NewLine);
             File.AppendAllText("error.log", "Exception: this is a catch-all for any other unexpected exceptions that may occur.");
         }
-        /// <summary>
-        /// Generates a random title string within a custom set of ranges.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void RangeTitle()
-        {
-            for (int i = 0; i < titleLength; i++)
-            {
-                ReturnRandomRange(); // TODO: Inline
-                GenerateTitle(); // TODO: Inline
-            }
-        }
-        /// <summary>
-        /// Generates a random paragraph string within a custom set of ranges.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void RangeContent()
-        {
-            for (int i = 0; i < contentLength; i++)
-            {
-                ReturnRandomRange(); // TODO: Inline
-                GenerateContent(); // TODO: Inline
-            }
-        }
-        /// <summary>
-        /// Generates a random title string.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void Title()
-        {
-            for (int i = 0; i < titleLength; i++)
-            {
-                GenerateTitle(); // TODO: Inline
-            }
-        }
-        /// <summary>
-        /// Generates a random paragraph string.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void Content()
-        {
-            for (int i = 0; i < contentLength; i++)
-            {
-                GenerateContent(); // TODO: Inline
-            }
-        }
-        /// <summary>
-        /// Sets the rangeMin and rangeMax values to a random range within the ranges list.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void ReturnRandomRange()
-        {
-            randomRange = random.Next(0, ranges.Count);
-            selectedRange = ranges[randomRange];
-            rangeMin = selectedRange.Start.Value;
-            rangeMax = selectedRange.End.Value;
-        }
-        /// <summary>
-        /// Generates a new character for a random paragraph string.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void GenerateContent()
-        {
-            charString = GenerateRandomCharacter();
-            charStringLength = charString.Length;
-            if (charLineCounter + charStringLength > lineLength)
-            {
-                currentLine++;
-                if (currentLine >= totalLines) { return; }
-                AddNewLines(1); // DO NOT INLINE
-                charLineCounter = 0;
-                lineCounter++;
-            }
-            if (lineCounter == paragraphLength)
-            {
-                AddNewLines(1); // DO NOT INLINE
-                lineCounter = 0;
-            }
-            charLineCounter += charStringLength;
-            totalContentLength += charStringLength;
-            content.Append(charString);
-            if (totalContentLength >= contentLength) { return; }
-        }
-        /// <summary>
-        /// Generates a random character and adds it to the title string.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void GenerateTitle()
-        {
-            charString = GenerateRandomCharacter();
-            title.Append(charString);
-        }
-        /// <summary>
-        /// Adds the title to the content string, adds two new lines and then sets filename to false.
-        /// </summary>
-        // TODO: Inline this function for performance optimization
-        void ReturnTitle()
-        {
-            content.Append(title);
-            AddNewLines(2); // DO NOT INLINE
-            isFileName = false;
-        }
-    }
-    /// <summary>
-    /// Adds new lines to the string when required.
-    /// </summary>
-    /// <param name="newLines">The number of new lins to add</param>
-    public void AddNewLines(int newLines)
-    {
-        // consider extracting this method into it's own class and making it a string method so that it can add new lines to any string it is passed.
-        for (int i = 0; i < newLines; i++)
-        {
-            content.Append(Environment.NewLine);
-        }
     }
     /// <summary>
     /// Generates a single random character and returns it as a string.
@@ -388,5 +377,17 @@ public class RandomTextGenerator
         }
         MessageBox.Show("Failed to generate a valid character after " + maxAttempts + " attempts.");
         throw new InvalidOperationException("Failed to generate a valid character after " + maxAttempts + " attempts.");
+    }
+    /// <summary>
+    /// Adds new lines to the string when required.
+    /// </summary>
+    /// <param name="newLines">The number of new lins to add</param>
+    public void AddNewLines(int newLines)
+    {
+        // consider extracting this method into it's own class and making it a string method so that it can add new lines to any string it is passed.
+        for (int i = 0; i < newLines; i++)
+        {
+            content.Append(Environment.NewLine);
+        }
     }
 }

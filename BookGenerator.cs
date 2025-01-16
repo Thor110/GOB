@@ -123,17 +123,16 @@ public class RandomTextGenerator
                     characterString = GenerateRandomCharacter();
                     return;
                 case (false, true): //01 = String
-                    RangeTitle(); // TODO: Inline
+                    RandomRangeTitle(); // TODO: Inline
                     return;
                 case (true, false): //10 = Paragraph
-                    RangeContent(); // TODO: Inline
+                    RandomRangeContent(); // TODO: Inline
                     return;
                 case (true, true): // 11 = Text File
-                    RangeTitle(); // TODO: Inline
-                    ReturnTitle(); // TODO: Inline
-                    RangeContent(); // TODO: Inline
+                    RandomRangeTitle(); // TODO: Inline
+                    AppendTitle(); // TODO: Inline
+                    RandomRangeContent(); // TODO: Inline
                     break;
-
             }
         }
         else
@@ -153,10 +152,9 @@ public class RandomTextGenerator
                     return;
                 case (true, true): // 11 = Text File
                     Title(); // TODO: Inline
-                    ReturnTitle(); // TODO: Inline
+                    AppendTitle(); // TODO: Inline
                     Content(); // TODO: Inline
                     break;
-
             }
         }
         /// <summary>
@@ -174,7 +172,7 @@ public class RandomTextGenerator
         /// Generates a random title string within a custom set of ranges.
         /// </summary>
         // TODO: Inline this function for performance optimization
-        void RangeTitle()
+        void RandomRangeTitle()
         {
             for (int i = 0; i < titleLength; i++)
             {
@@ -186,7 +184,7 @@ public class RandomTextGenerator
         /// Generates a random paragraph string within a custom set of ranges.
         /// </summary>
         // TODO: Inline this function for performance optimization
-        void RangeContent()
+        void RandomRangeContent()
         {
             for (int i = 0; i < contentLength; i++)
             {
@@ -229,10 +227,10 @@ public class RandomTextGenerator
         /// Adds the title to the content string, adds two new lines and then sets filename to false.
         /// </summary>
         // TODO: Inline this function for performance optimization
-        void ReturnTitle()
+        void AppendTitle()
         {
             contentString.Append(titleString);
-            AddNewLines(2); // DO NOT INLINE
+            contentString.AddNewLines(2); // DO NOT INLINE
             isFileName = false;
         }
         /// <summary>
@@ -247,13 +245,13 @@ public class RandomTextGenerator
             {
                 currentLine++;
                 if (currentLine >= totalLines) { return; }
-                AddNewLines(1); // DO NOT INLINE
+                contentString.AddNewLines(1); // DO NOT INLINE
                 charLineCounter = 0;
                 lineCounter++;
             }
             if (lineCounter == paragraphLength)
             {
-                AddNewLines(1); // DO NOT INLINE
+                contentString.AddNewLines(1); // DO NOT INLINE
                 lineCounter = 0;
             }
             charLineCounter += charStringLength;
@@ -371,17 +369,5 @@ public class RandomTextGenerator
         }
         MessageBox.Show("Failed to generate a valid character after " + maxAttempts + " attempts.");
         throw new InvalidOperationException("Failed to generate a valid character after " + maxAttempts + " attempts.");
-    }
-    /// <summary>
-    /// Adds new lines to the string when required.
-    /// </summary>
-    /// <param name="newLines">The number of new lins to add</param>
-    public void AddNewLines(int newLines)
-    {
-        // consider extracting this method into it's own class and making it a string method so that it can add new lines to any string it is passed.
-        for (int i = 0; i < newLines; i++)
-        {
-            contentString.Append(Environment.NewLine);
-        }
     }
 }

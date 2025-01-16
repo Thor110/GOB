@@ -116,7 +116,7 @@ public class RandomTextGenerator
         // Current : ~2.6 seconds    Inlined : ~1.9 seconds
         if (ranges != null)
         {
-            if (!textFile && !contentType) // 00 = Character
+            /*if (!textFile && !contentType) // 00 = Character
             {
                 ReturnRandomRange(); // TODO: Inline
                 characterString = GenerateRandomCharacter();
@@ -137,13 +137,32 @@ public class RandomTextGenerator
                 RangeTitle(); // TODO: Inline
                 ReturnTitle(); // TODO: Inline
                 RangeContent(); // TODO: Inline
+            }*/
+            switch (textFile, contentType)
+            {
+                case (false, false): // 00 = Character
+                    ReturnRandomRange(); // TODO: Inline
+                    characterString = GenerateRandomCharacter();
+                    return;
+                case (false, true): //01 = String
+                    RangeTitle(); // TODO: Inline
+                    return;
+                case (true, false): //10 = Paragraph
+                    RangeContent(); // TODO: Inline
+                    return;
+                case (true, true): // 11 = Text File
+                    RangeTitle(); // TODO: Inline
+                    ReturnTitle(); // TODO: Inline
+                    RangeContent(); // TODO: Inline
+                    break;
+
             }
         }
         else
         {
             rangeMin = minRange;
             rangeMax = maxRange;
-            if (!textFile && !contentType) // 00 = Character
+            /*if (!textFile && !contentType) // 00 = Character
             {
                 characterString = GenerateRandomCharacter();
                 return;
@@ -163,6 +182,24 @@ public class RandomTextGenerator
                 Title(); // TODO: Inline
                 ReturnTitle(); // TODO: Inline
                 Content(); // TODO: Inline
+            }*/
+            switch (textFile, contentType)
+            {
+                case (false, false): // 00 = Character
+                    characterString = GenerateRandomCharacter();
+                    return;
+                case (false, true): //01 = String
+                    Title(); // TODO: Inline
+                    return;
+                case (true, false): //10 = Paragraph
+                    Content(); // TODO: Inline
+                    return;
+                case (true, true): // 11 = Text File
+                    Title(); // TODO: Inline
+                    ReturnTitle(); // TODO: Inline
+                    Content(); // TODO: Inline
+                    break;
+
             }
         }
         /// <summary>

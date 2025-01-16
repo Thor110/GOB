@@ -1,4 +1,6 @@
-﻿namespace VideoLOB
+﻿using System.Windows.Forms;
+
+namespace VideoLOB
 {
     /// <summary>
     /// Library of Babel generater form.
@@ -89,15 +91,31 @@
             //seedText.Text = seedString;
             //
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.titleString + ".avi";
+            string filePath;
+            string message;
             //
             int width = Convert.ToInt32(videoWidthNumeric.Value);
             int height = Convert.ToInt32(videoHeightNumeric.Value);
             int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
             int duration = Convert.ToInt32(videoDurationNumeric.Value);
-            VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
-            MessageBox.Show("Video Generated!");
+            if (generateMultipleFiles)
+            {
+                message = "Video Files Generated!";
+                for (int i = 0; i < operations; i++)
+                {
+                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    filePath = TextGenerator.titleString + ".avi";
+                    VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
+                }
+            }
+            else
+            {
+                message = "Video Generated!";
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                filePath = TextGenerator.titleString + ".avi";
+                VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
+            }
+            MessageBox.Show(message);
         }
         /// <summary>
         /// Audio generator button.
@@ -108,8 +126,8 @@
             //seedText.Text = seedString;
             //
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.titleString + ".wav";
+            string filePath;
+            string message;
             //
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
@@ -118,8 +136,24 @@
             // default numChannels and bitDepth for WAV header
             short numChannels = Convert.ToInt16(channelsBox.SelectedItem.ToString());
             short bitDepth = Convert.ToInt16(depthBox.SelectedItem.ToString());
-            AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
-            MessageBox.Show("Audio Generated!");
+            if (generateMultipleFiles)
+            {
+                message = "Audio Files Generated!";
+                for (int i = 0; i < operations; i++)
+                {
+                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    filePath = TextGenerator.titleString + ".wav";
+                    AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
+                }
+            }
+            else
+            {
+                message = "Audio Generated!";
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                filePath = TextGenerator.titleString + ".wav";
+                AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
+            }
+            MessageBox.Show(message);
         }
         /// <summary>
         /// Image generator button.
@@ -128,13 +162,30 @@
         {
             CollectNameVariables();
             TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.titleString + ".png";
+            string filePath;
+            string message;
             //
             int width = Convert.ToInt32(widthNumeric.Value);
             int height = Convert.ToInt32(heightNumeric.Value);
             //
-            ImageGenerator.GenerateImage(filePath, width, height);
-            MessageBox.Show("Image Generated!");
+            if (generateMultipleFiles)
+            {
+                message = "Images Generated!";
+                for (int i = 0; i < operations; i++)
+                {
+                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    filePath = TextGenerator.titleString + ".png";
+                    ImageGenerator.GenerateImage(filePath, width, height);
+                }
+            }
+            else
+            {
+                message = "Image Generated!";
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                filePath = TextGenerator.titleString + ".png";
+                ImageGenerator.GenerateImage(filePath, width, height);
+            }
+            MessageBox.Show(message);
         }
         /// <summary>
         /// 3D Model generator button.
@@ -142,16 +193,32 @@
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
-            string filePath = TextGenerator.titleString + ".obj";
             //
             int numVertices = Convert.ToInt32(verticesNumeric.Value);
             int numFaces = Convert.ToInt32(facesNumeric.Value);
             int scale = Convert.ToInt32(scaleNumeric.Value);
             bool generateSolid = checkBox1.Checked;
+            string filePath;
+            string message;
             //
-            ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
-            MessageBox.Show("Model Generated!");
+            if (generateMultipleFiles)
+            {
+                message = "Models Generated!";
+                for (int i = 0; i < operations; i++)
+                {
+                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    filePath = TextGenerator.titleString + ".obj";
+                    ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
+                }
+            }
+            else
+            {
+                message = "Model Generated!";
+                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                filePath = TextGenerator.titleString + ".obj";
+                ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
+            }
+            MessageBox.Show(message);
         }
         /// <summary>
         /// Book generator button.
@@ -162,12 +229,10 @@
             string message;
             if (generateMultipleFiles)
             {
-                operations = Convert.ToInt32(textFileNumeric.Value);
                 message = "Books Generated!";
             }
             else
             {
-                operations = 1;
                 message = "Book Generated!";
             }
             if (comboBox2.Items.Count == 1)
@@ -187,7 +252,6 @@
             contentLength = Convert.ToInt32(contentNumeric.Value);
             lineLength = Convert.ToInt32(lineNumeric.Value);
             paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
-            generateMultipleFiles = checkBox2.Checked;
             minRange = trackBarMin.Value;
             maxRange = trackBarMax.Value;
         }
@@ -355,19 +419,19 @@
         };
         //Excluded Character Preset Ranges
         //Excluded because it only contains one character with no appearance.
-//{ 100, ("Specials A", 0xFEFF, 0xFEFF, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+        //{ 100, ("Specials A", 0xFEFF, 0xFEFF, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
 
         //Excluded because it only contains five characters, three of which have no appearance.
-//{ 101, ("Specials B", 0xFFF0, 0xFFFD, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
+        //{ 101, ("Specials B", 0xFFF0, 0xFFFD, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
 
         //Excluded because it only contains two characters that are just a square.
-//{ 102, ("Private Use", 0xE000, 0xF8FF, "Characters for private use, including symbols for custom or proprietary characters.") },
+        //{ 102, ("Private Use", 0xE000, 0xF8FF, "Characters for private use, including symbols for custom or proprietary characters.") },
 
         //Excluded because they don't contain many symbols and aren't practical for generating bodies of text with.
-//{ 103, ("Combining Diacritical Marks", 0x0300, 0x036F, "Characters that combine with other characters to form accented or modified characters, used in many languages.") },
-//{ 104, ("Combining Marks for Symbols", 0x20D0, 0x20FF, "Characters that combine with symbols to form modified symbols, used in mathematical and technical contexts.") },
-//{ 105, ("Control Pictures", 0x2400, 0x243F, "Characters for representing control characters, including symbols for tab, newline, and other control codes.") },
-//{ 106, ("Optical Character Recognition", 0x2440, 0x245F, "Characters for optical character recognition (OCR) systems, including symbols for recognizing printed characters.") },
+        //{ 103, ("Combining Diacritical Marks", 0x0300, 0x036F, "Characters that combine with other characters to form accented or modified characters, used in many languages.") },
+        //{ 104, ("Combining Marks for Symbols", 0x20D0, 0x20FF, "Characters that combine with symbols to form modified symbols, used in mathematical and technical contexts.") },
+        //{ 105, ("Control Pictures", 0x2400, 0x243F, "Characters for representing control characters, including symbols for tab, newline, and other control codes.") },
+        //{ 106, ("Optical Character Recognition", 0x2440, 0x245F, "Characters for optical character recognition (OCR) systems, including symbols for recognizing printed characters.") },
         /// <summary>
         /// Unicode combobox index changed.
         /// </summary>
@@ -400,6 +464,19 @@
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             textFileNumeric.Enabled = checkBox2.Checked;
+            generateMultipleFiles = checkBox2.Checked;
+            if (!generateMultipleFiles)
+            {
+                operations = 1;
+            }
+            else
+            {
+                operations = Convert.ToInt32(textFileNumeric.Value);
+            }
+        }
+        private void textFileNumeric_ValueChanged(object sender, EventArgs e)
+        {
+            operations = Convert.ToInt32(textFileNumeric.Value);
         }
         private void addButton_Click(object sender, EventArgs e)
         {

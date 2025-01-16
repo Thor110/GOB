@@ -210,6 +210,7 @@
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
+            channelsBox.SelectedIndex = 0;
             // 
             // depthBox
             // 
@@ -220,6 +221,7 @@
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
+            depthBox.SelectedIndex = 0;
             // 
             // textBox1
             // 
@@ -683,6 +685,7 @@
             textFileNumeric.Size = new Size(120, 23);
             textFileNumeric.TabIndex = 74;
             textFileNumeric.Value = new decimal(new int[] { 2, 0, 0, 0 });
+            textFileNumeric.ValueChanged += textFileNumeric_ValueChanged;
             // 
             // label5
             // 

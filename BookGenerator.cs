@@ -116,28 +116,6 @@ public class RandomTextGenerator
         // Current : ~2.6 seconds    Inlined : ~1.9 seconds
         if (ranges != null)
         {
-            /*if (!textFile && !contentType) // 00 = Character
-            {
-                ReturnRandomRange(); // TODO: Inline
-                characterString = GenerateRandomCharacter();
-                return;
-            }
-            else if (!textFile && contentType) //01 = String // XOR Operator must be used after this condition
-            {
-                RangeTitle(); // TODO: Inline
-                return;
-            }
-            else if(textFile ^ contentType) //10 = Paragraph // XOR Operator (^) results in less assembly instructions than "else if (textFile && !contentType)"
-            {
-                RangeContent(); // TODO: Inline
-                return;
-            }
-            else if(textFile && contentType) // 11 = Text File
-            {
-                RangeTitle(); // TODO: Inline
-                ReturnTitle(); // TODO: Inline
-                RangeContent(); // TODO: Inline
-            }*/
             switch (textFile, contentType)
             {
                 case (false, false): // 00 = Character
@@ -162,27 +140,6 @@ public class RandomTextGenerator
         {
             rangeMin = minRange;
             rangeMax = maxRange;
-            /*if (!textFile && !contentType) // 00 = Character
-            {
-                characterString = GenerateRandomCharacter();
-                return;
-            }
-            else if (!textFile && contentType) //01 = String // XOR Operator must be used after this condition
-            {
-                Title(); // TODO: Inline
-                return;
-            }
-            else if (textFile ^ contentType) //10 = Paragraph // XOR Operator (^) results in less assembly instructions than "else if (textFile && !contentType)"
-            {
-                Content(); // TODO: Inline
-                return;
-            }
-            else if (textFile && contentType) // 11 = Text File
-            {
-                Title(); // TODO: Inline
-                ReturnTitle(); // TODO: Inline
-                Content(); // TODO: Inline
-            }*/
             switch (textFile, contentType)
             {
                 case (false, false): // 00 = Character

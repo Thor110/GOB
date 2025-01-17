@@ -1,4 +1,6 @@
-﻿namespace VideoLOB
+﻿using Microsoft.Win32;
+
+namespace VideoLOB
 {
     /// <summary>
     /// Library of Babel generater form.
@@ -19,14 +21,31 @@
         private string custom = "Custom";
         private bool generateMultipleFiles;
         private List<Range> ranges = new List<Range>();
-        private string folderPath = "";
+        private string folderPath = string.Empty;
+        private RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Gallery\Settings")!;
         public Form1()
         {
             InitializeComponent();
+            InitializeRegistry();
             InitializeTooltips();
             InitializePresets();
-            channelsBox.SelectedIndex = 0;
-            depthBox.SelectedIndex = 0;
+        }
+        /// <summary>
+        /// Registry Initializer.
+        /// </summary>
+        private void InitializeRegistry()
+        {
+            if (key != null)
+            {
+                folderPath = key.GetValue("Directory")!.ToString()!;
+            }
+            else
+            {
+                key = Registry.CurrentUser.CreateSubKey(@"Gallery\Settings");
+                folderPath = Application.StartupPath;
+                key.SetValue("Directory", folderPath);
+            }
+            key.Close();
         }
         /// <summary>
         /// Initialize tooltips for all controls.
@@ -54,6 +73,8 @@
                 comboBox1.Items.Add(range.language);
             }
             comboBox1.SelectedIndex = 58; // "Basic Unicode Range"
+            channelsBox.SelectedIndex = 0;
+            depthBox.SelectedIndex = 0;
         }
         /// <summary>
         /// Tooltip mouse event handlers.
@@ -83,9 +104,12 @@
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 folderPath = folderBrowserDialog.SelectedPath + "\\";
+                TextGenerator.filePath = folderPath;
+                directoryBox.Text = folderPath;
+                key = Registry.CurrentUser.OpenSubKey(@"Gallery\Settings", true)!;
+                key.SetValue("Directory", folderPath);
+                key.Close();
             }
-            TextGenerator.filePath = folderPath;
-            directoryBox.Text = folderPath;
         }
         /// <summary>
         /// Seed string generator (incomplete function)

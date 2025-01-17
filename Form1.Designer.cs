@@ -452,7 +452,7 @@
             titleNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
             titleNumeric.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             titleNumeric.Name = "titleNumeric";
-            titleNumeric.Size = new Size(120, 23);
+            titleNumeric.Size = new Size(100, 23);
             titleNumeric.TabIndex = 41;
             titleNumeric.Value = new decimal(new int[] { 16, 0, 0, 0 });
             // 
@@ -464,7 +464,7 @@
             contentNumeric.Maximum = new decimal(new int[] { 80000000, 0, 0, 0 });
             contentNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             contentNumeric.Name = "contentNumeric";
-            contentNumeric.Size = new Size(120, 23);
+            contentNumeric.Size = new Size(100, 23);
             contentNumeric.TabIndex = 42;
             contentNumeric.Value = new decimal(new int[] { 800, 0, 0, 0 });
             // 
@@ -491,18 +491,18 @@
             // textBox15
             // 
             textBox15.Enabled = false;
-            textBox15.Location = new Point(244, 429);
+            textBox15.Location = new Point(225, 430);
             textBox15.Name = "textBox15";
-            textBox15.Size = new Size(77, 23);
+            textBox15.Size = new Size(98, 23);
             textBox15.TabIndex = 45;
             textBox15.Text = "1 - 80000000";
             // 
             // textBox16
             // 
             textBox16.Enabled = false;
-            textBox16.Location = new Point(244, 400);
+            textBox16.Location = new Point(225, 401);
             textBox16.Name = "textBox16";
-            textBox16.Size = new Size(77, 23);
+            textBox16.Size = new Size(98, 23);
             textBox16.TabIndex = 46;
             textBox16.Text = "8 - 128";
             // 
@@ -532,25 +532,25 @@
             lineNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             lineNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             lineNumeric.Name = "lineNumeric";
-            lineNumeric.Size = new Size(120, 23);
+            lineNumeric.Size = new Size(100, 23);
             lineNumeric.TabIndex = 49;
             lineNumeric.Value = new decimal(new int[] { 80, 0, 0, 0 });
             // 
             // textBox19
             // 
             textBox19.Enabled = false;
-            textBox19.Location = new Point(244, 458);
+            textBox19.Location = new Point(225, 459);
             textBox19.Name = "textBox19";
-            textBox19.Size = new Size(77, 23);
+            textBox19.Size = new Size(98, 23);
             textBox19.TabIndex = 50;
             textBox19.Text = "10 - 80";
             // 
             // textBox20
             // 
             textBox20.Enabled = false;
-            textBox20.Location = new Point(244, 487);
+            textBox20.Location = new Point(225, 488);
             textBox20.Name = "textBox20";
-            textBox20.Size = new Size(77, 23);
+            textBox20.Size = new Size(98, 23);
             textBox20.TabIndex = 53;
             textBox20.Text = "10 - 80";
             // 
@@ -561,7 +561,7 @@
             paragraphNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             paragraphNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             paragraphNumeric.Name = "paragraphNumeric";
-            paragraphNumeric.Size = new Size(120, 23);
+            paragraphNumeric.Size = new Size(100, 23);
             paragraphNumeric.TabIndex = 52;
             paragraphNumeric.Value = new decimal(new int[] { 40, 0, 0, 0 });
             // 
@@ -578,7 +578,7 @@
             // trackBarMax
             // 
             trackBarMax.AccessibleDescription = "Maximum range of the Unicode characters.";
-            trackBarMax.Location = new Point(327, 466);
+            trackBarMax.Location = new Point(330, 466);
             trackBarMax.Maximum = 1114111;
             trackBarMax.Minimum = 32;
             trackBarMax.Name = "trackBarMax";
@@ -590,7 +590,7 @@
             // trackBarMin
             // 
             trackBarMin.AccessibleDescription = "Minimum range of the Unicode characters.";
-            trackBarMin.Location = new Point(327, 400);
+            trackBarMin.Location = new Point(330, 415);
             trackBarMin.Maximum = 1114111;
             trackBarMin.Minimum = 32;
             trackBarMin.Name = "trackBarMin";
@@ -602,7 +602,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(437, 403);
+            label1.Location = new Point(440, 416);
             label1.Name = "label1";
             label1.Size = new Size(19, 15);
             label1.TabIndex = 56;
@@ -611,7 +611,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(437, 467);
+            label2.Location = new Point(440, 467);
             label2.Name = "label2";
             label2.Size = new Size(37, 15);
             label2.TabIndex = 57;
@@ -620,7 +620,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(327, 438);
+            label3.Location = new Point(327, 447);
             label3.Name = "label3";
             label3.Size = new Size(151, 15);
             label3.TabIndex = 58;

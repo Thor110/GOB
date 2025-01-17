@@ -67,20 +67,20 @@ public class RandomTextGenerator
         {
             switch (textFile, contentType)
             {
-                case (false, false): // 00 = Character
-                    ReturnRandomRange(); // TODO: Inline
+                case (false, false):    // 00 = Character
+                    ReturnRandomRange();    // TODO: Inline
                     characterString = GenerateRandomCharacter();
                     return;
-                case (false, true): //01 = String
-                    RandomRangeTitle(); // TODO: Inline
+                case (false, true):     //01 = String
+                    RandomRangeTitle();     // TODO: Inline
                     return;
-                case (true, false): //10 = Paragraph
-                    RandomRangeContent(); // TODO: Inline
+                case (true, false):     //10 = Paragraph
+                    RandomRangeContent();   // TODO: Inline
                     return;
-                case (true, true): // 11 = Text File
-                    RandomRangeTitle(); // TODO: Inline
-                    AppendTitle(); // TODO: Inline
-                    RandomRangeContent(); // TODO: Inline
+                case (true, true):      // 11 = Text File
+                    RandomRangeTitle();     // TODO: Inline
+                    AppendTitle();          // TODO: Inline
+                    RandomRangeContent();   // TODO: Inline
                     break;
             }
         }
@@ -90,19 +90,19 @@ public class RandomTextGenerator
             rangeMax = maxRange;
             switch (textFile, contentType)
             {
-                case (false, false): // 00 = Character
+                case (false, false):    // 00 = Character
                     characterString = GenerateRandomCharacter();
                     return;
-                case (false, true): //01 = String
-                    Title(); // TODO: Inline
+                case (false, true):     //01 = String
+                    Title();                // TODO: Inline
                     return;
-                case (true, false): //10 = Paragraph
-                    Content(); // TODO: Inline
+                case (true, false):     //10 = Paragraph
+                    Content();              // TODO: Inline
                     return;
-                case (true, true): // 11 = Text File
-                    Title(); // TODO: Inline
-                    AppendTitle(); // TODO: Inline
-                    Content(); // TODO: Inline
+                case (true, true):      // 11 = Text File
+                    Title();                // TODO: Inline
+                    AppendTitle();          // TODO: Inline
+                    Content();              // TODO: Inline
                     break;
             }
         }
@@ -125,8 +125,8 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < titleLength; i++)
             {
-                ReturnRandomRange(); // TODO: Inline
-                GenerateTitle(); // TODO: Inline
+                ReturnRandomRange();        // TODO: Inline
+                GenerateTitle();            // TODO: Inline
             }
         }
         /// <summary>
@@ -137,8 +137,8 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < contentLength; i++)
             {
-                ReturnRandomRange(); // TODO: Inline
-                GenerateContent(); // TODO: Inline
+                ReturnRandomRange();        // TODO: Inline
+                GenerateContent();          // TODO: Inline
             }
         }
         /// <summary>
@@ -149,7 +149,7 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < titleLength; i++)
             {
-                GenerateTitle(); // TODO: Inline
+                GenerateTitle();            // TODO: Inline
             }
         }
         /// <summary>
@@ -160,7 +160,7 @@ public class RandomTextGenerator
         {
             for (int i = 0; i < contentLength; i++)
             {
-                GenerateContent(); // TODO: Inline
+                GenerateContent();          // TODO: Inline
             }
         }
         /// <summary>

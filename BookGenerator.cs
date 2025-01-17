@@ -24,57 +24,6 @@ public class RandomTextGenerator
     public StringBuilder contentString = new StringBuilder();
     public StringBuilder titleString = new StringBuilder();
     /// <summary>
-    /// StopwatchWrapper class for the timer function.
-    /// </summary>
-    public class StopwatchWrapper : IDisposable
-    {
-        private readonly Stopwatch stopwatch;
-        public StopwatchWrapper()
-        {
-            stopwatch = new Stopwatch();
-            stopwatch.Start();
-        }
-        public void Dispose()
-        {
-            stopwatch.Stop();
-            Debug.WriteLine($"Function Disposal took {stopwatch.ElapsedTicks} ticks to execute.");
-        }
-        public void Test()
-        {
-            Debug.WriteLine($"Code block took {stopwatch.ElapsedTicks} ticks to execute.");
-            File.AppendAllText("timer.log", $"Code block took: {stopwatch.ElapsedTicks} ticks to execute." + Environment.NewLine);
-        }
-    }
-    /// <summary>
-    /// Timer for testing execution time.
-    /// </summary>
-    /// <param name="titleLength">The length of the title</param>
-    /// <param name="contentLength">The length of the paragraph</param>
-    /// <param name="lineLength">The length of each line</param>
-    /// <param name="paragraphLength">The length of each paragraph</param>
-    /// <param name="minRange">The minimum range of the generated character in UniCode</param>
-    /// <param name="maxRange">The maximum range of the generated character in UniCode</param>
-    /// <param name="operations">The number of times to execute the function</param>
-    /// <param name="ranges">Lists all chosen ranges selected by the user</param>
-    /// <param name="textFile">Whether to generate a text file.</param>
-    /// <param name="contentType">Whether to generate a character or paragraph.</param>
-    /// <param name="fileName">If a filename is being generated.</param>
-    /// <remarks>
-    /// Used when generating multiple text files.
-    /// </remarks>
-    public void MultipleTextFiles(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 40, int maxRange = 65533, int operations = 1, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
-    {
-        using (var stopwatch = new StopwatchWrapper())
-        {
-            for (int i = 0; i < operations; i++)
-            {
-                //Debug.WriteLine("Iteration : " + i.ToString());
-                GenerateTextFile(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges!, textFile, contentType, fileName);
-                stopwatch.Test();
-            }
-        }
-    }
-    /// <summary>
     /// Generates a single random text file and saves it to the directory the program is executed from.
     /// </summary>
     /// <param name="titleLength">The length of the title</param>
@@ -95,7 +44,7 @@ public class RandomTextGenerator
     /// 11 = Text File  -   just generates a random text file saved locally and stored in the content variable.
     /// Note: If the "textFile" and "contentType" parameters are not specified, the method will generate a text file by default.
     /// </remarks>
-    public void GenerateTextFile(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
+    public void GenerateRandomText(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
     {
         contentString = new StringBuilder(contentLength);
         titleString = new StringBuilder(titleLength);

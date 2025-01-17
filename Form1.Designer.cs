@@ -210,7 +210,6 @@
             channelsBox.Name = "channelsBox";
             channelsBox.Size = new Size(121, 23);
             channelsBox.TabIndex = 14;
-            channelsBox.SelectedIndex = 0;
             // 
             // depthBox
             // 
@@ -221,7 +220,6 @@
             depthBox.Name = "depthBox";
             depthBox.Size = new Size(121, 23);
             depthBox.TabIndex = 15;
-            depthBox.SelectedIndex = 0;
             // 
             // textBox1
             // 
@@ -443,7 +441,7 @@
             // 
             // GenerateBookButton
             // 
-            GenerateBookButton.Location = new Point(12, 300);
+            GenerateBookButton.Location = new Point(12, 372);
             GenerateBookButton.Name = "GenerateBookButton";
             GenerateBookButton.Size = new Size(100, 23);
             GenerateBookButton.TabIndex = 40;
@@ -454,7 +452,7 @@
             // titleNumeric
             // 
             titleNumeric.AccessibleDescription = "The length of the Title and Filename.";
-            titleNumeric.Location = new Point(118, 329);
+            titleNumeric.Location = new Point(118, 401);
             titleNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
             titleNumeric.Minimum = new decimal(new int[] { 8, 0, 0, 0 });
             titleNumeric.Name = "titleNumeric";
@@ -466,7 +464,7 @@
             // 
             contentNumeric.AccessibleDescription = "The length of the content of the book.";
             contentNumeric.Increment = new decimal(new int[] { 80, 0, 0, 0 });
-            contentNumeric.Location = new Point(118, 358);
+            contentNumeric.Location = new Point(118, 430);
             contentNumeric.Maximum = new decimal(new int[] { 80000000, 0, 0, 0 });
             contentNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             contentNumeric.Name = "contentNumeric";
@@ -477,7 +475,7 @@
             // textBox13
             // 
             textBox13.Enabled = false;
-            textBox13.Location = new Point(12, 357);
+            textBox13.Location = new Point(12, 429);
             textBox13.Name = "textBox13";
             textBox13.Size = new Size(100, 23);
             textBox13.TabIndex = 43;
@@ -487,7 +485,7 @@
             // textBox14
             // 
             textBox14.Enabled = false;
-            textBox14.Location = new Point(12, 328);
+            textBox14.Location = new Point(12, 400);
             textBox14.Name = "textBox14";
             textBox14.Size = new Size(100, 23);
             textBox14.TabIndex = 44;
@@ -497,7 +495,7 @@
             // textBox15
             // 
             textBox15.Enabled = false;
-            textBox15.Location = new Point(244, 357);
+            textBox15.Location = new Point(244, 429);
             textBox15.Name = "textBox15";
             textBox15.Size = new Size(77, 23);
             textBox15.TabIndex = 45;
@@ -506,7 +504,7 @@
             // textBox16
             // 
             textBox16.Enabled = false;
-            textBox16.Location = new Point(244, 328);
+            textBox16.Location = new Point(244, 400);
             textBox16.Name = "textBox16";
             textBox16.Size = new Size(77, 23);
             textBox16.TabIndex = 46;
@@ -524,7 +522,7 @@
             // textBox18
             // 
             textBox18.Enabled = false;
-            textBox18.Location = new Point(12, 386);
+            textBox18.Location = new Point(12, 458);
             textBox18.Name = "textBox18";
             textBox18.Size = new Size(100, 23);
             textBox18.TabIndex = 48;
@@ -534,7 +532,7 @@
             // lineNumeric
             // 
             lineNumeric.AccessibleDescription = "The length of each line in the book.";
-            lineNumeric.Location = new Point(118, 387);
+            lineNumeric.Location = new Point(118, 459);
             lineNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             lineNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             lineNumeric.Name = "lineNumeric";
@@ -545,7 +543,7 @@
             // textBox19
             // 
             textBox19.Enabled = false;
-            textBox19.Location = new Point(244, 386);
+            textBox19.Location = new Point(244, 458);
             textBox19.Name = "textBox19";
             textBox19.Size = new Size(77, 23);
             textBox19.TabIndex = 50;
@@ -554,7 +552,7 @@
             // textBox20
             // 
             textBox20.Enabled = false;
-            textBox20.Location = new Point(244, 415);
+            textBox20.Location = new Point(244, 487);
             textBox20.Name = "textBox20";
             textBox20.Size = new Size(77, 23);
             textBox20.TabIndex = 53;
@@ -563,7 +561,7 @@
             // paragraphNumeric
             // 
             paragraphNumeric.AccessibleDescription = "The length of each paragraph in the book.";
-            paragraphNumeric.Location = new Point(118, 416);
+            paragraphNumeric.Location = new Point(118, 488);
             paragraphNumeric.Maximum = new decimal(new int[] { 80, 0, 0, 0 });
             paragraphNumeric.Minimum = new decimal(new int[] { 10, 0, 0, 0 });
             paragraphNumeric.Name = "paragraphNumeric";
@@ -574,7 +572,7 @@
             // textBox21
             // 
             textBox21.Enabled = false;
-            textBox21.Location = new Point(12, 415);
+            textBox21.Location = new Point(12, 487);
             textBox21.Name = "textBox21";
             textBox21.Size = new Size(100, 23);
             textBox21.TabIndex = 51;
@@ -584,7 +582,7 @@
             // trackBarMax
             // 
             trackBarMax.AccessibleDescription = "Maximum range of the Unicode characters.";
-            trackBarMax.Location = new Point(327, 394);
+            trackBarMax.Location = new Point(327, 466);
             trackBarMax.Maximum = 1114111;
             trackBarMax.Minimum = 32;
             trackBarMax.Name = "trackBarMax";
@@ -596,7 +594,7 @@
             // trackBarMin
             // 
             trackBarMin.AccessibleDescription = "Minimum range of the Unicode characters.";
-            trackBarMin.Location = new Point(327, 328);
+            trackBarMin.Location = new Point(327, 400);
             trackBarMin.Maximum = 1114111;
             trackBarMin.Minimum = 32;
             trackBarMin.Name = "trackBarMin";
@@ -608,7 +606,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(437, 331);
+            label1.Location = new Point(437, 403);
             label1.Name = "label1";
             label1.Size = new Size(19, 15);
             label1.TabIndex = 56;
@@ -617,7 +615,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(437, 395);
+            label2.Location = new Point(437, 467);
             label2.Name = "label2";
             label2.Size = new Size(37, 15);
             label2.TabIndex = 57;
@@ -626,7 +624,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(327, 366);
+            label3.Location = new Point(327, 438);
             label3.Name = "label3";
             label3.Size = new Size(151, 15);
             label3.TabIndex = 58;
@@ -646,7 +644,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(506, 308);
+            label4.Location = new Point(506, 380);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 71;
@@ -656,7 +654,7 @@
             // 
             comboBox1.AccessibleDescription = "A range of presets for different languages.";
             comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(486, 331);
+            comboBox1.Location = new Point(486, 403);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(175, 23);
             comboBox1.TabIndex = 72;
@@ -666,7 +664,7 @@
             // 
             checkBox2.AccessibleDescription = "Enables the option to generate multiple files.";
             checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(244, 303);
+            checkBox2.Location = new Point(244, 375);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(96, 19);
             checkBox2.TabIndex = 73;
@@ -676,9 +674,9 @@
             // 
             // textFileNumeric
             // 
-            textFileNumeric.AccessibleDescription = "The number of text files to generate.";
+            textFileNumeric.AccessibleDescription = "The number of files to generate.";
             textFileNumeric.Enabled = false;
-            textFileNumeric.Location = new Point(118, 300);
+            textFileNumeric.Location = new Point(118, 372);
             textFileNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
             textFileNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             textFileNumeric.Name = "textFileNumeric";
@@ -690,7 +688,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(506, 366);
+            label5.Location = new Point(506, 438);
             label5.Name = "label5";
             label5.Size = new Size(67, 15);
             label5.TabIndex = 75;
@@ -699,7 +697,7 @@
             // richTextBox1
             // 
             richTextBox1.AccessibleDescription = "This is a description of the chosen UniCode preset.";
-            richTextBox1.Location = new Point(486, 388);
+            richTextBox1.Location = new Point(486, 460);
             richTextBox1.Name = "richTextBox1";
             richTextBox1.ReadOnly = true;
             richTextBox1.Size = new Size(520, 51);
@@ -795,7 +793,7 @@
             // addButton
             // 
             addButton.AccessibleDescription = "Add to the presets array.";
-            addButton.Location = new Point(669, 331);
+            addButton.Location = new Point(669, 403);
             addButton.Name = "addButton";
             addButton.Size = new Size(75, 23);
             addButton.TabIndex = 85;
@@ -807,7 +805,7 @@
             // 
             comboBox2.AccessibleDescription = "An array of presets for generating text using different presets at the same time.";
             comboBox2.FormattingEnabled = true;
-            comboBox2.Location = new Point(750, 331);
+            comboBox2.Location = new Point(750, 403);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(175, 23);
             comboBox2.TabIndex = 86;
@@ -816,7 +814,7 @@
             // clearButton
             // 
             clearButton.AccessibleDescription = "Clear the presets array.";
-            clearButton.Location = new Point(931, 331);
+            clearButton.Location = new Point(931, 403);
             clearButton.Name = "clearButton";
             clearButton.Size = new Size(75, 23);
             clearButton.TabIndex = 87;
@@ -827,7 +825,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(779, 307);
+            label6.Location = new Point(779, 379);
             label6.Name = "label6";
             label6.Size = new Size(81, 15);
             label6.TabIndex = 88;
@@ -836,7 +834,7 @@
             // button1
             // 
             button1.AccessibleDescription = "Generates and displays a single random character using the selected preset.";
-            button1.Location = new Point(12, 271);
+            button1.Location = new Point(12, 343);
             button1.Name = "button1";
             button1.Size = new Size(100, 23);
             button1.TabIndex = 89;
@@ -847,7 +845,7 @@
             // button2
             // 
             button2.AccessibleDescription = "Generates and displays a single random string using the selected preset.";
-            button2.Location = new Point(118, 271);
+            button2.Location = new Point(118, 343);
             button2.Name = "button2";
             button2.Size = new Size(100, 23);
             button2.TabIndex = 90;
@@ -858,7 +856,7 @@
             // button3
             // 
             button3.AccessibleDescription = "Generates and displays a single random paragraph using the selected preset.";
-            button3.Location = new Point(224, 271);
+            button3.Location = new Point(224, 343);
             button3.Name = "button3";
             button3.Size = new Size(100, 23);
             button3.TabIndex = 91;
@@ -870,7 +868,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1018, 450);
+            ClientSize = new Size(1018, 522);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);

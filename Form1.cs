@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Net.Mime;
+using System.Windows.Forms;
 
 namespace VideoLOB
 {
@@ -8,6 +9,7 @@ namespace VideoLOB
     public partial class Form1 : Form
     {
         RandomTextGenerator TextGenerator = new RandomTextGenerator();
+        Timer TestTimer = new Timer();
         private ToolTip tooltip = new ToolTip();
         private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label), typeof(Button) };
         private int titleLength;
@@ -16,7 +18,7 @@ namespace VideoLOB
         private int paragraphLength;
         private int minRange;
         private int maxRange;
-        private int operations = 1;
+        private int operations;
         private string custom = "Custom";
         private bool generateMultipleFiles;
         private List<Range> ranges = new List<Range>();
@@ -103,7 +105,7 @@ namespace VideoLOB
                 message = "Video Files Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                     filePath = TextGenerator.titleString + ".avi";
                     VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
                 }
@@ -111,7 +113,7 @@ namespace VideoLOB
             else
             {
                 message = "Video Generated!";
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                 filePath = TextGenerator.titleString + ".avi";
                 VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
             }
@@ -141,7 +143,7 @@ namespace VideoLOB
                 message = "Audio Files Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                     filePath = TextGenerator.titleString + ".wav";
                     AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
                 }
@@ -149,7 +151,7 @@ namespace VideoLOB
             else
             {
                 message = "Audio Generated!";
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                 filePath = TextGenerator.titleString + ".wav";
                 AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
             }
@@ -161,7 +163,6 @@ namespace VideoLOB
         private void GenerateImageButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
             string filePath;
             string message;
             //
@@ -173,7 +174,7 @@ namespace VideoLOB
                 message = "Images Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                     filePath = TextGenerator.titleString + ".png";
                     ImageGenerator.GenerateImage(filePath, width, height);
                 }
@@ -181,7 +182,7 @@ namespace VideoLOB
             else
             {
                 message = "Image Generated!";
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                 filePath = TextGenerator.titleString + ".png";
                 ImageGenerator.GenerateImage(filePath, width, height);
             }
@@ -206,7 +207,7 @@ namespace VideoLOB
                 message = "Models Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                     filePath = TextGenerator.titleString + ".obj";
                     ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
                 }
@@ -214,7 +215,7 @@ namespace VideoLOB
             else
             {
                 message = "Model Generated!";
-                TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                 filePath = TextGenerator.titleString + ".obj";
                 ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
             }
@@ -227,20 +228,28 @@ namespace VideoLOB
         {
             CollectNameVariables();
             string message;
-            if (generateMultipleFiles)
-            {
-                message = "Books Generated!";
-            }
-            else
-            {
-                message = "Book Generated!";
-            }
             if (comboBox2.Items.Count == 1)
             {
                 MessageBox.Show("Add more than one preset to the list.");
                 return;
             }
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, true, true, true);
+            if (generateMultipleFiles)
+            {
+                message = "Books Generated!";
+                //TestTimer.StartTimer($"GenerateRandomText * {operations}");
+                for (int i = 0; i < operations; i++)
+                {
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, true, true);
+                }
+                //TestTimer.StopTimer($"GenerateRandomText * {operations}");
+            }
+            else
+            {
+                message = "Book Generated!";
+                //TestTimer.StartTimer("GenerateRandomText");
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, true, true);
+                //TestTimer.StopTimer("GenerateRandomText");
+            }
             MessageBox.Show(message);
         }
         /// <summary>
@@ -465,11 +474,7 @@ namespace VideoLOB
         {
             textFileNumeric.Enabled = checkBox2.Checked;
             generateMultipleFiles = checkBox2.Checked;
-            if (!generateMultipleFiles)
-            {
-                operations = 1;
-            }
-            else
+            if (generateMultipleFiles)
             {
                 operations = Convert.ToInt32(textFileNumeric.Value);
             }
@@ -534,19 +539,19 @@ namespace VideoLOB
         private void button1_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, false, false);
+            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, false, false);
             MessageBox.Show(TextGenerator.characterString);
         }
         private void button2_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, false, true, false);
+            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, false);
             MessageBox.Show(TextGenerator.titleString.ToString());
         }
         private void button3_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            TextGenerator.MultipleTextFiles(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, operations, ranges.Count != 0 ? ranges! : null!, true, false, false);
+            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, false, false);
             MessageBox.Show(TextGenerator.contentString.ToString());
         }
     }

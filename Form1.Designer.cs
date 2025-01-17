@@ -86,10 +86,6 @@
             textFileNumeric = new NumericUpDown();
             label5 = new Label();
             richTextBox1 = new RichTextBox();
-            textBox22 = new TextBox();
-            textBox23 = new TextBox();
-            videoHeightNumeric = new NumericUpDown();
-            videoWidthNumeric = new NumericUpDown();
             videoFramerateNumeric = new NumericUpDown();
             videoDurationNumeric = new NumericUpDown();
             textBox24 = new TextBox();
@@ -118,8 +114,6 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMax).BeginInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMin).BeginInit();
             ((System.ComponentModel.ISupportInitialize)textFileNumeric).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)videoHeightNumeric).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)videoWidthNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)videoFramerateNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)videoDurationNumeric).BeginInit();
             SuspendLayout();
@@ -127,7 +121,7 @@
             // GenerateVideoButton
             // 
             GenerateVideoButton.Enabled = false;
-            GenerateVideoButton.Location = new Point(541, 274);
+            GenerateVideoButton.Location = new Point(541, 213);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(121, 23);
             GenerateVideoButton.TabIndex = 1;
@@ -328,11 +322,11 @@
             // textBox8
             // 
             textBox8.Enabled = false;
-            textBox8.Location = new Point(542, 11);
+            textBox8.Location = new Point(461, 11);
             textBox8.Name = "textBox8";
-            textBox8.Size = new Size(120, 23);
+            textBox8.Size = new Size(201, 23);
             textBox8.TabIndex = 29;
-            textBox8.Text = "Image Parameters";
+            textBox8.Text = "Image & Video Parameters";
             textBox8.TextAlign = HorizontalAlignment.Center;
             // 
             // widthNumeric
@@ -362,9 +356,9 @@
             // textBox9
             // 
             textBox9.Enabled = false;
-            textBox9.Location = new Point(486, 40);
+            textBox9.Location = new Point(461, 40);
             textBox9.Name = "textBox9";
-            textBox9.Size = new Size(49, 23);
+            textBox9.Size = new Size(74, 23);
             textBox9.TabIndex = 32;
             textBox9.Text = "Width";
             textBox9.TextAlign = HorizontalAlignment.Right;
@@ -372,9 +366,9 @@
             // textBox10
             // 
             textBox10.Enabled = false;
-            textBox10.Location = new Point(486, 68);
+            textBox10.Location = new Point(461, 68);
             textBox10.Name = "textBox10";
-            textBox10.Size = new Size(50, 23);
+            textBox10.Size = new Size(75, 23);
             textBox10.TabIndex = 33;
             textBox10.Text = "Height";
             textBox10.TextAlign = HorizontalAlignment.Right;
@@ -706,54 +700,10 @@
             richTextBox1.TabIndex = 76;
             richTextBox1.Text = "";
             // 
-            // textBox22
-            // 
-            textBox22.Enabled = false;
-            textBox22.Location = new Point(461, 186);
-            textBox22.Name = "textBox22";
-            textBox22.Size = new Size(75, 23);
-            textBox22.TabIndex = 80;
-            textBox22.Text = "Height";
-            textBox22.TextAlign = HorizontalAlignment.Right;
-            // 
-            // textBox23
-            // 
-            textBox23.Enabled = false;
-            textBox23.Location = new Point(461, 158);
-            textBox23.Name = "textBox23";
-            textBox23.Size = new Size(74, 23);
-            textBox23.TabIndex = 79;
-            textBox23.Text = "Width";
-            textBox23.TextAlign = HorizontalAlignment.Right;
-            // 
-            // videoHeightNumeric
-            // 
-            videoHeightNumeric.AccessibleDescription = "The width of the height to be generated.";
-            videoHeightNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            videoHeightNumeric.Location = new Point(541, 187);
-            videoHeightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
-            videoHeightNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-            videoHeightNumeric.Name = "videoHeightNumeric";
-            videoHeightNumeric.Size = new Size(120, 23);
-            videoHeightNumeric.TabIndex = 78;
-            videoHeightNumeric.Value = new decimal(new int[] { 480, 0, 0, 0 });
-            // 
-            // videoWidthNumeric
-            // 
-            videoWidthNumeric.AccessibleDescription = "The width of the video to be generated.";
-            videoWidthNumeric.Increment = new decimal(new int[] { 2, 0, 0, 0 });
-            videoWidthNumeric.Location = new Point(541, 158);
-            videoWidthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
-            videoWidthNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
-            videoWidthNumeric.Name = "videoWidthNumeric";
-            videoWidthNumeric.Size = new Size(120, 23);
-            videoWidthNumeric.TabIndex = 77;
-            videoWidthNumeric.Value = new decimal(new int[] { 640, 0, 0, 0 });
-            // 
             // videoFramerateNumeric
             // 
             videoFramerateNumeric.AccessibleDescription = "The framerate of the video to be generated.";
-            videoFramerateNumeric.Location = new Point(541, 216);
+            videoFramerateNumeric.Location = new Point(541, 155);
             videoFramerateNumeric.Maximum = new decimal(new int[] { 440, 0, 0, 0 });
             videoFramerateNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             videoFramerateNumeric.Name = "videoFramerateNumeric";
@@ -764,7 +714,7 @@
             // videoDurationNumeric
             // 
             videoDurationNumeric.AccessibleDescription = "The length or duration of the video to be generated.";
-            videoDurationNumeric.Location = new Point(541, 245);
+            videoDurationNumeric.Location = new Point(541, 184);
             videoDurationNumeric.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
             videoDurationNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             videoDurationNumeric.Name = "videoDurationNumeric";
@@ -775,7 +725,7 @@
             // textBox24
             // 
             textBox24.Enabled = false;
-            textBox24.Location = new Point(461, 245);
+            textBox24.Location = new Point(461, 184);
             textBox24.Name = "textBox24";
             textBox24.Size = new Size(73, 23);
             textBox24.TabIndex = 82;
@@ -785,7 +735,7 @@
             // textBox25
             // 
             textBox25.Enabled = false;
-            textBox25.Location = new Point(461, 216);
+            textBox25.Location = new Point(461, 155);
             textBox25.Name = "textBox25";
             textBox25.Size = new Size(73, 23);
             textBox25.TabIndex = 81;
@@ -902,10 +852,6 @@
             Controls.Add(videoDurationNumeric);
             Controls.Add(textBox24);
             Controls.Add(textBox25);
-            Controls.Add(textBox22);
-            Controls.Add(textBox23);
-            Controls.Add(videoHeightNumeric);
-            Controls.Add(videoWidthNumeric);
             Controls.Add(richTextBox1);
             Controls.Add(label5);
             Controls.Add(textFileNumeric);
@@ -983,8 +929,6 @@
             ((System.ComponentModel.ISupportInitialize)trackBarMax).EndInit();
             ((System.ComponentModel.ISupportInitialize)trackBarMin).EndInit();
             ((System.ComponentModel.ISupportInitialize)textFileNumeric).EndInit();
-            ((System.ComponentModel.ISupportInitialize)videoHeightNumeric).EndInit();
-            ((System.ComponentModel.ISupportInitialize)videoWidthNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)videoFramerateNumeric).EndInit();
             ((System.ComponentModel.ISupportInitialize)videoDurationNumeric).EndInit();
             ResumeLayout(false);
@@ -1053,10 +997,6 @@
         private NumericUpDown textFileNumeric;
         private Label label5;
         private RichTextBox richTextBox1;
-        private TextBox textBox22;
-        private TextBox textBox23;
-        private NumericUpDown videoHeightNumeric;
-        private NumericUpDown videoWidthNumeric;
         private NumericUpDown videoFramerateNumeric;
         private NumericUpDown videoDurationNumeric;
         private TextBox textBox24;

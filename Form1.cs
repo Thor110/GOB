@@ -99,41 +99,6 @@ namespace VideoLOB
             return Guid.NewGuid().ToString();
         }
         /// <summary>
-        /// Video generator button.
-        /// </summary>
-        private void GenerateVideoButton_Click(object sender, EventArgs e)
-        {
-            //string seedString = GenerateSeedString();
-            //seedText.Text = seedString;
-            //
-            CollectNameVariables();
-            string filePath;
-            string message;
-            //
-            int width = Convert.ToInt32(videoWidthNumeric.Value);
-            int height = Convert.ToInt32(videoHeightNumeric.Value);
-            int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
-            int duration = Convert.ToInt32(videoDurationNumeric.Value);
-            if (generateMultipleFiles)
-            {
-                message = "Video Files Generated!";
-                for (int i = 0; i < operations; i++)
-                {
-                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                    filePath = folderPath + TextGenerator.titleString + ".avi";
-                    VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
-                }
-            }
-            else
-            {
-                message = "Video Generated!";
-                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                filePath = folderPath + TextGenerator.titleString + ".avi";
-                VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
-            }
-            MessageBox.Show(message);
-        }
-        /// <summary>
         /// Audio generator button.
         /// </summary>
         private void GenerateAudioButton_Click(object sender, EventArgs e)
@@ -189,7 +154,7 @@ namespace VideoLOB
                 for (int i = 0; i < operations; i++)
                 {
                     TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                    filePath =  folderPath + TextGenerator.titleString + ".png";
+                    filePath = folderPath + TextGenerator.titleString + ".png";
                     ImageGenerator.GenerateImage(filePath, width, height);
                 }
             }
@@ -199,6 +164,41 @@ namespace VideoLOB
                 TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
                 filePath = folderPath + TextGenerator.titleString + ".png";
                 ImageGenerator.GenerateImage(filePath, width, height);
+            }
+            MessageBox.Show(message);
+        }
+        /// <summary>
+        /// Video generator button.
+        /// </summary>
+        private void GenerateVideoButton_Click(object sender, EventArgs e)
+        {
+            //string seedString = GenerateSeedString();
+            //seedText.Text = seedString;
+            //
+            CollectNameVariables();
+            string filePath;
+            string message;
+            //
+            int width = Convert.ToInt32(widthNumeric.Value);
+            int height = Convert.ToInt32(heightNumeric.Value);
+            int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
+            int duration = Convert.ToInt32(videoDurationNumeric.Value);
+            if (generateMultipleFiles)
+            {
+                message = "Video Files Generated!";
+                for (int i = 0; i < operations; i++)
+                {
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                    filePath = folderPath + TextGenerator.titleString + ".avi";
+                    VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
+                }
+            }
+            else
+            {
+                message = "Video Generated!";
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
+                filePath = folderPath + TextGenerator.titleString + ".avi";
+                VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
             }
             MessageBox.Show(message);
         }

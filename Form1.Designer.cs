@@ -660,7 +660,7 @@
             // 
             checkBox2.AccessibleDescription = "Enables the option to generate multiple files.";
             checkBox2.AutoSize = true;
-            checkBox2.Location = new Point(244, 375);
+            checkBox2.Location = new Point(910, 346);
             checkBox2.Name = "checkBox2";
             checkBox2.Size = new Size(96, 19);
             checkBox2.TabIndex = 73;
@@ -670,9 +670,9 @@
             // 
             // textFileNumeric
             // 
-            textFileNumeric.AccessibleDescription = "The number of files to generate.";
+            textFileNumeric.AccessibleDescription = "The number of files to generate. (2 - 128)";
             textFileNumeric.Enabled = false;
-            textFileNumeric.Location = new Point(118, 372);
+            textFileNumeric.Location = new Point(784, 343);
             textFileNumeric.Maximum = new decimal(new int[] { 128, 0, 0, 0 });
             textFileNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             textFileNumeric.Name = "textFileNumeric";
@@ -786,7 +786,7 @@
             // button1
             // 
             button1.AccessibleDescription = "Generates and displays a single random character using the selected preset.";
-            button1.Location = new Point(12, 343);
+            button1.Location = new Point(118, 371);
             button1.Name = "button1";
             button1.Size = new Size(100, 23);
             button1.TabIndex = 89;
@@ -797,7 +797,7 @@
             // button2
             // 
             button2.AccessibleDescription = "Generates and displays a single random string using the selected preset.";
-            button2.Location = new Point(118, 343);
+            button2.Location = new Point(224, 371);
             button2.Name = "button2";
             button2.Size = new Size(100, 23);
             button2.TabIndex = 90;
@@ -808,7 +808,7 @@
             // button3
             // 
             button3.AccessibleDescription = "Generates and displays a single random paragraph using the selected preset.";
-            button3.Location = new Point(224, 343);
+            button3.Location = new Point(330, 371);
             button3.Name = "button3";
             button3.Size = new Size(100, 23);
             button3.TabIndex = 91;
@@ -818,7 +818,7 @@
             // 
             // button5
             // 
-            button5.Location = new Point(12, 314);
+            button5.Location = new Point(12, 343);
             button5.Name = "button5";
             button5.Size = new Size(100, 23);
             button5.TabIndex = 93;
@@ -829,9 +829,9 @@
             // directoryBox
             // 
             directoryBox.Enabled = false;
-            directoryBox.Location = new Point(118, 314);
+            directoryBox.Location = new Point(118, 343);
             directoryBox.Name = "directoryBox";
-            directoryBox.Size = new Size(888, 23);
+            directoryBox.Size = new Size(660, 23);
             directoryBox.TabIndex = 94;
             // 
             // Form1

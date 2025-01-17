@@ -31,24 +31,27 @@ namespace VideoLOB
             InitializePresets();
         }
         /// <summary>
-        /// Registry Initializer.
+        /// Initialises the registry.
         /// </summary>
         private void InitializeRegistry()
         {
             if (key != null)
             {
                 folderPath = key.GetValue("Directory")!.ToString()!;
+                TextGenerator.filePath = folderPath;
+                directoryBox.Text = folderPath;
             }
             else
             {
                 key = Registry.CurrentUser.CreateSubKey(@"Gallery\Settings");
                 folderPath = Application.StartupPath;
+                directoryBox.Text = folderPath;
                 key.SetValue("Directory", folderPath);
             }
             key.Close();
         }
         /// <summary>
-        /// Initialize tooltips for all controls.
+        /// Initialises tooltips for all controls.
         /// </summary>
         private void InitializeTooltips()
         {
@@ -64,7 +67,7 @@ namespace VideoLOB
             }
         }
         /// <summary>
-        /// Unicode Preset Initializer.
+        /// Initialises Unicode presets and other controls.
         /// </summary>
         private void InitializePresets()
         {

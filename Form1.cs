@@ -28,6 +28,8 @@ namespace VideoLOB
             InitializeComponent();
             InitializeTooltips();
             InitializePresets();
+            channelsBox.SelectedIndex = 0;
+            depthBox.SelectedIndex = 0;
         }
         /// <summary>
         /// Initialize tooltips for all controls.

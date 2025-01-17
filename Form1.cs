@@ -1,7 +1,4 @@
-﻿using System.Net.Mime;
-using System.Windows.Forms;
-
-namespace VideoLOB
+﻿namespace VideoLOB
 {
     /// <summary>
     /// Library of Babel generater form.

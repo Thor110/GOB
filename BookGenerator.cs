@@ -8,6 +8,7 @@ public class RandomTextGenerator
 {
     public Random random = new Random();
     public string characterString = string.Empty;
+    public string filePath = string.Empty;
     public const int surrogateHighLow = 0xD800;
     public const int surrogateHighHigh = 0xDBFF;
     public const int surrogateLowLow = 0xDC00;
@@ -231,7 +232,7 @@ public class RandomTextGenerator
                     newTitle = titleString + "_" + counter.ToString();
                     counter++;
                 }
-                File.WriteAllText(newTitle + ".txt", contentString.ToString());
+                File.WriteAllText(filePath + newTitle + ".txt", contentString.ToString());
                 if (double.IsInfinity(actualOdds))
                 {
                     MessageBox.Show($"The chances of that happening are virtually impossible! {actualOdds}\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
@@ -243,7 +244,7 @@ public class RandomTextGenerator
             }
             else
             {
-                File.WriteAllText(titleString + ".txt", contentString.ToString());
+                File.WriteAllText(filePath + titleString + ".txt", contentString.ToString());
             }
         }
         catch (ArgumentException e)

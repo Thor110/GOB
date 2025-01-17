@@ -101,6 +101,8 @@
             button1 = new Button();
             button2 = new Button();
             button3 = new Button();
+            button5 = new Button();
+            directoryBox = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -864,11 +866,31 @@
             button3.UseVisualStyleBackColor = true;
             button3.Click += button3_Click;
             // 
+            // button5
+            // 
+            button5.Location = new Point(12, 314);
+            button5.Name = "button5";
+            button5.Size = new Size(100, 23);
+            button5.TabIndex = 93;
+            button5.Text = "Output";
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += output_Click;
+            // 
+            // directoryBox
+            // 
+            directoryBox.Enabled = false;
+            directoryBox.Location = new Point(118, 314);
+            directoryBox.Name = "directoryBox";
+            directoryBox.Size = new Size(888, 23);
+            directoryBox.TabIndex = 94;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 522);
+            Controls.Add(directoryBox);
+            Controls.Add(button5);
             Controls.Add(button3);
             Controls.Add(button2);
             Controls.Add(button1);
@@ -1046,5 +1068,7 @@
         private Button button1;
         private Button button2;
         private Button button3;
+        private Button button5;
+        private TextBox directoryBox;
     }
 }

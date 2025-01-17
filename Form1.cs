@@ -9,7 +9,7 @@ namespace VideoLOB
     public partial class Form1 : Form
     {
         RandomTextGenerator TextGenerator = new RandomTextGenerator();
-        Timer TestTimer = new Timer();
+        //Timer TestTimer = new Timer();
         private ToolTip tooltip = new ToolTip();
         private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label), typeof(Button) };
         private int titleLength;
@@ -22,6 +22,7 @@ namespace VideoLOB
         private string custom = "Custom";
         private bool generateMultipleFiles;
         private List<Range> ranges = new List<Range>();
+        private string folderPath = "";
         public Form1()
         {
             InitializeComponent();
@@ -75,6 +76,19 @@ namespace VideoLOB
             tooltip.Hide((Control)sender!);
         }
         /// <summary>
+        /// Output directory folder browser button.
+        /// </summary>
+        private void output_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
+            {
+                folderPath = folderBrowserDialog.SelectedPath + "\\";
+            }
+            TextGenerator.filePath = folderPath;
+            directoryBox.Text = folderPath;
+        }
+        /// <summary>
         /// Seed string generator (incomplete function)
         /// </summary>
         private string GenerateSeedString()
@@ -106,7 +120,7 @@ namespace VideoLOB
                 for (int i = 0; i < operations; i++)
                 {
                     TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                    filePath = TextGenerator.titleString + ".avi";
+                    filePath = folderPath + TextGenerator.titleString + ".avi";
                     VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
                 }
             }
@@ -114,7 +128,7 @@ namespace VideoLOB
             {
                 message = "Video Generated!";
                 TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                filePath = TextGenerator.titleString + ".avi";
+                filePath = folderPath + TextGenerator.titleString + ".avi";
                 VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
             }
             MessageBox.Show(message);
@@ -144,7 +158,7 @@ namespace VideoLOB
                 for (int i = 0; i < operations; i++)
                 {
                     TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                    filePath = TextGenerator.titleString + ".wav";
+                    filePath = folderPath + TextGenerator.titleString + ".wav";
                     AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
                 }
             }
@@ -152,7 +166,7 @@ namespace VideoLOB
             {
                 message = "Audio Generated!";
                 TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                filePath = TextGenerator.titleString + ".wav";
+                filePath = folderPath + TextGenerator.titleString + ".wav";
                 AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
             }
             MessageBox.Show(message);
@@ -175,7 +189,7 @@ namespace VideoLOB
                 for (int i = 0; i < operations; i++)
                 {
                     TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                    filePath = TextGenerator.titleString + ".png";
+                    filePath =  folderPath + TextGenerator.titleString + ".png";
                     ImageGenerator.GenerateImage(filePath, width, height);
                 }
             }
@@ -183,7 +197,7 @@ namespace VideoLOB
             {
                 message = "Image Generated!";
                 TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                filePath = TextGenerator.titleString + ".png";
+                filePath = folderPath + TextGenerator.titleString + ".png";
                 ImageGenerator.GenerateImage(filePath, width, height);
             }
             MessageBox.Show(message);
@@ -208,7 +222,7 @@ namespace VideoLOB
                 for (int i = 0; i < operations; i++)
                 {
                     TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                    filePath = TextGenerator.titleString + ".obj";
+                    filePath = folderPath + TextGenerator.titleString + ".obj";
                     ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
                 }
             }
@@ -216,7 +230,7 @@ namespace VideoLOB
             {
                 message = "Model Generated!";
                 TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true, true);
-                filePath = TextGenerator.titleString + ".obj";
+                filePath = folderPath + TextGenerator.titleString + ".obj";
                 ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
             }
             MessageBox.Show(message);

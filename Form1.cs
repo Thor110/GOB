@@ -106,7 +106,11 @@ namespace VideoLOB
             FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
-                folderPath = folderBrowserDialog.SelectedPath + "\\";
+                folderPath = folderBrowserDialog.SelectedPath;
+                if (!folderPath.EndsWith("\\")) // If Not Root Directory
+                {
+                    folderPath += "\\"; // Complete Directory String
+                }
                 TextGenerator.filePath = folderPath;
                 directoryBox.Text = folderPath;
                 key = Registry.CurrentUser.OpenSubKey(@"Gallery\Settings", true)!;

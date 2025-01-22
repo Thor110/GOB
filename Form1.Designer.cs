@@ -99,6 +99,9 @@
             button3 = new Button();
             button5 = new Button();
             directoryBox = new TextBox();
+            textBox22 = new TextBox();
+            textBox23 = new TextBox();
+            textBox26 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -121,9 +124,9 @@
             // GenerateVideoButton
             // 
             GenerateVideoButton.Enabled = false;
-            GenerateVideoButton.Location = new Point(541, 213);
+            GenerateVideoButton.Location = new Point(541, 185);
             GenerateVideoButton.Name = "GenerateVideoButton";
-            GenerateVideoButton.Size = new Size(121, 23);
+            GenerateVideoButton.Size = new Size(100, 23);
             GenerateVideoButton.TabIndex = 1;
             GenerateVideoButton.Text = "Generate Video";
             GenerateVideoButton.UseVisualStyleBackColor = true;
@@ -179,9 +182,9 @@
             // 
             // GenerateImageButton
             // 
-            GenerateImageButton.Location = new Point(540, 126);
+            GenerateImageButton.Location = new Point(540, 98);
             GenerateImageButton.Name = "GenerateImageButton";
-            GenerateImageButton.Size = new Size(121, 23);
+            GenerateImageButton.Size = new Size(101, 23);
             GenerateImageButton.TabIndex = 11;
             GenerateImageButton.Text = "Generate Image";
             GenerateImageButton.UseVisualStyleBackColor = true;
@@ -191,7 +194,7 @@
             // 
             GenerateModelButton.Location = new Point(835, 157);
             GenerateModelButton.Name = "GenerateModelButton";
-            GenerateModelButton.Size = new Size(121, 23);
+            GenerateModelButton.Size = new Size(120, 23);
             GenerateModelButton.TabIndex = 13;
             GenerateModelButton.Text = "Generate 3D Model";
             GenerateModelButton.UseVisualStyleBackColor = true;
@@ -324,7 +327,7 @@
             textBox8.Enabled = false;
             textBox8.Location = new Point(461, 11);
             textBox8.Name = "textBox8";
-            textBox8.Size = new Size(201, 23);
+            textBox8.Size = new Size(261, 23);
             textBox8.TabIndex = 29;
             textBox8.Text = "Image & Video Parameters";
             textBox8.TextAlign = HorizontalAlignment.Center;
@@ -337,7 +340,7 @@
             widthNumeric.Maximum = new decimal(new int[] { 1920, 0, 0, 0 });
             widthNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             widthNumeric.Name = "widthNumeric";
-            widthNumeric.Size = new Size(120, 23);
+            widthNumeric.Size = new Size(100, 23);
             widthNumeric.TabIndex = 30;
             widthNumeric.Value = new decimal(new int[] { 640, 0, 0, 0 });
             // 
@@ -349,7 +352,7 @@
             heightNumeric.Maximum = new decimal(new int[] { 1080, 0, 0, 0 });
             heightNumeric.Minimum = new decimal(new int[] { 2, 0, 0, 0 });
             heightNumeric.Name = "heightNumeric";
-            heightNumeric.Size = new Size(120, 23);
+            heightNumeric.Size = new Size(100, 23);
             heightNumeric.TabIndex = 31;
             heightNumeric.Value = new decimal(new int[] { 480, 0, 0, 0 });
             // 
@@ -358,7 +361,7 @@
             textBox9.Enabled = false;
             textBox9.Location = new Point(461, 40);
             textBox9.Name = "textBox9";
-            textBox9.Size = new Size(74, 23);
+            textBox9.Size = new Size(75, 23);
             textBox9.TabIndex = 32;
             textBox9.Text = "Width";
             textBox9.TextAlign = HorizontalAlignment.Right;
@@ -376,11 +379,11 @@
             // textBox11
             // 
             textBox11.Enabled = false;
-            textBox11.Location = new Point(542, 98);
+            textBox11.Location = new Point(647, 40);
             textBox11.Name = "textBox11";
-            textBox11.Size = new Size(119, 23);
+            textBox11.Size = new Size(75, 23);
             textBox11.TabIndex = 34;
-            textBox11.Text = "2 - 1920 x 2 - 1080";
+            textBox11.Text = "2 - 1920";
             // 
             // durationNumeric
             // 
@@ -493,7 +496,7 @@
             textBox15.Enabled = false;
             textBox15.Location = new Point(225, 430);
             textBox15.Name = "textBox15";
-            textBox15.Size = new Size(98, 23);
+            textBox15.Size = new Size(100, 23);
             textBox15.TabIndex = 45;
             textBox15.Text = "1 - 80000000";
             // 
@@ -502,7 +505,7 @@
             textBox16.Enabled = false;
             textBox16.Location = new Point(225, 401);
             textBox16.Name = "textBox16";
-            textBox16.Size = new Size(98, 23);
+            textBox16.Size = new Size(100, 23);
             textBox16.TabIndex = 46;
             textBox16.Text = "8 - 128";
             // 
@@ -541,7 +544,7 @@
             textBox19.Enabled = false;
             textBox19.Location = new Point(225, 459);
             textBox19.Name = "textBox19";
-            textBox19.Size = new Size(98, 23);
+            textBox19.Size = new Size(100, 23);
             textBox19.TabIndex = 50;
             textBox19.Text = "10 - 80";
             // 
@@ -550,7 +553,7 @@
             textBox20.Enabled = false;
             textBox20.Location = new Point(225, 488);
             textBox20.Name = "textBox20";
-            textBox20.Size = new Size(98, 23);
+            textBox20.Size = new Size(100, 23);
             textBox20.TabIndex = 53;
             textBox20.Text = "10 - 80";
             // 
@@ -602,7 +605,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(440, 416);
+            label1.Location = new Point(432, 416);
             label1.Name = "label1";
             label1.Size = new Size(19, 15);
             label1.TabIndex = 56;
@@ -611,7 +614,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(440, 467);
+            label2.Location = new Point(432, 467);
             label2.Name = "label2";
             label2.Size = new Size(37, 15);
             label2.TabIndex = 57;
@@ -703,29 +706,29 @@
             // videoFramerateNumeric
             // 
             videoFramerateNumeric.AccessibleDescription = "The framerate of the video to be generated.";
-            videoFramerateNumeric.Location = new Point(541, 155);
+            videoFramerateNumeric.Location = new Point(541, 127);
             videoFramerateNumeric.Maximum = new decimal(new int[] { 440, 0, 0, 0 });
             videoFramerateNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             videoFramerateNumeric.Name = "videoFramerateNumeric";
-            videoFramerateNumeric.Size = new Size(120, 23);
+            videoFramerateNumeric.Size = new Size(100, 23);
             videoFramerateNumeric.TabIndex = 84;
             videoFramerateNumeric.Value = new decimal(new int[] { 30, 0, 0, 0 });
             // 
             // videoDurationNumeric
             // 
             videoDurationNumeric.AccessibleDescription = "The length or duration of the video to be generated.";
-            videoDurationNumeric.Location = new Point(541, 184);
+            videoDurationNumeric.Location = new Point(541, 156);
             videoDurationNumeric.Maximum = new decimal(new int[] { 3600, 0, 0, 0 });
             videoDurationNumeric.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             videoDurationNumeric.Name = "videoDurationNumeric";
-            videoDurationNumeric.Size = new Size(120, 23);
+            videoDurationNumeric.Size = new Size(100, 23);
             videoDurationNumeric.TabIndex = 83;
             videoDurationNumeric.Value = new decimal(new int[] { 360, 0, 0, 0 });
             // 
             // textBox24
             // 
             textBox24.Enabled = false;
-            textBox24.Location = new Point(461, 184);
+            textBox24.Location = new Point(461, 156);
             textBox24.Name = "textBox24";
             textBox24.Size = new Size(73, 23);
             textBox24.TabIndex = 82;
@@ -735,7 +738,7 @@
             // textBox25
             // 
             textBox25.Enabled = false;
-            textBox25.Location = new Point(461, 155);
+            textBox25.Location = new Point(461, 127);
             textBox25.Name = "textBox25";
             textBox25.Size = new Size(73, 23);
             textBox25.TabIndex = 81;
@@ -786,7 +789,7 @@
             // button1
             // 
             button1.AccessibleDescription = "Generates and displays a single random character using the selected preset.";
-            button1.Location = new Point(118, 371);
+            button1.Location = new Point(118, 372);
             button1.Name = "button1";
             button1.Size = new Size(100, 23);
             button1.TabIndex = 89;
@@ -797,7 +800,7 @@
             // button2
             // 
             button2.AccessibleDescription = "Generates and displays a single random string using the selected preset.";
-            button2.Location = new Point(224, 371);
+            button2.Location = new Point(225, 372);
             button2.Name = "button2";
             button2.Size = new Size(100, 23);
             button2.TabIndex = 90;
@@ -808,7 +811,7 @@
             // button3
             // 
             button3.AccessibleDescription = "Generates and displays a single random paragraph using the selected preset.";
-            button3.Location = new Point(330, 371);
+            button3.Location = new Point(331, 372);
             button3.Name = "button3";
             button3.Size = new Size(100, 23);
             button3.TabIndex = 91;
@@ -834,11 +837,41 @@
             directoryBox.Size = new Size(660, 23);
             directoryBox.TabIndex = 94;
             // 
+            // textBox22
+            // 
+            textBox22.Enabled = false;
+            textBox22.Location = new Point(647, 69);
+            textBox22.Name = "textBox22";
+            textBox22.Size = new Size(75, 23);
+            textBox22.TabIndex = 95;
+            textBox22.Text = "2 - 1080";
+            // 
+            // textBox23
+            // 
+            textBox23.Enabled = false;
+            textBox23.Location = new Point(647, 127);
+            textBox23.Name = "textBox23";
+            textBox23.Size = new Size(75, 23);
+            textBox23.TabIndex = 96;
+            textBox23.Text = "1 - 440";
+            // 
+            // textBox26
+            // 
+            textBox26.Enabled = false;
+            textBox26.Location = new Point(647, 156);
+            textBox26.Name = "textBox26";
+            textBox26.Size = new Size(75, 23);
+            textBox26.TabIndex = 97;
+            textBox26.Text = "1 - 3600";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 522);
+            Controls.Add(textBox26);
+            Controls.Add(textBox23);
+            Controls.Add(textBox22);
             Controls.Add(directoryBox);
             Controls.Add(button5);
             Controls.Add(button3);
@@ -1010,5 +1043,8 @@
         private Button button3;
         private Button button5;
         private TextBox directoryBox;
+        private TextBox textBox22;
+        private TextBox textBox23;
+        private TextBox textBox26;
     }
 }

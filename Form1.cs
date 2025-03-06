@@ -55,9 +55,9 @@ namespace VideoLOB
         /// </summary>
         private void InitializeTooltips()
         {
-            this.components = new System.ComponentModel.Container();
-            this.tooltip = new ToolTip(this.components);
-            foreach (Control control in this.Controls)
+            components = new System.ComponentModel.Container();
+            tooltip = new ToolTip(components);
+            foreach (Control control in Controls)
             {
                 if (excludedControlTypes.Contains(control.GetType()) != true)
                 {
@@ -87,11 +87,11 @@ namespace VideoLOB
             Control control = (Control)sender!;
             if (control.AccessibleDescription != null)
             {
-                this.tooltip.Show(control.AccessibleDescription.ToString(), control);
+                tooltip.Show(control.AccessibleDescription.ToString(), control);
             }
             else
             {
-                this.tooltip.Show("No description available", control);
+                tooltip.Show("No description available", control);
             }
         }
         void tooltip_MouseLeave(object? sender, EventArgs e)

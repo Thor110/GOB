@@ -276,7 +276,7 @@ public class RandomTextGenerator
     /// </summary>
     /// <returns>A single character as a string</returns>
     /// <remarks>
-    /// Generates a new random character, excludes illegal characters and surrogate code poitns in filenames and combines surrogate code points for bodies of text.
+    /// Generates a new random character, excludes illegal characters and surrogate code points in filenames and combines surrogate code points for bodies of text.
     /// </remarks>
     public string GenerateRandomCharacter()
     {

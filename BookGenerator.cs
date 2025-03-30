@@ -284,12 +284,12 @@ public class RandomTextGenerator
         const int maxAttempts = 1000;
         while (attempts < maxAttempts)
         {
-            Int32 codePoint = random.Next(rangeMin, rangeMax);
+            Int32 codePoint = random.Next(rangeMin, rangeMax+1); // add 1 to the max range to include the last character in the range
             if (isFileName)
             {
                 if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh) // exclude surrogate code points in file names when using the surrogate code points presets
                 {
-                    codePoint = random.Next(32, 126); // use the basic ASCII range for this case
+                    codePoint = random.Next(32, 127); // use the basic ASCII range for this case
                 }
                 if (excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
                 {

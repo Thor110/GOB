@@ -230,7 +230,7 @@ public class RandomTextGenerator
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
                 while (File.Exists(newTitle + ".txt"))
                 {
-                    newTitle = titleString + "_" + counter++.ToString();
+                    newTitle = titleString + "_" + counter++.ToString("D2");
                 }
                 File.WriteAllText(filePath + newTitle + ".txt", contentString.ToString());
                 if (double.IsInfinity(actualOdds))

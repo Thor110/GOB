@@ -288,7 +288,7 @@ public class RandomTextGenerator
         {
             if (isFileName)
             {
-                if (excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
+                if (excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
                 {
                     attempts++;
                     continue;

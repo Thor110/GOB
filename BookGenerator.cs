@@ -283,11 +283,11 @@ public class RandomTextGenerator
     public string GenerateRandomCharacter()
     {
         Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
-        if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
+        if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
         {
             return ((char)codePoint).ToString() + ((char)surrogateLowLow + (codePoint - surrogateHighLow)).ToString();
         }
-        if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
+        if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh) // low surrogate code point
         {
             return ((char)surrogateHighLow + (codePoint - surrogateLowLow)).ToString() + ((char)codePoint).ToString();
         }

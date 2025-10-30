@@ -212,7 +212,7 @@ public class RandomTextGenerator
         // NOTE: Moving the below code to it's own method only serves to slow down code execution
         try
         {
-            if (File.Exists(titleString + ".txt"))
+            if (File.Exists(titleString + ".txt")) // calculate the actual odds of generating the same filename twice.
             {
                 int counter = 1;
                 string newTitle = titleString.ToString();
@@ -225,7 +225,6 @@ public class RandomTextGenerator
                         baseRange += range.End.Value - range.Start.Value;
                     }
                 }
-                // calculate the actual odds of generating the same filename twice.
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
                 double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
@@ -278,19 +277,34 @@ public class RandomTextGenerator
     /// </summary>
     /// <returns>A single character as a string</returns>
     /// <remarks>
-    /// Generates a new random character, excludes illegal characters and surrogate code points in filenames and combines surrogate code points for bodies of text.
+    /// Generates a new random character, excludes illegal characters and combines surrogate code points for bodies of text.
     /// </remarks>
     public string GenerateRandomCharacter()
     {
+        int attempts = 0;
+        const int maxAttempts = 1000;
         Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
-        if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
+        while (attempts < maxAttempts)
         {
-            return ((char)codePoint).ToString() + ((char)surrogateLowLow + (codePoint - surrogateHighLow)).ToString();
+            if (isFileName)
+            {
+                if (excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
+                {
+                    attempts++;
+                    continue;
+                }
+            }
+            if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
+            {
+                return ((char)codePoint).ToString() + ((char)(surrogateLowLow + (codePoint - surrogateHighLow))).ToString();
+            }
+            if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh) // low surrogate code point
+            {
+                return ((char)(surrogateHighLow + (codePoint - surrogateLowLow))).ToString() + ((char)codePoint).ToString();
+            }
+            return char.ConvertFromUtf32(codePoint);
         }
-        if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh) // low surrogate code point
-        {
-            return ((char)surrogateHighLow + (codePoint - surrogateLowLow)).ToString() + ((char)codePoint).ToString();
-        }
-        return char.ConvertFromUtf32(codePoint);
+        MessageBox.Show("Failed to generate a valid character after " + maxAttempts + " attempts.");
+        throw new InvalidOperationException("Failed to generate a valid character after " + maxAttempts + " attempts.");
     }
 }

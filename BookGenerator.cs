@@ -71,10 +71,10 @@ public class RandomTextGenerator
                     ReturnRandomRange();    // TODO: Inline
                     characterString = GenerateRandomCharacter();
                     return;
-                case (false, true):     //01 = String
+                case (false, true):     // 01 = String
                     RandomRangeTitle();     // TODO: Inline
                     return;
-                case (true, false):     //10 = Paragraph
+                case (true, false):     // 10 = Paragraph
                     RandomRangeContent();   // TODO: Inline
                     return;
                 case (true, true):      // 11 = Text File
@@ -93,10 +93,10 @@ public class RandomTextGenerator
                 case (false, false):    // 00 = Character
                     characterString = GenerateRandomCharacter();
                     return;
-                case (false, true):     //01 = String
+                case (false, true):     // 01 = String
                     Title();                // TODO: Inline
                     return;
-                case (true, false):     //10 = Paragraph
+                case (true, false):     // 10 = Paragraph
                     Content();              // TODO: Inline
                     return;
                 case (true, true):      // 11 = Text File
@@ -216,15 +216,18 @@ public class RandomTextGenerator
             {
                 int counter = 1;
                 string newTitle = titleString.ToString();
-                // odds calculation is completely different if using custom preset ranges
-                int baseRange = rangeMin - rangeMax + 1; // calculate the actual odds of generating the same file twice.
+                int baseRange = rangeMin - rangeMax; // calculate the actual odds of generating the same filename twice.
+                if(ranges != null) // if using custom ranges
+                {
+                    baseRange = 0; // reset baseRange to 0 to calculate from custom ranges
+                    foreach (Range range in ranges)
+                    {
+                        baseRange += range.End.Value - range.Start.Value;
+                    }
+                }
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
                 double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
-                // if using custom ranges it would be
-                // double customOdds = Math.Pow(actualOdds, ranges.Count);
-                // approximately, but the actual odds in this case would have to take into account the base range calculations for each custom range used.
-                // writing the code to work that out from ranges just isn't worth it.
                 // The odds also become different if using surrogate code points
                 while (File.Exists(newTitle + ".txt"))
                 {

@@ -29,7 +29,7 @@
                 fileStream.Write(BitConverter.GetBytes(numberFrames), 0, 4); // Total frames
                 fileStream.Write(BitConverter.GetBytes(0), 0, 4); // Initial frames
                 fileStream.Write(BitConverter.GetBytes(1), 0, 4); // Streams
-                fileStream.Write(BitConverter.GetBytes(width * height * 3), 0, 4); // Suggested buffer size
+                fileStream.Write(BitConverter.GetBytes(frameSize), 0, 4); // Suggested buffer size
                 fileStream.Write(BitConverter.GetBytes((int)width), 0, 4); // Width
                 fileStream.Write(BitConverter.GetBytes((int)height), 0, 4); // Height
                 fileStream.Write(BitConverter.GetBytes((int)0x00000000), 0, 4); // Reserved 1

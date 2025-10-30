@@ -214,7 +214,7 @@ public class RandomTextGenerator
         {
             if (File.Exists(titleString + ".txt"))
             {
-                int counter = 0;
+                int counter = 1;
                 string newTitle = titleString.ToString();
                 int baseRange = rangeMin - rangeMax; // calculate the actual odds of generating the same filename twice.
                 if(ranges != null) // if using custom ranges

@@ -1,4 +1,5 @@
 ﻿using System.Text;
+using System.Text.RegularExpressions;
 /// <summary>
 /// Generates random text, including characters, strings, and paragraphs.
 /// Provides methods for generating text with customizable character ranges, string lengths, and paragraph structures.
@@ -12,13 +13,6 @@ public class RandomTextGenerator
     public const int surrogateHighHigh = 0xDBFF;
     public const int surrogateLowLow = 0xDC00;
     public const int surrogateLowHigh = 0xDfff;
-    public int[] excludedCharacters = { 92, 47, 58, 42, 63, 34, 60, 62, 124 };
-    //  1,114,079 all possible UniCode characters included excluding control characters 0-32
-    //  Table of Excluded Characters ( Hex, Dec, Sym ) 2,056 Excluded Characters including Surrogate Code Points
-    //  0x5C    0x2F    0x3A    0x2A    0x3F    0x22    0x3C    0x3E    0x7C
-    //  92      47      58      42      63      34      60      62      124
-    //  \       /       :       *       ?       "       <       >       |
-    public bool isFileName;
     public int rangeMin;
     public int rangeMax;
     public StringBuilder contentString = new StringBuilder();
@@ -35,7 +29,6 @@ public class RandomTextGenerator
     /// <param name="ranges">Lists all chosen ranges selected by the user</param>
     /// <param name="textFile">Whether to generate a text file.</param>
     /// <param name="contentType">Whether to generate a character or paragraph.</param>
-    /// <param name="fileName">If a filename is being generated.</param>
     /// <remarks>
     /// The two booleans "textFile" and "contentType" can be used to generate four different types of text:
     /// 00 = Character  -   just generates a random character stored in charString the variable.
@@ -44,11 +37,10 @@ public class RandomTextGenerator
     /// 11 = Text File  -   just generates a random text file saved locally and stored in the content variable.
     /// Note: If the "textFile" and "contentType" parameters are not specified, the method will generate a text file by default.
     /// </remarks>
-    public void GenerateRandomText(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true, bool fileName = false)
+    public void GenerateRandomText(int titleLength = 16, int contentLength = 800, int lineLength = 80, int paragraphLength = 40, int minRange = 32, int maxRange = 65533, List<Range> ranges = null!, bool textFile = true, bool contentType = true)
     {
         contentString = new StringBuilder(contentLength);
         titleString = new StringBuilder(titleLength);
-        isFileName = fileName;
         int charStringLength;
         int lineCounter = 0;
         int charLineCounter = 0;
@@ -180,7 +172,6 @@ public class RandomTextGenerator
         {
             contentString.Append(titleString);
             contentString.AddNewLines(2); // DO NOT INLINE
-            isFileName = false;
         }
         /// <summary>
         /// Generates a new character for a random paragraph string.
@@ -212,10 +203,11 @@ public class RandomTextGenerator
         // NOTE: Moving the below code to it's own method only serves to slow down code execution
         try
         {
-            if (File.Exists(titleString + ".txt")) // calculate the actual odds of generating the same filename twice.
+            //  Table of Excluded Characters can be found in GetInvalidFileNameChars
+            string sanitizedTitle = Regex.Replace(titleString.ToString(), $"[{Regex.Escape(new string(Path.GetInvalidFileNameChars()))}]", " ");
+            if (File.Exists(sanitizedTitle + ".txt")) // calculate the actual odds of generating the same filename twice.
             {
                 int counter = 1;
-                string newTitle = titleString.ToString();
                 int baseRange = rangeMax - rangeMin; // default baseRange calculation
                 if (ranges != null) // if using custom ranges
                 {
@@ -228,11 +220,10 @@ public class RandomTextGenerator
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
                 double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
-                while (File.Exists(newTitle + ".txt"))
+                while (File.Exists(sanitizedTitle + ".txt"))
                 {
-                    newTitle = titleString + "_" + counter++.ToString("D2");
+                    sanitizedTitle = sanitizedTitle + "_" + counter++.ToString("D2");
                 }
-                File.WriteAllText(filePath + newTitle + ".txt", contentString.ToString());
                 if (double.IsInfinity(actualOdds))
                 {
                     MessageBox.Show($"The chances of that happening are virtually impossible! {actualOdds}\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
@@ -242,10 +233,7 @@ public class RandomTextGenerator
                     MessageBox.Show($"The chances of that happening were {actualOdds} to 1!\nOr {baseRange} ^ {baseRange} ^ {baseRange} ^ {baseRange} ^ {titleLength} to 1!");
                 }
             }
-            else
-            {
-                File.WriteAllText(filePath + titleString + ".txt", contentString.ToString());
-            }
+            File.WriteAllText(filePath + sanitizedTitle + ".txt", contentString.ToString());
         }
         catch (ArgumentException e)
         {
@@ -286,14 +274,6 @@ public class RandomTextGenerator
         Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
         while (attempts < maxAttempts)
         {
-            if (isFileName)
-            {
-                if (excludedCharacters.Contains(codePoint)) // exclude illegal characters \/:*?"<>| in file names
-                {
-                    attempts++;
-                    continue;
-                }
-            }
             if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
             {
                 return ((char)codePoint).ToString() + ((char)(surrogateLowLow + (codePoint - surrogateHighLow))).ToString();

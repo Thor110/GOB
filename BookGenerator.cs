@@ -216,7 +216,7 @@ public class RandomTextGenerator
             {
                 int counter = 1;
                 string newTitle = titleString.ToString();
-                int baseRange = rangeMin - rangeMax; // calculate the actual odds of generating the same filename twice.
+                int baseRange = rangeMax - rangeMin; // calculate the actual odds of generating the same filename twice.
                 if(ranges != null) // if using custom ranges
                 {
                     baseRange = 0; // reset baseRange to 0 to calculate from custom ranges

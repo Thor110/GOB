@@ -285,17 +285,11 @@ public class RandomTextGenerator
         Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
         if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
         {
-            int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
-            string highSurrogateString = ((char)codePoint).ToString();
-            string lowSurrogateString = ((char)lowSurrogate).ToString();
-            return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
+            return ((char)codePoint).ToString() + ((char)surrogateLowLow + (codePoint - surrogateHighLow)).ToString();
         }
         if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
         {
-            int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
-            string highSurrogateString = ((char)highSurrogate).ToString();
-            string lowSurrogateString = ((char)codePoint).ToString();
-            return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
+            return ((char)surrogateHighLow + (codePoint - surrogateLowLow)).ToString() + ((char)codePoint).ToString();
         }
         return char.ConvertFromUtf32(codePoint);
     }

@@ -102,6 +102,8 @@
             textBox22 = new TextBox();
             textBox23 = new TextBox();
             textBox26 = new TextBox();
+            textBox27 = new TextBox();
+            textBox28 = new TextBox();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -863,11 +865,33 @@
             textBox26.TabIndex = 97;
             textBox26.Text = "1 - 3600";
             // 
+            // textBox27
+            // 
+            textBox27.Enabled = false;
+            textBox27.Location = new Point(12, 128);
+            textBox27.Name = "textBox27";
+            textBox27.Size = new Size(73, 23);
+            textBox27.TabIndex = 98;
+            textBox27.Text = "Channels";
+            textBox27.TextAlign = HorizontalAlignment.Right;
+            // 
+            // textBox28
+            // 
+            textBox28.Enabled = false;
+            textBox28.Location = new Point(12, 158);
+            textBox28.Name = "textBox28";
+            textBox28.Size = new Size(73, 23);
+            textBox28.TabIndex = 99;
+            textBox28.Text = "Bit Depth";
+            textBox28.TextAlign = HorizontalAlignment.Right;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 522);
+            Controls.Add(textBox28);
+            Controls.Add(textBox27);
             Controls.Add(textBox26);
             Controls.Add(textBox23);
             Controls.Add(textBox22);
@@ -1045,5 +1069,7 @@
         private TextBox textBox22;
         private TextBox textBox23;
         private TextBox textBox26;
+        private TextBox textBox27;
+        private TextBox textBox28;
     }
 }

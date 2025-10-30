@@ -490,10 +490,6 @@ namespace VideoLOB
         /// </summary>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedIndex >= 60 && comboBox1.SelectedIndex <= 62) // Surrogate Code Points Dictionary Entries
-            {
-                MessageBox.Show("Surrogate code points cannot be used in file names, so ASCII will be used instead and the text inside the file will contain surrogate pairs.");
-            }
             var selectedLanguage = (string)comboBox1.SelectedItem;
             var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
             richTextBox1.Text = range.description;

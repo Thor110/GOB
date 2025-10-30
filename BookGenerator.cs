@@ -216,8 +216,8 @@ public class RandomTextGenerator
             {
                 int counter = 1;
                 string newTitle = titleString.ToString();
-                int baseRange = rangeMax - rangeMin; // calculate the actual odds of generating the same filename twice.
-                if(ranges != null) // if using custom ranges
+                int baseRange = rangeMax - rangeMin; // default baseRange calculation
+                if (ranges != null) // if using custom ranges
                 {
                     baseRange = 0; // reset baseRange to 0 to calculate from custom ranges
                     foreach (Range range in ranges)
@@ -225,10 +225,10 @@ public class RandomTextGenerator
                         baseRange += range.End.Value - range.Start.Value;
                     }
                 }
+                // calculate the actual odds of generating the same filename twice.
                 double rangePower = Math.Pow(baseRange, baseRange); // baseRange ^ baseRange ^ baseRange ^ baseRange ^ titleLength
                 double totalPower = Math.Pow(rangePower, rangePower); // rangePower ^ rangePower ^ titleLength
                 double actualOdds = Math.Pow(totalPower, titleLength); // totalPower ^ titleLength
-                // The odds also become different if using surrogate code points
                 while (File.Exists(newTitle + ".txt"))
                 {
                     newTitle = titleString + "_" + counter++.ToString();
@@ -282,43 +282,21 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateRandomCharacter()
     {
-        int attempts = 0;
-        const int maxAttempts = 1000;
-        while (attempts < maxAttempts)
+        Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
+        if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
         {
-            Int32 codePoint = random.Next(rangeMin, rangeMax+1); // add 1 to the max range to include the last character in the range
-            if (isFileName)
-            {
-                if (codePoint >= surrogateHighLow && codePoint <= surrogateLowHigh) // exclude surrogate code points in file names when using the surrogate code points presets
-                {
-                    codePoint = random.Next(32, 127); // use the basic ASCII range for this case
-                }
-                if (excludedCharacters.Contains(codePoint)) // exclude surrogate code points and illegal characters \/:*?"<>| in file names
-                {
-                    attempts++;
-                    continue;
-                }
-            }
-            else
-            {
-                if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh)
-                {
-                    int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
-                    string highSurrogateString = ((char)codePoint).ToString();
-                    string lowSurrogateString = ((char)lowSurrogate).ToString();
-                    return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
-                }
-                if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
-                {
-                    int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
-                    string highSurrogateString = ((char)highSurrogate).ToString();
-                    string lowSurrogateString = ((char)codePoint).ToString();
-                    return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
-                }
-            }
-            return char.ConvertFromUtf32(codePoint);
+            int lowSurrogate = surrogateLowLow + (codePoint - surrogateHighLow);
+            string highSurrogateString = ((char)codePoint).ToString();
+            string lowSurrogateString = ((char)lowSurrogate).ToString();
+            return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
         }
-        MessageBox.Show("Failed to generate a valid character after " + maxAttempts + " attempts.");
-        throw new InvalidOperationException("Failed to generate a valid character after " + maxAttempts + " attempts.");
+        if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh)
+        {
+            int highSurrogate = surrogateHighLow + (codePoint - surrogateLowLow);
+            string highSurrogateString = ((char)highSurrogate).ToString();
+            string lowSurrogateString = ((char)codePoint).ToString();
+            return highSurrogateString + lowSurrogateString; // can this be one line somewhere?
+        }
+        return char.ConvertFromUtf32(codePoint);
     }
 }

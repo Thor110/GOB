@@ -269,23 +269,15 @@ public class RandomTextGenerator
     /// </remarks>
     public string GenerateRandomCharacter()
     {
-        int attempts = 0;
-        const int maxAttempts = 1000;
         Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
-        while (attempts < maxAttempts)
+        if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
         {
-            attempts++;
-            if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
-            {
-                return ((char)codePoint).ToString() + ((char)(surrogateLowLow + (codePoint - surrogateHighLow))).ToString();
-            }
-            if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh) // low surrogate code point
-            {
-                return ((char)(surrogateHighLow + (codePoint - surrogateLowLow))).ToString() + ((char)codePoint).ToString();
-            }
-            return char.ConvertFromUtf32(codePoint);
+            return ((char)codePoint).ToString() + ((char)(surrogateLowLow + (codePoint - surrogateHighLow))).ToString();
         }
-        MessageBox.Show("Failed to generate a valid character after " + maxAttempts + " attempts.");
-        throw new InvalidOperationException("Failed to generate a valid character after " + maxAttempts + " attempts.");
+        if (codePoint >= surrogateLowLow && codePoint <= surrogateLowHigh) // low surrogate code point
+        {
+            return ((char)(surrogateHighLow + (codePoint - surrogateLowLow))).ToString() + ((char)codePoint).ToString();
+        }
+        return char.ConvertFromUtf32(codePoint);
     }
 }

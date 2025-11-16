@@ -274,6 +274,7 @@ public class RandomTextGenerator
         Int32 codePoint = random.Next(rangeMin, rangeMax + 1); // add 1 to the max range to include the last character in the range
         while (attempts < maxAttempts)
         {
+            attempts++;
             if (codePoint >= surrogateHighLow && codePoint <= surrogateHighHigh) // high surrogate code point
             {
                 return ((char)codePoint).ToString() + ((char)(surrogateLowLow + (codePoint - surrogateHighLow))).ToString();

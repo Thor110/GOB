@@ -468,7 +468,13 @@ namespace VideoLOB
             { 96, ("CJK Unified Ideographs Extension A", 0x3400, 0x4DB5, "Additional characters for writing in Chinese, Japanese, and Korean, including symbols for extended ideographs and variants.") },
             { 97, ("CJK Unified Ideographs", 0x4E00, 0x9FFF, "Characters for writing in Chinese, Japanese, and Korean, including symbols for common ideographs and characters used in these languages.") },
             { 98, ("Hangul Compatibility Jamo", 0x3130, 0x318F, "Characters for compatibility with older Hangul character sets, including jamo and other symbols for writing in the Hangul script.") },
-            { 99, ("Hangul Syllables", 0xAC00, 0xD7A3, "Characters for writing in the Hangul script, including syllables and other symbols for representing words and phrases in Korean.") }
+            { 99, ("Hangul Syllables", 0xAC00, 0xD7A3, "Characters for writing in the Hangul script, including syllables and other symbols for representing words and phrases in Korean.") },
+            { 100, ("Emoticons", 0x1F600, 0x1F64F, "Unicode block containing faces, smiles, gestures, and other common emoticons.") },
+            { 101, ("Miscellaneous Symbols & Pictographs", 0x1F300, 0x1F5FF, "Unicode block containing weather symbols, plants, animals, food, and other pictographs.") },
+            { 102, ("Transport & Map Symbols", 0x1F680, 0x1F6FF, "Unicode block containing vehicles, transportation, map symbols, and related pictographs.") },
+            { 103, ("Supplemental Symbols & Pictographs", 0x1F900, 0x1F9FF, "Unicode block containing additional faces, hands, animals, body parts, and other pictographs.") },
+            { 104, ("Symbols & Pictographs Extended-A", 0x1FA70, 0x1FAFF, "Unicode block containing more modern symbols, including gestures, objects, and extended pictographs.") },
+            { 105, ("All Emojis", 0x1F300, 0x1FAFF, "Combined range of all emoji blocks for faces, objects, animals, symbols, transport, and more. Presets : [Emoticons, Miscellaneous Symbols & Pictographs, Transport & Map Symbols, Supplemental Symbols & Pictographs & Symbols & Pictographs Extended-A]") }
         };
         //Excluded Character Preset Ranges
         //Excluded because it only contains one character with no appearance.

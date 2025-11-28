@@ -116,10 +116,7 @@ namespace VideoLOB
         /// </summary>
         private void InitializePresets()
         {
-            foreach (var range in unicodeRanges.Values)
-            {
-                comboBox1.Items.Add(range.language);
-            }
+            foreach (var range in unicodeRanges.Values) { comboBox1.Items.Add(range.language); }
             comboBox1.SelectedIndex = 58; // "Basic Unicode Range"
             channelsBox.SelectedIndex = 0;
             depthBox.SelectedIndex = 0;
@@ -130,19 +127,10 @@ namespace VideoLOB
         void tooltip_MouseEnter(object? sender, EventArgs e)
         {
             Control control = (Control)sender!;
-            if (control.AccessibleDescription != null)
-            {
-                tooltip.Show(control.AccessibleDescription.ToString(), control);
-            }
-            else
-            {
-                tooltip.Show("No description available", control);
-            }
+            if (control.AccessibleDescription != null) { tooltip.Show(control.AccessibleDescription.ToString(), control); }
+            else { tooltip.Show("No description available", control); }
         }
-        void tooltip_MouseLeave(object? sender, EventArgs e)
-        {
-            tooltip.Hide((Control)sender!);
-        }
+        void tooltip_MouseLeave(object? sender, EventArgs e) { tooltip.Hide((Control)sender!); }
         /// <summary>
         /// Output directory folder browser button.
         /// </summary>
@@ -152,10 +140,7 @@ namespace VideoLOB
             if (folderBrowserDialog.ShowDialog() == DialogResult.OK)
             {
                 folderPath = folderBrowserDialog.SelectedPath;
-                if (!folderPath.EndsWith("\\")) // If Not Root Directory
-                {
-                    folderPath += "\\"; // Complete Directory String
-                }
+                if (!folderPath.EndsWith("\\")) { folderPath += "\\"; } // If not root directory, complete directory string
                 TextGenerator.filePath = folderPath;
                 directoryBox.Text = folderPath;
                 key = Registry.CurrentUser.OpenSubKey(@"Gallery\Settings", true)!;
@@ -180,11 +165,9 @@ namespace VideoLOB
         {
             //string seedString = GenerateSeedString();
             //seedText.Text = seedString;
-            //
             CollectNameVariables();
             string filePath;
             string message;
-            //
             // Define the audio parameters
             int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
             int frequency = Convert.ToInt32(frequencyNumeric.Value);// Frequency in Hz
@@ -219,10 +202,8 @@ namespace VideoLOB
             CollectNameVariables();
             string filePath;
             string message;
-            //
-            int width = Convert.ToInt32(widthNumeric.Value);
-            int height = Convert.ToInt32(heightNumeric.Value);
-            //
+            int width = (int)widthNumeric.Value;
+            int height = (int)heightNumeric.Value;
             if (generateMultipleFiles)
             {
                 message = "Images Generated!";
@@ -249,15 +230,13 @@ namespace VideoLOB
         {
             //string seedString = GenerateSeedString();
             //seedText.Text = seedString;
-            //
             CollectNameVariables();
             string filePath;
             string message;
-            //
-            int width = Convert.ToInt32(widthNumeric.Value);
-            int height = Convert.ToInt32(heightNumeric.Value);
-            int frameRate = Convert.ToInt32(videoFramerateNumeric.Value);
-            int duration = Convert.ToInt32(videoDurationNumeric.Value);
+            int width = (int)widthNumeric.Value;
+            int height = (int)heightNumeric.Value;
+            int frameRate = (int)videoFramerateNumeric.Value;
+            int duration = (int)videoDurationNumeric.Value;
             if (generateMultipleFiles)
             {
                 message = "Video Files Generated!";
@@ -283,14 +262,12 @@ namespace VideoLOB
         private void GenerateModelButton_Click(object sender, EventArgs e)
         {
             CollectNameVariables();
-            //
-            int numVertices = Convert.ToInt32(verticesNumeric.Value);
-            int numFaces = Convert.ToInt32(facesNumeric.Value);
-            int scale = Convert.ToInt32(scaleNumeric.Value);
+            int numVertices = (int)verticesNumeric.Value;
+            int numFaces = (int)facesNumeric.Value;
+            int scale = (int)scaleNumeric.Value;
             bool generateSolid = checkBox1.Checked;
             string filePath;
             string message;
-            //
             if (generateMultipleFiles)
             {
                 message = "Models Generated!";
@@ -326,10 +303,7 @@ namespace VideoLOB
             {
                 message = "Books Generated!";
                 //TestTimer.StartTimer($"GenerateRandomText * {operations}");
-                for (int i = 0; i < operations; i++)
-                {
-                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, true);
-                }
+                for (int i = 0; i < operations; i++) { TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, true); }
                 //TestTimer.StopTimer($"GenerateRandomText * {operations}");
             }
             else
@@ -346,10 +320,10 @@ namespace VideoLOB
         /// </summary>
         private void CollectNameVariables()
         {
-            titleLength = Convert.ToInt32(titleNumeric.Value);
-            contentLength = Convert.ToInt32(contentNumeric.Value);
-            lineLength = Convert.ToInt32(lineNumeric.Value);
-            paragraphLength = Convert.ToInt32(paragraphNumeric.Value);
+            titleLength = (int)titleNumeric.Value;
+            contentLength = (int)contentNumeric.Value;
+            lineLength = (int)lineNumeric.Value;
+            paragraphLength = (int)paragraphNumeric.Value;
             minRange = trackBarMin.Value;
             maxRange = trackBarMax.Value;
         }
@@ -390,17 +364,11 @@ namespace VideoLOB
         /// <summary>
         /// Update minimum Unicode range label.
         /// </summary>
-        private void updateLabel1()
-        {
-            label1.Text = trackBarMin.Value.ToString();
-        }
+        private void updateLabel1() { label1.Text = trackBarMin.Value.ToString(); }
         /// <summary>
         /// Update maximum Unicode range label.
         /// </summary>
-        private void updateLabel2()
-        {
-            label2.Text = trackBarMax.Value.ToString();
-        }
+        private void updateLabel2() { label2.Text = trackBarMax.Value.ToString(); }
         /// <summary>
         /// Unicode presets dictionary.
         /// </summary>
@@ -524,13 +492,10 @@ namespace VideoLOB
         //Excluded Character Preset Ranges
         //Excluded because it only contains one character with no appearance.
         //{ 100, ("Specials A", 0xFEFF, 0xFEFF, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
-
         //Excluded because it only contains five characters, three of which have no appearance.
         //{ 101, ("Specials B", 0xFFF0, 0xFFFD, "Characters for special purposes, including symbols for non-printing characters and other control codes.") },
-
         //Excluded because it only contains two characters that are just a square.
         //{ 102, ("Private Use", 0xE000, 0xF8FF, "Characters for private use, including symbols for custom or proprietary characters.") },
-
         //Excluded because they don't contain many symbols and aren't practical for generating bodies of text with.
         //{ 103, ("Combining Diacritical Marks", 0x0300, 0x036F, "Characters that combine with other characters to form accented or modified characters, used in many languages.") },
         //{ 104, ("Combining Marks for Symbols", 0x20D0, 0x20FF, "Characters that combine with symbols to form modified symbols, used in mathematical and technical contexts.") },
@@ -565,35 +530,17 @@ namespace VideoLOB
         {
             textFileNumeric.Enabled = checkBox2.Checked;
             generateMultipleFiles = checkBox2.Checked;
-            if (generateMultipleFiles)
-            {
-                operations = Convert.ToInt32(textFileNumeric.Value);
-            }
+            if (generateMultipleFiles) { operations = (int)textFileNumeric.Value; }
         }
-        private void textFileNumeric_ValueChanged(object sender, EventArgs e)
-        {
-            operations = Convert.ToInt32(textFileNumeric.Value);
-        }
+        private void textFileNumeric_ValueChanged(object sender, EventArgs e) { operations = (int)textFileNumeric.Value; }
         private void addButton_Click(object sender, EventArgs e)
         {
-            if (comboBox1.Text == custom)
-            {
-                MessageBox.Show("Select a preset to add to the list.");
-            }
-            else if (comboBox1.Text == "Basic Unicode Range")
-            {
-                MessageBox.Show("The Basic Unicode Range preset cannot be added to the list as it contains all the basic possible values.\n\nJust generate a file using this range instead.");
-            }
-            else if (comboBox1.Text == "Full Unicode Range")
-            {
-                MessageBox.Show("The Full Unicode Range preset cannot be added to the list as it contains all the extended possible values.\n\nJust generate a file using this range instead.");
-            }
+            if (comboBox1.Text == custom) { MessageBox.Show("Select a preset to add to the list."); }
+            else if (comboBox1.Text == "Basic Unicode Range") { MessageBox.Show("The Basic Unicode Range preset cannot be added to the list as it contains all the basic possible values.\n\nJust generate a file using this range instead."); }
+            else if (comboBox1.Text == "Full Unicode Range") { MessageBox.Show("The Full Unicode Range preset cannot be added to the list as it contains all the extended possible values.\n\nJust generate a file using this range instead."); }
             else
             {
-                if (comboBox2.Items.Contains(comboBox1.SelectedItem))
-                {
-                    MessageBox.Show("That preset has already been added to the list.");
-                }
+                if (comboBox2.Items.Contains(comboBox1.SelectedItem)) { MessageBox.Show("That preset has already been added to the list."); }
                 else
                 {
                     comboBox2.Items.Add(comboBox1.SelectedItem);
@@ -612,19 +559,10 @@ namespace VideoLOB
                 comboBox2.Text = "Array of Presets";
                 ClearRanges();
             }
-            else
-            {
-                MessageBox.Show("Nothing has been added to the list.");
-            }
+            else { MessageBox.Show("Nothing has been added to the list."); }
         }
-        private void AddRange(Range newRange)
-        {
-            ranges.Add(newRange);
-        }
-        private void ClearRanges()
-        {
-            ranges.Clear();
-        }
+        private void AddRange(Range newRange) { ranges.Add(newRange); }
+        private void ClearRanges() { ranges.Clear(); }
         // Buttons specifically for testing the reusable methods that return a single character, string or paragraph.
         // do not test with large paragraphs....
         private void button1_Click(object sender, EventArgs e)
@@ -664,6 +602,7 @@ namespace VideoLOB
         {
             DoubleBuffered = true;
             foreach (Control control in this.Controls) { control.Visible = false; }
+            CollectNameVariables();
             timer.Start();
             CreateColumns();
         }
@@ -691,7 +630,6 @@ namespace VideoLOB
         }
         private string RandomGlyph()
         {
-            CollectNameVariables();
             TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, false);
             return TextGenerator.characterString;
         }

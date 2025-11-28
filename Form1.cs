@@ -21,9 +21,12 @@ namespace VideoLOB
         private int operations;
         private string custom = "Custom";
         private bool generateMultipleFiles;
-        private List<Range> ranges = new List<Range>();
-        private string folderPath = string.Empty;
+        private List<Range> presetRanges = new List<Range>();
+        private string folderPath = "";
         private RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Gallery\Settings")!;
+        private string selectedLanguage = "";
+        private (string language, int min, int max, string description) selectedPreset;
+        private Range rangePreset = new Range();
         // matrix variables
         FullScreen fullScreen;
         Boolean matrixRunning = true;
@@ -169,9 +172,9 @@ namespace VideoLOB
             string filePath;
             string message;
             // Define the audio parameters
-            int sampleRate = Convert.ToInt32(sampleNumeric.Value);// Sample rate in Hz
-            int frequency = Convert.ToInt32(frequencyNumeric.Value);// Frequency in Hz
-            int duration = Convert.ToInt32(durationNumeric.Value);// Duration in seconds
+            int sampleRate = (int)sampleNumeric.Value;// Sample rate in Hz
+            int frequency = (int)frequencyNumeric.Value;// Frequency in Hz
+            int duration = (int)durationNumeric.Value;// Duration in seconds
             // default numChannels and bitDepth for WAV header
             short numChannels = Convert.ToInt16(channelsBox.SelectedItem.ToString());
             short bitDepth = Convert.ToInt16(depthBox.SelectedItem.ToString());
@@ -180,7 +183,7 @@ namespace VideoLOB
                 message = "Audio Files Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                     filePath = folderPath + TextGenerator.titleString + ".wav";
                     AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
                 }
@@ -188,7 +191,7 @@ namespace VideoLOB
             else
             {
                 message = "Audio Generated!";
-                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                 filePath = folderPath + TextGenerator.titleString + ".wav";
                 AudioGenerator.GenerateAudio(filePath, sampleRate, frequency, duration, numChannels, bitDepth);
             }
@@ -209,7 +212,7 @@ namespace VideoLOB
                 message = "Images Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                     filePath = folderPath + TextGenerator.titleString + ".png";
                     ImageGenerator.GenerateImage(filePath, width, height);
                 }
@@ -217,7 +220,7 @@ namespace VideoLOB
             else
             {
                 message = "Image Generated!";
-                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                 filePath = folderPath + TextGenerator.titleString + ".png";
                 ImageGenerator.GenerateImage(filePath, width, height);
             }
@@ -242,7 +245,7 @@ namespace VideoLOB
                 message = "Video Files Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                     filePath = folderPath + TextGenerator.titleString + ".avi";
                     VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
                 }
@@ -250,7 +253,7 @@ namespace VideoLOB
             else
             {
                 message = "Video Generated!";
-                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                 filePath = folderPath + TextGenerator.titleString + ".avi";
                 VideoGenerator.GenerateVideo(filePath, width, height, frameRate, duration);
             }
@@ -273,7 +276,7 @@ namespace VideoLOB
                 message = "Models Generated!";
                 for (int i = 0; i < operations; i++)
                 {
-                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                    TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                     filePath = folderPath + TextGenerator.titleString + ".obj";
                     ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
                 }
@@ -281,7 +284,7 @@ namespace VideoLOB
             else
             {
                 message = "Model Generated!";
-                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, true);
                 filePath = folderPath + TextGenerator.titleString + ".obj";
                 ModelGenerator.GenerateModel(numVertices, numFaces, scale, filePath, generateSolid);
             }
@@ -303,14 +306,14 @@ namespace VideoLOB
             {
                 message = "Books Generated!";
                 //TestTimer.StartTimer($"GenerateRandomText * {operations}");
-                for (int i = 0; i < operations; i++) { TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, true); }
+                for (int i = 0; i < operations; i++) { TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, true, true); }
                 //TestTimer.StopTimer($"GenerateRandomText * {operations}");
             }
             else
             {
                 message = "Book Generated!";
                 //TestTimer.StartTimer("GenerateRandomText");
-                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, true);
+                TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, true, true);
                 //TestTimer.StopTimer("GenerateRandomText");
             }
             MessageBox.Show(message);
@@ -506,10 +509,11 @@ namespace VideoLOB
         /// </summary>
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var selectedLanguage = (string)comboBox1.SelectedItem;
-            var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
-            richTextBox1.Text = range.description;
-            SetUnicodeRange(range.min, range.max);
+            selectedLanguage = (string)comboBox1.SelectedItem;
+            selectedPreset = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
+            rangePreset = selectedPreset.min..selectedPreset.max;
+            richTextBox1.Text = selectedPreset.description;
+            SetUnicodeRange(selectedPreset.min, selectedPreset.max);
         }
         /// <summary>
         /// Set Unicode Range function
@@ -544,10 +548,7 @@ namespace VideoLOB
                 else
                 {
                     comboBox2.Items.Add(comboBox1.SelectedItem);
-                    var selectedLanguage = (string)comboBox1.SelectedItem;
-                    var range = unicodeRanges.First(x => x.Value.language == selectedLanguage).Value;
-                    Range theRange = new Range(range.min, range.max);
-                    AddRange(theRange);
+                    AddRange(rangePreset);
                 }
             }
         }
@@ -561,27 +562,25 @@ namespace VideoLOB
             }
             else { MessageBox.Show("Nothing has been added to the list."); }
         }
-        private void AddRange(Range newRange) { ranges.Add(newRange); }
-        private void ClearRanges() { ranges.Clear(); }
+        private void AddRange(Range newRange) { presetRanges.Add(newRange); }
+        private void ClearRanges() { presetRanges.Clear(); }
         // Buttons specifically for testing the reusable methods that return a single character, string or paragraph.
         // do not test with large paragraphs....
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) { generate_Buttons(false, false, 1); }
+        private void button2_Click(object sender, EventArgs e) { generate_Buttons(false, true, 2); }
+        private void button3_Click(object sender, EventArgs e) { generate_Buttons(true, false, 3); }
+        private void generate_Buttons(bool textFile, bool contentType, int outputType)
         {
             CollectNameVariables();
-            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, false);
-            MessageBox.Show(TextGenerator.characterString);
-        }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            CollectNameVariables();
-            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, true);
-            MessageBox.Show(TextGenerator.titleString.ToString());
-        }
-        private void button3_Click(object sender, EventArgs e)
-        {
-            CollectNameVariables();
-            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, false);
-            MessageBox.Show(TextGenerator.contentString.ToString());
+            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, textFile, contentType);
+            string message = outputType switch
+            {
+                1 => TextGenerator.characterString,
+                2 => TextGenerator.titleString.ToString(),
+                3 => TextGenerator.contentString.ToString(),
+                _ => ""
+            };
+            MessageBox.Show(message);
         }
         private void button4_Click(object sender, EventArgs e) { SendKeys.SendWait("{F11}"); }
         private void Escape_KeyDown(object sender, KeyEventArgs e)
@@ -630,7 +629,7 @@ namespace VideoLOB
         }
         private string RandomGlyph()
         {
-            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, false);
+            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, presetRanges.Count != 0 ? presetRanges! : null!, false, false);
             return TextGenerator.characterString;
         }
         private void UpdateColumns()

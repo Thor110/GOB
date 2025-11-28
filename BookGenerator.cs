@@ -7,8 +7,8 @@ using System.Text.RegularExpressions;
 public class RandomTextGenerator
 {
     public Random random = new Random();
-    public string characterString = string.Empty;
-    public string filePath = string.Empty;
+    public string characterString = "";
+    public string filePath = "";
     public const int surrogateHighLow = 0xD800;
     public const int surrogateHighHigh = 0xDBFF;
     public const int surrogateLowLow = 0xDC00;

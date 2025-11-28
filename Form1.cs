@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using ALTViewer;
+using Microsoft.Win32;
 
 namespace VideoLOB
 {
@@ -8,7 +9,7 @@ namespace VideoLOB
     public partial class Form1 : Form
     {
         RandomTextGenerator TextGenerator = new RandomTextGenerator();
-        //Timer TestTimer = new Timer();
+        //Timer TestTimer = new TestTimer();
         private ToolTip tooltip = new ToolTip();
         private Type[] excludedControlTypes = new Type[] { typeof(Panel), typeof(TableLayoutPanel), typeof(FlowLayoutPanel), typeof(Label), typeof(Button) };
         private int titleLength;
@@ -23,12 +24,56 @@ namespace VideoLOB
         private List<Range> ranges = new List<Range>();
         private string folderPath = string.Empty;
         private RegistryKey key = Registry.CurrentUser.OpenSubKey(@"Gallery\Settings")!;
+        // matrix variables
+        FullScreen fullScreen;
+        Boolean matrixRunning = true;
+        Boolean matrixStop;
+        private class StreamColumn
+        {
+            public int X;
+            public int Y;
+            public int Length;
+            public List<string> Glyphs = new List<string>();
+        }
+        private List<StreamColumn> columns = new List<StreamColumn>();
+        private Random random = new Random();
+        private System.Windows.Forms.Timer timer = new System.Windows.Forms.Timer();
+        private int charSize = 16;
+        private Font font = new Font("Segoe", 9, FontStyle.Bold);
+        private readonly Dictionary<string, Font> FontObjectCache = new Dictionary<string, Font>();
+        private readonly List<(int min, int max, string fontName)> RangeToBestFont = new List<(int, int, string)>
+        {
+            // PRIORITY: Highest code points (Supplementary Planes) first for faster checks
+            // EMOJIS & PICTOGRAPHS (Presets 100-105: Emojis, Dingbats, etc.)
+            (0x1F000, 0x1FAFF, "Segoe UI Emoji"),
+            // ANCIENT SCRIPTS (Presets 27, 28, 30-37, 48: Hieroglyphs, Cuneiform, etc.)
+            (0x10000, 0x13FFF, "Segoe UI Historic"),
+            // CJK EXTENSION PLANES (Chinese/Japanese/Korean)
+            (0x3400, 0x4DBF, "Microsoft YaHei"), // CJK Unified Ideographs Extension A (Preset 96)
+            // COMMON SYMBOLS & OTHER COMPLEX SCRIPTS (BMP)
+            (0x2500, 0x27FF, "Segoe UI Symbol"), // Box Drawing, Geometric Shapes, Arrows, Dingbats (Presets 65-68, 55)
+            (0x0E00, 0x0FFF, "Nirmala UI"),      // Indic/Thai/Tibetan scripts (Presets 10, 23, 45)
+            (0x0900, 0x0DFF, "Nirmala UI"),      // Devanagari, Gurmukhi, Telugu, etc. (Presets 5, 12, 13, 17-20, 43)
+            (0x0600, 0x07FF, "Times New Roman"), // Arabic/Syriac/Thaana (Presets 2, 41, 42). T_N_R has good Arabic.
+            (0x0400, 0x05FF, "Times New Roman"), // Cyrillic/Armenian (Presets 4, 40)
+            (0x0370, 0x03FF, "Times New Roman"), // Greek (Presets 6, 29)
+            // KOREAN/JAPANESE HANGUL (Presets 8, 9, 52, 53, 99)
+            (0xAC00, 0xD7AF, "Malgun Gothic"),
+            (0x3040, 0x4E00, "Meiryo"), // Hiragana/Katakana
+            // FINAL BROAD-COVERAGE FALLBACKS
+            (0x0000, 0xFFFF, "Arial Unicode MS"), // Catch-all for basic multilingual plane
+            (0x0000, 0xFFFF, "Microsoft Sans Serif"), // Last resort
+        };
         public Form1()
         {
             InitializeComponent();
             InitializeRegistry();
             InitializeTooltips();
             InitializePresets();
+            fullScreen = new FullScreen(this);
+            this.KeyDown += Escape_KeyDown!;
+            timer.Interval = 50;    // ~20fps, smooth  
+            timer.Tick += (s, e) => { UpdateColumns(); this.Invalidate(); };
         }
         /// <summary>
         /// Initialises the registry.
@@ -599,6 +644,118 @@ namespace VideoLOB
             CollectNameVariables();
             TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, true, false);
             MessageBox.Show(TextGenerator.contentString.ToString());
+        }
+        private void button4_Click(object sender, EventArgs e) { SendKeys.SendWait("{F11}"); }
+        private void Escape_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyData == Keys.F11 || e.KeyData == Keys.Escape)
+            {
+                fullScreen.Toggle();
+                if (fullScreen.enabled) { matrix_Enabled(); }
+                else { matrix_Disabled(); }
+            }
+            // specifically for disabling the spawning of new rows of characters, not the entire display.
+            // intended use case : video clips of random characters within specific ranges?
+            if (e.KeyData == Keys.F1) { matrixRunning = !matrixRunning; }
+            // stop dead in its tracks - intended use case : unknown
+            if (e.KeyData == Keys.F2) { matrixStop = !matrixStop; }
+        }
+        private void matrix_Enabled()
+        {
+            DoubleBuffered = true;
+            foreach (Control control in this.Controls) { control.Visible = false; }
+            timer.Start();
+            CreateColumns();
+        }
+        private void matrix_Disabled()
+        {
+            timer.Stop();
+            DoubleBuffered = false;
+            matrixRunning = true;
+            matrixStop = false;
+            foreach (Control control in this.Controls) { control.Visible = true; }
+        }
+        private void CreateColumns()
+        {
+            columns.Clear();
+            int count = Width / charSize;
+            for (int i = 0; i < count; i++)
+            {
+                StreamColumn col = new StreamColumn();
+                col.X = i * charSize;
+                col.Y = -random.Next(0, 200);
+                col.Length = random.Next(8, 30);
+                for (int k = 0; k < col.Length; k++) { col.Glyphs.Add(RandomGlyph()); }
+                columns.Add(col);
+            }
+        }
+        private string RandomGlyph()
+        {
+            CollectNameVariables();
+            TextGenerator.GenerateRandomText(titleLength, contentLength, lineLength, paragraphLength, minRange, maxRange, ranges.Count != 0 ? ranges! : null!, false, false);
+            return TextGenerator.characterString;
+        }
+        private void UpdateColumns()
+        {
+            if (matrixStop) { return; } // Stops all updates and new streams when F2 is pressed (matrixStop is true)
+            foreach (var col in columns)
+            {
+                col.Y += charSize;
+                if (!matrixRunning) { continue; } // Stops new characters from spawning when F1 is pressed (matrixRunning is false)
+                if (col.Y > Height + col.Length * charSize)
+                {
+                    col.Y = -random.Next(0, 300);
+                    col.Length = random.Next(8, 100);
+                    col.Glyphs.Clear();
+                    for (int i = 0; i < col.Length; i++) { col.Glyphs.Add(RandomGlyph()); }
+                }
+            }
+        }
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            if (!DoubleBuffered) { return; }
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.None;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SingleBitPerPixelGridFit;
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
+            e.Graphics.Clear(Color.Black);
+            for (int i = 0; i < columns.Count; i++)
+            {
+                var col = columns[i];
+                for (int j = 0; j < col.Length; j++)
+                {
+                    int y = col.Y - j * charSize;
+                    if (y < 0 || y > Height) { continue; }
+                    string glyphString = col.Glyphs[j];
+                    e.Graphics.DrawString(glyphString, GetFontForGlyph(glyphString), j == 0 ? Brushes.White : Brushes.LimeGreen, col.X, y);
+                }
+            }
+            base.OnPaint(e);
+        }
+        private Font GetFontForGlyph(string glyph)
+        {
+            int codePoint = char.ConvertToUtf32(glyph, 0); // Get the Unicode Codepoint
+            if (codePoint < 0x80) { return font; } // Default to the primary font for everything it should cover (ASCII + Basic Latin)
+            string bestFontName = string.Empty;
+            foreach (var range in RangeToBestFont) // Find the best font range by name
+            {
+                if (codePoint >= range.min && codePoint <= range.max)
+                {
+                    bestFontName = range.fontName;
+                    break; // Found the best specialized font, stop checking ranges
+                }
+            }
+            if (string.IsNullOrEmpty(bestFontName)) { return font; } // Fall back to the base font
+            if (FontObjectCache.TryGetValue(bestFontName, out Font? cachedFont)) { return cachedFont; }
+            else // Create the font object and cache it for future use
+            {
+                try
+                {
+                    Font fallbackFont = new Font(bestFontName, font.Size, font.Style);
+                    FontObjectCache.Add(bestFontName, fallbackFont);
+                    return fallbackFont;
+                }
+                catch (ArgumentException) { return font; } // Font doesn't exist on the user's system
+            }
         }
     }
 }

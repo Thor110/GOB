@@ -104,6 +104,7 @@
             textBox26 = new TextBox();
             textBox27 = new TextBox();
             textBox28 = new TextBox();
+            button4 = new Button();
             ((System.ComponentModel.ISupportInitialize)verticesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)facesNumeric).BeginInit();
             ((System.ComponentModel.ISupportInitialize)widthNumeric).BeginInit();
@@ -128,7 +129,7 @@
             GenerateVideoButton.Location = new Point(541, 185);
             GenerateVideoButton.Name = "GenerateVideoButton";
             GenerateVideoButton.Size = new Size(100, 23);
-            GenerateVideoButton.TabIndex = 1;
+            GenerateVideoButton.TabIndex = 100;
             GenerateVideoButton.Text = "Generate Video";
             GenerateVideoButton.UseVisualStyleBackColor = true;
             GenerateVideoButton.Click += GenerateVideoButton_Click;
@@ -644,7 +645,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(506, 380);
+            label4.Location = new Point(568, 379);
             label4.Name = "label4";
             label4.Size = new Size(93, 15);
             label4.TabIndex = 71;
@@ -781,7 +782,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(779, 379);
+            label6.Location = new Point(844, 379);
             label6.Name = "label6";
             label6.Size = new Size(81, 15);
             label6.TabIndex = 88;
@@ -885,11 +886,23 @@
             textBox28.Text = "Bit Depth";
             textBox28.TextAlign = HorizontalAlignment.Right;
             // 
+            // button4
+            // 
+            button4.AccessibleDescription = "Generates and displays a matrix pattern using the selected preset.";
+            button4.Location = new Point(437, 372);
+            button4.Name = "button4";
+            button4.Size = new Size(100, 23);
+            button4.TabIndex = 1;
+            button4.Text = "Matrix";
+            button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1018, 522);
+            Controls.Add(button4);
             Controls.Add(textBox28);
             Controls.Add(textBox27);
             Controls.Add(textBox26);
@@ -1071,5 +1084,6 @@
         private TextBox textBox26;
         private TextBox textBox27;
         private TextBox textBox28;
+        private Button button4;
     }
 }

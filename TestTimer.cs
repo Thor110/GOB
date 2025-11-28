@@ -2,7 +2,7 @@
 
 namespace VideoLOB
 {
-    internal class Timer
+    internal class TestTimer
     {
         public Stopwatch stopwatch = new Stopwatch();
         public float timeElapsed;
